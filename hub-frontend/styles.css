@@ -1352,6 +1352,64 @@ body {
     z-index: 5;
 }
 
+/* Services Guide - Horizontal Single Line (below AI Studio title) */
+.services-guide-horizontal {
+    margin: 1rem 0 1.5rem 0;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(145deg, rgba(13, 17, 23, 0.85), rgba(13, 17, 23, 0.7));
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 10px;
+    -webkit-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.services-guide-horizontal h5 {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.services-list-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.service-tooltip-inline {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.85rem;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(0, 217, 255, 0.03));
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.service-tooltip-inline strong {
+    color: var(--accent-cyan);
+    font-weight: 600;
+    margin-right: 0.25rem;
+}
+
+.service-tooltip-inline:hover {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.15), rgba(0, 217, 255, 0.08));
+    border-color: rgba(0, 217, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 217, 255, 0.2);
+}
+
 /* Enhanced Legend - Split into two sections */
 /* Status Legend - Top Left */
 .diagram-legend-status {
@@ -1551,6 +1609,19 @@ body {
 }
 
 @media (max-width: 1024px) {
+    .services-guide-horizontal {
+        padding: 0.85rem 1rem;
+    }
+    
+    .services-list-horizontal {
+        gap: 0.5rem;
+    }
+    
+    .service-tooltip-inline {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.7rem;
+    }
+    
     .diagram-legend-status {
         top: 0.5rem;
         left: 0.5rem;
@@ -1593,6 +1664,25 @@ body {
 }
 
 @media (max-width: 768px) {
+    .services-guide-horizontal {
+        padding: 0.75rem 0.85rem;
+        margin: 0.75rem 0 1rem 0;
+    }
+    
+    .services-guide-horizontal h5 {
+        font-size: 0.75rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .services-list-horizontal {
+        gap: 0.4rem;
+    }
+    
+    .service-tooltip-inline {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.65rem;
+    }
+    
     .diagram-legend-status,
     .diagram-legend-services {
         padding: 0.75rem 0.85rem;
