@@ -6,6 +6,13 @@
 
 Le frontend OceanPhenix V8 est maintenant **entièrement statique** et compatible avec n'importe quel hébergement web (O2switch, OVH, Netlify, Vercel, GitHub Pages, etc.).
 
+### ✅ **Modal Open WebUI Adaptative**
+
+- **Mode Local** : Open WebUI s'ouvre dans une modal iframe pour une expérience intégrée
+- **Mode O2switch/Production** : Open WebUI s'ouvre dans un nouvel onglet (contournement X-Frame-Options)
+- Détection automatique du mode d'hébergement
+- Animations fluides et design responsive
+
 ---
 
 ## 📦 Fichiers Créés/Modifiés
@@ -51,8 +58,21 @@ Le frontend OceanPhenix V8 est maintenant **entièrement statique** et compatibl
 
 2. **`index.html`**
    - ✅ Version V6 → V8
+   - ✅ Modal Open WebUI avec iframe
+   - ✅ Suppression affichage des ports sur cartes admin
    - ✅ Meta tag IE compatibility
    - ✅ Correction branding
+
+3. **`app.js`**
+   - ✅ Fonction initWebUIModal() avec détection mode O2switch
+   - ✅ Ouverture automatique nouvel onglet en production
+   - ✅ Modal iframe en mode local uniquement
+   - ✅ Correction liens services (ports corrects)
+
+4. **`styles.css`**
+   - ✅ Styles modal Open WebUI (.webui-modal-content)
+   - ✅ Design responsive mobile/desktop
+   - ✅ Animations fluides
 
 ### **Fichiers Supprimés**
 

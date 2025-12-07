@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
     initMobileMenu();
     initAboutModal();
+    initWebUIModal();
     checkConfig();
     updateApiDisplay();
     populateQuickUrls(); // Nouvelle fonction
@@ -702,6 +703,86 @@ function startServicesHealthPolling() {
 }
 
 /**
+ * Initialise le modal Open WebUI
+ */
+function initWebUIModal() {
+    const webuiModal = document.getElementById('webui-modal');
+    const webuiModalClose = document.getElementById('webui-modal-close');
+    const webuiIframe = document.getElementById('webui-iframe');
+    
+    // Links qui déclenchent la modal
+    const studioLinks = [
+        document.getElementById('link-studio-diagram'),
+        document.getElementById('link-studio-external')
+    ];
+
+    // Vérifier le mode (o2switch = nouvel onglet, local = modal)
+    const isO2switch = window.OCEANPHENIX_CONFIG?.apiUrlDefault?.includes('oceanphenix.fr') || 
+                       window.location.hostname !== 'localhost';
+
+    // Ouvrir le modal ou nouvel onglet selon le mode
+    studioLinks.forEach(link => {
+        link?.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = link.href || 'http://localhost:3000';
+            
+            // En mode O2switch ou prod, ouvrir dans un nouvel onglet (iframe bloquée par X-Frame-Options)
+            if (isO2switch) {
+                window.open(url, '_blank', 'noopener,noreferrer');
+                return;
+            }
+            
+            // En mode local, utiliser la modal avec iframe
+            webuiIframe.src = url;
+            webuiModal.style.display = 'flex';
+            
+            // Animation d'entrée
+            setTimeout(() => {
+                webuiModal.querySelector('.webui-modal-content').style.opacity = '1';
+                webuiModal.querySelector('.webui-modal-content').style.transform = 'scale(1)';
+            }, 10);
+        });
+    });
+
+    // Fermer le modal avec le bouton X
+    webuiModalClose?.addEventListener('click', () => {
+        closeWebUIModal();
+    });
+
+    // Fermer le modal en cliquant en dehors
+    webuiModal?.addEventListener('click', (e) => {
+        if (e.target === webuiModal) {
+            closeWebUIModal();
+        }
+    });
+
+    // Fermer le modal avec la touche Échap
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && webuiModal.style.display === 'flex') {
+            closeWebUIModal();
+        }
+    });
+
+    // Style initial pour l'animation
+    const modalContent = webuiModal?.querySelector('.webui-modal-content');
+    if (modalContent) {
+        modalContent.style.opacity = '0';
+        modalContent.style.transform = 'scale(0.95)';
+        modalContent.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+    }
+
+    function closeWebUIModal() {
+        const modalContent = webuiModal.querySelector('.webui-modal-content');
+        modalContent.style.opacity = '0';
+        modalContent.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            webuiModal.style.display = 'none';
+            webuiIframe.src = ''; // Libérer les ressources
+        }, 300);
+    }
+}
+
+/**
  * Initialise le modal À propos
  */
 function initAboutModal() {
@@ -724,7 +805,7 @@ function initAboutModal() {
         closeAboutModal();
     });
 
-    // Fermer le modal en cliquant en dehors
+    // Fermer le modal en dehors
     aboutModal?.addEventListener('click', (e) => {
         if (e.target === aboutModal) {
             closeAboutModal();

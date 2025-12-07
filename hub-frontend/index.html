@@ -295,7 +295,7 @@
                     
                     <!-- Chat & RAG (Open WebUI) - Main Tool Highlighted -->
                     <div class="arch-node modern main-tool-highlight">
-                        <a href="#" id="link-studio-diagram" target="_blank" rel="noopener" class="node-link">
+                        <a href="#" id="link-studio-diagram" class="node-link">
                             <div class="node-icon-glass node-icon-large" style="background: linear-gradient(135deg, #00d9ff, #0095d9);">
                                 <i class="fas fa-comments"></i>
                                 <span class="status-indicator" data-service="studio"></span>
@@ -1177,6 +1177,14 @@ LOG_LEVEL=INFO</div>
             </footer>
 
         </main>
+    </div>
+
+    <!-- Modal Open WebUI -->
+    <div id="webui-modal" class="modal">
+        <div class="modal-content webui-modal-content">
+            <span class="modal-close" id="webui-modal-close">&times;</span>
+            <iframe id="webui-iframe" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
     </div>
 
     <!-- Modal À propos -->
