@@ -574,7 +574,7 @@
       },
       "id": 102,
       "panels": [],
-      "title": "🐳 Docker Containers (cAdvisor)",
+      "title": "💻 System Details",
       "type": "row"
     },
     {
@@ -635,7 +635,7 @@
       "id": 20,
       "options": {
         "legend": {
-          "calcs": ["mean", "lastNotNull"],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "bottom"
         },
@@ -646,12 +646,12 @@
       "pluginVersion": "9.0.0",
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=~\".+\"}[5m]) * 100",
-          "legendFormat": "{{name}}",
+          "expr": "100 - (avg by (cpu) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
+          "legendFormat": "CPU {{cpu}}",
           "refId": "A"
         }
       ],
-      "title": "Container CPU Usage",
+      "title": "CPU Usage per Core",
       "type": "timeseries"
     },
     {
@@ -699,7 +699,7 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -712,7 +712,7 @@
       "id": 21,
       "options": {
         "legend": {
-          "calcs": ["mean", "lastNotNull"],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "bottom"
         },
@@ -723,12 +723,12 @@
       "pluginVersion": "9.0.0",
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=~\".+\"}",
-          "legendFormat": "{{name}}",
+          "expr": "100 - ((node_filesystem_avail_bytes{fstype!=\"tmpfs\",fstype!=\"overlay\"} * 100) / node_filesystem_size_bytes{fstype!=\"tmpfs\",fstype!=\"overlay\"})",
+          "legendFormat": "{{mountpoint}}",
           "refId": "A"
         }
       ],
-      "title": "Container Memory Usage",
+      "title": "Filesystem Usage",
       "type": "timeseries"
     },
     {
