@@ -201,6 +201,8 @@ cd oceanphenix-IA-souveraine-v8
 
 # 2. Configurer les variables d'environnement
 cp .env.example .env
+# ⚠️ IMPORTANT: Éditer .env et remplir vos secrets (voir section Configuration)
+nano .env
 
 # 3. Démarrer la stack complète
 docker compose --profile all up -d
@@ -237,9 +239,10 @@ Guide complet pour développement local (Windows, Mac, Linux).
 **📖 Voir** : [docs/INSTALL_LOCAL.md](docs/INSTALL_LOCAL.md)
 
 **Étapes principales** :
+
 1. Installation Docker Desktop
 2. Clone du repository
-3. Configuration `.env`
+3. Configuration `.env` (**⚠️ Ne pas commiter ce fichier**)
 4. Lancement avec `docker compose`
 5. Installation modèles LLM
 6. Test du RAG
@@ -334,6 +337,45 @@ Guide pour hébergement frontend statique sur O2Switch.
 
 ## ⚙️ Configuration
 
+### 🔐 Variables d'Environnement (SÉCURITÉ)
+
+> **⚠️ IMPORTANT : NE JAMAIS COMMITER `.env` SUR GIT**
+>
+> Le fichier `.env` contient vos **credentials sensibles** (mots de passe, API keys, tokens).
+> - ✅ `.env.example` → Commité sur git (valeurs d'exemple)
+> - ❌ `.env` → **JAMAIS** sur git (protégé par `.gitignore`)
+
+**1️⃣ Copier le template :**
+
+```bash
+cp .env.example .env
+```
+
+**2️⃣ Générer des secrets sécurisés :**
+
+```bash
+# Générer un mot de passe fort (32 caractères)
+openssl rand -base64 32
+
+# Exemple pour MinIO
+MINIO_ROOT_PASSWORD=$(openssl rand -base64 24)
+
+# Exemple pour Grafana
+GRAFANA_ADMIN_PASSWORD=$(openssl rand -base64 24)
+```
+
+**3️⃣ Remplir `.env` avec vos valeurs réelles :**
+
+```env
+# ⚠️ Ne pas partager ces valeurs - À compléter avec vos propres secrets
+MINIO_ROOT_USER=admin
+MINIO_ROOT_PASSWORD=<GENERER_AVEC_OPENSSL>
+GRAFANA_ADMIN_PASSWORD=<GENERER_AVEC_OPENSSL>
+OPENWEBUI_API_KEY=<VOTRE_CLE_API>
+```
+
+Voir `.env.example` pour la liste complète des variables.
+
 ### Profils Docker Compose
 
 ```bash
@@ -345,30 +387,6 @@ docker compose --profile rag up -d
 
 # All services (tout)
 docker compose --profile all up -d
-```
-
-### Variables d'Environnement
-
-Fichier `.env` :
-
-```env
-# === MINIO S3 STORAGE ===
-MINIO_ROOT_USER=admin
-MINIO_ROOT_PASSWORD=VotreMotDePasseSecurise123!
-MINIO_BUCKET_RAG=rag-documents
-
-# === GRAFANA ===
-GRAFANA_ADMIN_PASSWORD=VotreMotDePasseGrafana456!
-
-# === OPEN WEBUI ===
-OPENWEBUI_API_KEY=
-
-# === BACKEND API ===
-API_HOST=0.0.0.0
-API_PORT=8000
-
-# === OLLAMA ===
-OLLAMA_HOST=http://ollama:11434
 ```
 
 ## 📖 Utilisation

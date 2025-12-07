@@ -226,12 +226,22 @@ cd oceanphenix-IA-souveraine-v8
 
 ### Configuration Environnement
 
+> **🔐 SÉCURITÉ PRODUCTION : Protection du `.env`**
+>
+> - ❌ **NE JAMAIS** commiter `.env` sur git
+> - ✅ Utiliser `.env.example` pour templates
+> - ✅ Stocker backups `.env` chiffrés hors serveur
+> - ✅ Limiter accès SSH au fichier (chmod 600)
+
 ```bash
 # Copier template
 cp .env.example .env
 
 # Éditer configuration
 nano .env
+
+# Sécuriser les permissions
+chmod 600 .env
 ```
 
 **Configuration Production** :
@@ -243,10 +253,10 @@ API_DOMAIN=api.votredomaine.com
 GRAFANA_DOMAIN=grafana.votredomaine.com
 MINIO_DOMAIN=minio.votredomaine.com
 
-# === SECURITY ===
+# === SECURITY - Générer avec openssl rand -base64 32 ===
 MINIO_ROOT_USER=admin
-MINIO_ROOT_PASSWORD=$(openssl rand -base64 32)
-GRAFANA_ADMIN_PASSWORD=$(openssl rand -base64 32)
+MINIO_ROOT_PASSWORD=<GENERER_MOT_DE_PASSE>
+GRAFANA_ADMIN_PASSWORD=<GENERER_MOT_DE_PASSE>
 
 # === MINIO ===
 MINIO_BUCKET_RAG=rag-documents
@@ -262,14 +272,14 @@ API_PORT=8000
 **Générer mots de passe sécurisés** :
 
 ```bash
-# MinIO password
-echo "MINIO_ROOT_PASSWORD=$(openssl rand -base64 32)" >> .env.prod
+# MinIO password (32 caractères base64)
+echo "MINIO_ROOT_PASSWORD=$(openssl rand -base64 32)"
 
-# Grafana password
-echo "GRAFANA_ADMIN_PASSWORD=$(openssl rand -base64 32)" >> .env.prod
+# Grafana password (32 caractères base64)
+echo "GRAFANA_ADMIN_PASSWORD=$(openssl rand -base64 32)"
 
-# Noter les passwords quelque part de sécurisé !
-cat .env.prod
+# ⚠️ IMPORTANT: Noter les passwords dans un gestionnaire de mots de passe
+# Ne pas les stocker en clair sur le serveur
 ```
 
 ### Configuration Caddy pour Domaines

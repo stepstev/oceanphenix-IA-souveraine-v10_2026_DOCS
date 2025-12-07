@@ -78,6 +78,10 @@ cd oceanphenix-IA-souveraine-v8
 
 ### 2. Configuration Environnement
 
+> **🔐 SÉCURITÉ : Ne JAMAIS commiter `.env` sur git**
+>
+> Le fichier `.env` contient vos credentials. Seul `.env.example` doit être versionné.
+
 ```bash
 # Copier le fichier d'environnement
 cp .env.example .env
@@ -89,16 +93,28 @@ nano .env  # ou notepad .env sur Windows
 **Configuration minimale dans `.env`** :
 
 ```env
-# MinIO
+# ⚠️ REMPLACER PAR VOS VALEURS - Ne pas utiliser ces exemples en production
+
+# MinIO - Générer: openssl rand -base64 24
 MINIO_ROOT_USER=admin
-MINIO_ROOT_PASSWORD=MotDePasseSecurise123!
+MINIO_ROOT_PASSWORD=<GENERER_MOT_DE_PASSE>
 MINIO_BUCKET_RAG=rag-documents
 
-# Grafana
-GRAFANA_ADMIN_PASSWORD=GrafanaPassword456!
+# Grafana - Générer: openssl rand -base64 24
+GRAFANA_ADMIN_PASSWORD=<GENERER_MOT_DE_PASSE>
 
 # Open WebUI (à remplir après premier démarrage)
 OPENWEBUI_API_KEY=
+```
+
+**Générer des mots de passe sécurisés** :
+
+```bash
+# Linux/macOS
+openssl rand -base64 24
+
+# Windows PowerShell
+-join ((65..90) + (97..122) + (48..57) | Get-Random -Count 24 | % {[char]$_})
 ```
 
 ### 3. Vérifier Docker
