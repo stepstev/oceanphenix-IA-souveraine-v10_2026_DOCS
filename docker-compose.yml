@@ -52,7 +52,17 @@ services:
       - ./core/proxy/Caddyfile:/etc/caddy/Caddyfile:ro
     environment:
       - ACME_AGREE=true
-      - EMAIL=${ACME_EMAIL}
+      - ACME_EMAIL=${ACME_EMAIL}
+      - DOMAIN_DASHBOARD=${DOMAIN_DASHBOARD}
+      - DOMAIN_API=${DOMAIN_API}
+      - DOMAIN_MINIO=${DOMAIN_MINIO}
+      - DOMAIN_S3=${DOMAIN_S3}
+      - DOMAIN_CMS=${DOMAIN_CMS}
+      - DOMAIN_N8N=${DOMAIN_N8N}
+      - DOMAIN_BI=${DOMAIN_BI}
+      - DOMAIN_STUDIO=${DOMAIN_STUDIO}
+      - DOMAIN_MONITORING=${DOMAIN_MONITORING}
+      - DOMAIN_PORTAINER=${DOMAIN_PORTAINER}
 
   portainer:
     image: portainer/portainer-ce:latest
@@ -161,6 +171,8 @@ services:
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
       - ENABLE_SIGNUP=true
+      - QDRANT_URI=http://qdrant:6333
+      - VECTOR_DB=qdrant
     volumes:
       - openwebui_data:/app/backend/data
 

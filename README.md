@@ -80,4 +80,4 @@ oceanphenix-v8/
 
 ---
 
-**Antigravity - Décembre 2025**
+
