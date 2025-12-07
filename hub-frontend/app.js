@@ -28,7 +28,7 @@ const CONFIG = {
 
         // BI & CMS
         superset: 'http://localhost:8088/health',
-        strapi: 'http://localhost:1337/_health',
+
         postgres: null, // Vérification via API backend
         valkey: null
     }
@@ -293,23 +293,23 @@ async function fetchServices() {
 // Vérification locale de la santé des services
 async function checkServicesHealthLocal() {
     const services = [];
-    
+
     for (const [serviceName, endpoint] of Object.entries(CONFIG.SERVICES_ENDPOINTS)) {
         let status = 'unknown';
-        
+
         if (!endpoint) {
             status = 'internal';
         } else {
             try {
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 2000);
-                
+
                 const response = await fetch(endpoint, {
                     method: 'HEAD',
                     mode: 'no-cors',
                     signal: controller.signal
                 });
-                
+
                 clearTimeout(timeoutId);
                 // En mode no-cors, la requête réussit si le service répond
                 status = 'up';
@@ -317,14 +317,14 @@ async function checkServicesHealthLocal() {
                 status = 'down';
             }
         }
-        
+
         services.push({
             name: serviceName,
             status: status,
             healthcheck_url: endpoint
         });
     }
-    
+
     state.services = services;
     populateQuickUrls();
 }
@@ -500,7 +500,7 @@ function updateLinks() {
             const portainerDiagram = document.getElementById('link-portainer-diagram');
             const prometheusDiagram = document.getElementById('link-prometheus-diagram');
             const alertmanagerDiagram = document.getElementById('link-alertmanager-diagram');
-            const strapiDiagram = document.getElementById('link-strapi-diagram');
+
             const supersetDiagram = document.getElementById('link-superset-diagram');
 
             if (ollamaDiagram) ollamaDiagram.href = `${protocol}://ollama.${hostname}`;
@@ -515,7 +515,7 @@ function updateLinks() {
             if (portainerDiagram) portainerDiagram.href = `${protocol}://portainer.${hostname}`;
             if (prometheusDiagram) prometheusDiagram.href = `${protocol}://prometheus.${hostname}`;
             if (alertmanagerDiagram) alertmanagerDiagram.href = `${protocol}://alertmanager.${hostname}`;
-            if (strapiDiagram) strapiDiagram.href = `${protocol}://strapi.${hostname}`;
+
             if (supersetDiagram) supersetDiagram.href = `${protocol}://superset.${hostname}`;
 
             console.log('[updateLinks] Liens générés - Studio:', studioUrl, 'MinIO:', `${protocol}://minio.${hostname}`);
@@ -550,12 +550,12 @@ function updateLinks() {
     const portainerDiagram = document.getElementById('link-portainer-diagram');
     const prometheusDiagram = document.getElementById('link-prometheus-diagram');
     const alertmanagerDiagram = document.getElementById('link-alertmanager-diagram');
-    const strapiDiagram = document.getElementById('link-strapi-diagram');
+
     const supersetDiagram = document.getElementById('link-superset-diagram');
 
     // Note: Ollama n'a pas de WebUI, lien vers l'API
     if (ollamaDiagram) ollamaDiagram.href = `${protocol}://localhost:11434`;
-    
+
     // Gestionnaires d'événements pour ouvrir les services en popup centrée
     if (qdrantDiagram) {
         qdrantDiagram.href = '#';
@@ -564,7 +564,7 @@ function updateLinks() {
             openServicePopup(`${protocol}://localhost:6333/dashboard`, 'Qdrant Dashboard');
         });
     }
-    
+
     if (minioLink) {
         minioLink.href = '#';
         minioLink.addEventListener('click', (e) => {
@@ -572,7 +572,7 @@ function updateLinks() {
             openServicePopup(`${protocol}://localhost:9001`, 'MinIO Console');
         });
     }
-    
+
     if (minioDiagram) {
         minioDiagram.href = '#';
         minioDiagram.addEventListener('click', (e) => {
@@ -580,7 +580,7 @@ function updateLinks() {
             openServicePopup(`${protocol}://localhost:9001`, 'MinIO Console');
         });
     }
-    
+
     if (n8nLink) {
         n8nLink.href = '#';
         n8nLink.addEventListener('click', (e) => {
@@ -588,7 +588,7 @@ function updateLinks() {
             openServicePopup(`${protocol}://localhost:5678`, 'n8n Workflow');
         });
     }
-    
+
     if (n8nDiagram) {
         n8nDiagram.href = '#';
         n8nDiagram.addEventListener('click', (e) => {
@@ -596,7 +596,7 @@ function updateLinks() {
             openServicePopup(`${protocol}://localhost:5678`, 'n8n Workflow');
         });
     }
-    
+
     if (grafanaLink) {
         grafanaLink.href = '#';
         grafanaLink.addEventListener('click', (e) => {
@@ -604,7 +604,7 @@ function updateLinks() {
             openServicePopup(`${protocol}://localhost:3001/d/oceanphenix-platform-health`, 'Grafana - OceanPhenix Health');
         });
     }
-    
+
     if (grafanaDiagram) {
         grafanaDiagram.href = '#';
         grafanaDiagram.addEventListener('click', (e) => {
@@ -612,7 +612,7 @@ function updateLinks() {
             openServicePopup(`${protocol}://localhost:3001/d/oceanphenix-platform-health`, 'Grafana - OceanPhenix Health');
         });
     }
-    
+
     if (grafanaKpi) {
         grafanaKpi.href = '#';
         grafanaKpi.addEventListener('click', (e) => {
@@ -620,7 +620,7 @@ function updateLinks() {
             openServicePopup(`${protocol}://localhost:3001/d/oceanphenix-platform-health`, 'Grafana - OceanPhenix Health');
         });
     }
-    
+
     if (portainerLink) {
         portainerLink.href = '#';
         portainerLink.addEventListener('click', (e) => {
@@ -628,7 +628,7 @@ function updateLinks() {
             openServicePopup('https://localhost:9443', 'Portainer');
         });
     }
-    
+
     if (portainerDiagram) {
         portainerDiagram.href = '#';
         portainerDiagram.addEventListener('click', (e) => {
@@ -636,7 +636,7 @@ function updateLinks() {
             openServicePopup('https://localhost:9443', 'Portainer');
         });
     }
-    
+
     if (prometheusDiagram) {
         prometheusDiagram.href = '#';
         prometheusDiagram.addEventListener('click', (e) => {
@@ -644,7 +644,7 @@ function updateLinks() {
             openServicePopup(`${protocol}://localhost:9090`, 'Prometheus');
         });
     }
-    
+
     if (alertmanagerDiagram) {
         alertmanagerDiagram.href = '#';
         alertmanagerDiagram.addEventListener('click', (e) => {
@@ -652,15 +652,9 @@ function updateLinks() {
             openServicePopup(`${protocol}://localhost:9093`, 'Alertmanager');
         });
     }
-    
-    if (strapiDiagram) {
-        strapiDiagram.href = '#';
-        strapiDiagram.addEventListener('click', (e) => {
-            e.preventDefault();
-            openServicePopup(`${protocol}://localhost:1337`, 'Strapi CMS');
-        });
-    }
-    
+
+
+
     if (supersetDiagram) {
         supersetDiagram.href = '#';
         supersetDiagram.addEventListener('click', (e) => {
@@ -861,13 +855,13 @@ function openServicePopup(url, serviceName = 'Service', widthPercent = 75, heigh
     const height = Math.round(screenHeight * (heightPercent / 100));
     const left = Math.round((screenWidth - width) / 2) + (window.screen.availLeft || 0);
     const top = Math.round((screenHeight - height) / 2) + (window.screen.availTop || 0);
-    
+
     const popup = window.open(
-        url, 
+        url,
         serviceName.replace(/\s+/g, '_'),
         `width=${width},height=${height},left=${left},top=${top},toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no`
     );
-    
+
     if (popup) popup.focus();
     else window.open(url, '_blank');
 }
@@ -879,7 +873,7 @@ function initWebUIModal() {
     const webuiModal = document.getElementById('webui-modal');
     const webuiModalClose = document.getElementById('webui-modal-close');
     const webuiIframe = document.getElementById('webui-iframe');
-    
+
     // Links qui déclenchent la modal
     const studioLinks = [
         document.getElementById('link-studio-diagram'),
@@ -887,8 +881,8 @@ function initWebUIModal() {
     ];
 
     // Vérifier le mode (o2switch = popup, local = modal ou popup)
-    const isO2switch = window.OCEANPHENIX_CONFIG?.apiUrlDefault?.includes('oceanphenix.fr') || 
-                       window.location.hostname !== 'localhost';
+    const isO2switch = window.OCEANPHENIX_CONFIG?.apiUrlDefault?.includes('oceanphenix.fr') ||
+        window.location.hostname !== 'localhost';
 
     // Ouvrir la modal ou popup selon le mode
     studioLinks.forEach(link => {
@@ -1004,17 +998,17 @@ function populateQuickUrls() {
 
     // Créer la liste complète des services depuis CONFIG.SERVICES_ENDPOINTS
     const allServices = [];
-    
+
     for (const [serviceName, endpoint] of Object.entries(CONFIG.SERVICES_ENDPOINTS)) {
         const serviceInfo = state.services?.find(s => s.name.toLowerCase() === serviceName.toLowerCase());
-        
+
         const service = {
             name: serviceName,
             status: serviceInfo?.status || 'unknown',
             healthcheck_url: endpoint,
             displayName: serviceName.charAt(0).toUpperCase() + serviceName.slice(1).replace(/-/g, ' ')
         };
-        
+
         allServices.push(service);
     }
 
@@ -1039,7 +1033,7 @@ function populateQuickUrls() {
     function generateServiceItem(service) {
         let statusColor = '#6b7280'; // Gris par défaut (non exposé/unknown)
         let statusIcon = 'fa-circle';
-        
+
         // Déterminer la couleur selon le statut
         if (!service.healthcheck_url) {
             statusColor = '#6b7280'; // Gris - Non exposé
@@ -1100,17 +1094,17 @@ function populateQuickUrls() {
     // Fonction pour attacher les événements de clic aux services
     function attachServiceClickHandlers(listElement) {
         if (!listElement) return;
-        
+
         const serviceItems = listElement.querySelectorAll('.url-item[data-service-url]');
         serviceItems.forEach(item => {
             const url = item.getAttribute('data-service-url');
             const serviceName = item.getAttribute('data-service-name');
-            
+
             if (url) {
                 item.addEventListener('click', () => {
                     openServicePopup(url, serviceName, 80, 85);
                 });
-                
+
                 // Ajouter un effet hover
                 item.addEventListener('mouseenter', () => {
                     item.style.backgroundColor = 'rgba(6, 182, 212, 0.1)';

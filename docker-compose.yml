@@ -23,7 +23,7 @@ volumes:
   ollama_data: { name: v8_ollama_data }
   valkey_data: { name: v8_valkey_data }
   n8n_data: { name: v8_n8n_data }
-  strapi_data: { name: v8_strapi_data }
+
   db_data: { name: v8_db_data } # Postgres global
   portainer_data: { name: v8_portainer_data }
   prometheus_data: { name: v8_prometheus_data }
@@ -248,20 +248,6 @@ services:
       - ./hub-frontend:/usr/share/nginx/html:ro
     profiles: [ core, all ]
     networks: [ proxy ]
-
-  strapi:
-    image: strapi/strapi:latest
-    container_name: v8-cms
-    restart: unless-stopped
-    profiles: [ cms, all ]
-    networks: [ internal, proxy ]
-    ports:
-      - "1337:1337"
-    environment:
-      DATABASE_CLIENT: postgres
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
-    depends_on: [ postgres ]
 
   n8n:
     image: n8nio/n8n:latest

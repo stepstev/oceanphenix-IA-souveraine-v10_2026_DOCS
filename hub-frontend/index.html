@@ -150,56 +150,7 @@
                     </div>
                 </div>
 
-                <!-- KPI Cards -->
-                <div class="kpi-grid">
-                    <div class="card kpi-card">
-                        <div class="kpi-icon service-up">
-                            <i class="fas fa-heartbeat"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <h3>État Plateforme</h3>
-                            <p class="kpi-value" id="kpi-health">--%</p>
-                            <span class="kpi-label">Services opérationnels</span>
-                        </div>
-                    </div>
-                    
-                    <div class="card kpi-card">
-                        <div class="kpi-icon models-active">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <h3>Base Vectorielle</h3>
-                            <p class="kpi-value" id="kpi-vectors">-</p>
-                            <span class="kpi-label">Vecteurs stockés (Qdrant)</span>
-                        </div>
-                    </div>
-                    
-                    <div class="card kpi-card">
-                        <div class="kpi-icon models-active">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <h3>Modèles IA</h3>
-                            <p class="kpi-value" id="kpi-models">2</p>
-                            <span class="kpi-label">Modèles chargés</span>
-                        </div>
-                    </div>
 
-                    <div class="card kpi-card">
-                        <div class="kpi-icon cpu-usage">
-                            <i class="fas fa-microchip"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <h3>Ressources Serveur</h3>
-                            <p class="kpi-value">--</p>
-                            <span class="kpi-label">
-                                <a href="#" id="link-grafana-kpi" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.65rem; font-weight: 300;">
-                                    <i class="fas fa-chart-line"></i> Vue Grafana
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Quick Access URLs Section -->
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
@@ -404,16 +355,7 @@
                     <!-- Business Group -->
                     <div class="node-group-glass">
                         <div class="group-label-glass">📊 Business</div>
-                        <div class="arch-node modern">
-                            <a href="http://localhost:1337" id="link-strapi-diagram" target="_blank" rel="noopener" class="node-link">
-                                <div class="node-icon-glass" style="background: linear-gradient(135deg, #4945ff, #7b79ff);">
-                                    <i class="fas fa-edit"></i>
-                                    <span class="status-indicator" data-service="strapi"></span>
-                                </div>
-                                <span class="node-name">Strapi</span>
-                                <span class="node-desc">CMS</span>
-                            </a>
-                        </div>
+
                         <div class="arch-node modern">
                             <a href="http://localhost:8088" id="link-superset-diagram" target="_blank" rel="noopener" class="node-link">
                                 <div class="node-icon-glass" style="background: linear-gradient(135deg, #20a7c9, #1a8aa8);">
@@ -544,7 +486,7 @@
                         </div>
                         <div class="arch-items">
                             <div class="arch-item"><i class="fas fa-comments"></i> <strong>AI Studio</strong> - Chat RAG interface</div>
-                            <div class="arch-item"><i class="fas fa-pencil-alt"></i> <strong>Strapi</strong> - Headless CMS</div>
+
                             <div class="arch-item"><i class="fab fa-docker"></i> <strong>Portainer</strong> - Docker management</div>
                             <div class="arch-item"><i class="fas fa-tachometer-alt"></i> <strong>Hub Frontend</strong> - Console admin</div>
                         </div>
@@ -880,26 +822,7 @@
                         </div>
                     </div>
 
-                    <div class="card component-card" data-service="strapi">
-                        <div class="component-header">
-                            <i class="fas fa-edit component-icon"></i>
-                            <h4>Strapi CMS</h4>
-                            <span class="service-status-badge" data-status="loading">Chargement...</span>
-                        </div>
-                        <div class="component-body">
-                            <p class="component-desc">Headless CMS pour gestion contenu, base de connaissances et source RAG.</p>
-                            <div class="tech-specs">
-                                <span class="spec-badge">Port 1337</span>
-                                <span class="spec-badge">Headless CMS</span>
-                                <span class="spec-badge">PostgreSQL</span>
-                            </div>
-                            <ul class="feature-list">
-                                <li>Content Types • REST/GraphQL API</li>
-                                <li>Media library • RBAC</li>
-                                <li>Webhooks</li>
-                            </ul>
-                        </div>
-                    </div>
+
 
                     <div class="card component-card" data-service="postgres">
                         <div class="component-header">
@@ -908,7 +831,7 @@
                             <span class="service-status-badge" data-status="loading">Chargement...</span>
                         </div>
                         <div class="component-body">
-                            <p class="component-desc">Base de données relationnelle pour Strapi CMS et données structurées.</p>
+                            <p class="component-desc">Base de données relationnelle pour données structurées.</p>
                             <div class="tech-specs">
                                 <span class="spec-badge">PostgreSQL 15</span>
                                 <span class="spec-badge">Alpine</span>
@@ -1046,7 +969,7 @@ cd ../hub-frontend
                                     <td><strong>PostgreSQL</strong></td>
                                     <td>Database relationnelle</td>
                                     <td>5432</td>
-                                    <td>Strapi CMS + BI analytics</td>
+                                    <td>BI analytics</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1080,12 +1003,7 @@ cd ../hub-frontend
                                     <td>8088</td>
                                     <td>Dashboards BI</td>
                                 </tr>
-                                <tr>
-                                    <td><strong>Strapi</strong></td>
-                                    <td>Headless CMS</td>
-                                    <td>1337</td>
-                                    <td>Admin Panel</td>
-                                </tr>
+
                                 <tr>
                                     <td><strong>n8n</strong></td>
                                     <td>Automatisation workflows</td>
@@ -1106,10 +1024,7 @@ MINIO_ENDPOINT=localhost:9000
 MINIO_ROOT_USER=admin
 MINIO_ROOT_PASSWORD=SecurePassword123!
 
-# Base de données
-POSTGRES_USER=strapi
-POSTGRES_PASSWORD=strapi123
-POSTGRES_DB=strapi_db
+
 
 # Monitoring
 GRAFANA_ADMIN_USER=admin

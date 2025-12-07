@@ -43,10 +43,7 @@
     reverse_proxy n8n:5678
 }
 
-# 5. CMS (Strapi)
-{$DOMAIN_CMS} {
-    reverse_proxy strapi:1337
-}
+
 
 # 6. BI (Superset)
 {$DOMAIN_BI} {
