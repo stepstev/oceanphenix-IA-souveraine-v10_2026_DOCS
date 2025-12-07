@@ -749,6 +749,38 @@ function startServicesHealthPolling() {
 }
 
 /**
+ * Ouvre un service dans une fenêtre popup centrée
+ * @param {string} url - URL du service à ouvrir
+ * @param {string} serviceName - Nom du service (pour le titre de la fenêtre)
+ * @param {number} widthPercent - Largeur en pourcentage de l'écran (par défaut 75%)
+ * @param {number} heightPercent - Hauteur en pourcentage de l'écran (par défaut 75%)
+ */
+function openServicePopup(url, serviceName = 'Service', widthPercent = 75, heightPercent = 75) {
+    // Calculer les dimensions de la popup
+    const width = Math.round(window.screen.width * (widthPercent / 100));
+    const height = Math.round(window.screen.height * (heightPercent / 100));
+    
+    // Centrer la fenêtre par rapport à l'écran
+    const left = Math.round((window.screen.width - width) / 2);
+    const top = Math.round((window.screen.height - height) / 2);
+    
+    // Ouvrir dans une popup centrée sans barre d'adresse
+    const popup = window.open(
+        url, 
+        serviceName.replace(/\s+/g, '_'), // Nom de fenêtre sans espaces
+        `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=no`
+    );
+    
+    // Focus sur la nouvelle fenêtre
+    if (popup) {
+        popup.focus();
+    } else {
+        // Si le popup est bloqué, ouvrir dans un nouvel onglet
+        window.open(url, '_blank');
+    }
+}
+
+/**
  * Initialise le modal Open WebUI
  */
 function initWebUIModal() {
@@ -771,19 +803,7 @@ function initWebUIModal() {
         link?.addEventListener('click', (e) => {
             e.preventDefault();
             const url = link.href || 'http://localhost:3000';
-            
-            // Calculer la taille de la popup (75% de la fenêtre parente)
-            const width = Math.round(window.screen.width * 0.75);
-            const height = Math.round(window.screen.height * 0.75);
-            const left = Math.round((window.screen.width - width) / 2);
-            const top = Math.round((window.screen.height - height) / 2);
-            
-            // Ouvrir dans une popup centrée (75% de l'écran, sans barre d'adresse)
-            window.open(
-                url, 
-                'OpenWebUI',
-                `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=no`
-            );
+            openServicePopup(url, 'Open WebUI Studio', 75, 75);
         });
     });
 
@@ -949,8 +969,28 @@ function populateQuickUrls() {
             badge = '<span class="url-status-badge public">Public</span>';
         }
 
+        // Déterminer l'URL du service
+        const serviceUrls = {
+            'studio': 'http://localhost:3000',
+            'openwebui': 'http://localhost:3000',
+            'grafana': 'http://localhost:3001',
+            'prometheus': 'http://localhost:9090',
+            'portainer': 'https://localhost:9443',
+            'minio': 'http://localhost:9001',
+            'n8n': 'http://localhost:5678',
+            'superset': 'http://localhost:8088',
+            'strapi': 'http://localhost:1337/admin',
+            'cadvisor': 'http://localhost:8080',
+            'ollama': 'http://localhost:11434',
+            'qdrant': 'http://localhost:6333/dashboard'
+        };
+
+        const serviceUrl = serviceUrls[service.name.toLowerCase()];
+        const isClickable = serviceUrl && (service.status === 'up' || service.status === 'healthy' || service.status === 'unknown');
+        const cursorStyle = isClickable ? 'cursor: pointer;' : 'cursor: default; opacity: 0.6;';
+
         return `
-            <div class="url-item">
+            <div class="url-item" style="${cursorStyle}" data-service-url="${serviceUrl || ''}" data-service-name="${service.displayName}">
                 <div class="url-item-left">
                     <span class="url-health-dot">
                         <i class="fas ${statusIcon}" style="color: ${statusColor}; font-size: 10px;"></i>
@@ -959,9 +999,35 @@ function populateQuickUrls() {
                 </div>
                 <div class="url-item-right">
                     ${badge}
+                    ${isClickable ? '<i class="fas fa-external-link-alt" style="margin-left: 8px; font-size: 12px; color: var(--accent-cyan);"></i>' : ''}
                 </div>
             </div>
         `;
+    }
+
+    // Fonction pour attacher les événements de clic aux services
+    function attachServiceClickHandlers(listElement) {
+        if (!listElement) return;
+        
+        const serviceItems = listElement.querySelectorAll('.url-item[data-service-url]');
+        serviceItems.forEach(item => {
+            const url = item.getAttribute('data-service-url');
+            const serviceName = item.getAttribute('data-service-name');
+            
+            if (url) {
+                item.addEventListener('click', () => {
+                    openServicePopup(url, serviceName, 80, 85);
+                });
+                
+                // Ajouter un effet hover
+                item.addEventListener('mouseenter', () => {
+                    item.style.backgroundColor = 'rgba(6, 182, 212, 0.1)';
+                });
+                item.addEventListener('mouseleave', () => {
+                    item.style.backgroundColor = '';
+                });
+            }
+        });
     }
 
     // Peupler chaque catégorie
@@ -974,23 +1040,27 @@ function populateQuickUrls() {
         mainList.innerHTML = categorizedServices.main.length > 0
             ? categorizedServices.main.map(service => generateServiceItem(service)).join('')
             : '<div class="url-item"><span class="url-item-name" style="color: #6b7280;">Aucun service</span></div>';
+        attachServiceClickHandlers(mainList);
     }
 
     if (monitoringList) {
         monitoringList.innerHTML = categorizedServices.monitoring.length > 0
             ? categorizedServices.monitoring.map(service => generateServiceItem(service)).join('')
             : '<div class="url-item"><span class="url-item-name" style="color: #6b7280;">Aucun service</span></div>';
+        attachServiceClickHandlers(monitoringList);
     }
 
     if (biList) {
         biList.innerHTML = categorizedServices.bi.length > 0
             ? categorizedServices.bi.map(service => generateServiceItem(service)).join('')
             : '<div class="url-item"><span class="url-item-name" style="color: #6b7280;">Aucun service</span></div>';
+        attachServiceClickHandlers(biList);
     }
 
     if (infraList) {
         infraList.innerHTML = categorizedServices.infra.length > 0
             ? categorizedServices.infra.map(service => generateServiceItem(service)).join('')
             : '<div class="url-item"><span class="url-item-name" style="color: #6b7280;">Aucun service</span></div>';
+        attachServiceClickHandlers(infraList);
     }
 }
