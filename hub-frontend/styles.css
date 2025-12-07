@@ -1285,42 +1285,45 @@ body {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Status Indicator */
+/* Status Indicator - Taille augmentée pour meilleure visibilité */
 .status-indicator {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    border: 2px solid rgba(13, 17, 23, 0.9);
+    border: 3px solid rgba(13, 17, 23, 0.95);
     background: #6b7280; /* Gris par défaut (interne) */
-    box-shadow: 0 0 8px rgba(107, 114, 128, 0.6);
+    box-shadow: 0 0 12px rgba(107, 114, 128, 0.8);
 }
 
 /* Status indicator dans les nodes du diagramme */
 .node-icon-glass .status-indicator,
 .arch-node .status-indicator {
     position: absolute;
-    top: 4px;
-    right: 4px;
-    z-index: 10;
+    top: -6px;
+    right: -6px;
+    z-index: 20;
 }
 
 /* Vert clignotant pour Actif */
 .status-indicator.online {
     background: #10b981;
-    box-shadow: 0 0 12px rgba(16, 185, 129, 0.9);
+    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: 0 0 16px rgba(16, 185, 129, 1), 0 0 24px rgba(16, 185, 129, 0.6);
     animation: pulse-online 1.5s ease-in-out infinite;
 }
 
 /* Rouge pour Inactif */
 .status-indicator.offline {
     background: #ef4444;
-    box-shadow: 0 0 12px rgba(239, 68, 68, 0.9);
+    border-color: rgba(239, 68, 68, 0.3);
+    box-shadow: 0 0 16px rgba(239, 68, 68, 1), 0 0 24px rgba(239, 68, 68, 0.6);
 }
 
 /* Gris pour Interne */
 .status-indicator.internal {
     background: #6b7280;
-    box-shadow: 0 0 8px rgba(107, 114, 128, 0.6);
+    border-color: rgba(107, 114, 128, 0.3);
+    box-shadow: 0 0 12px rgba(107, 114, 128, 0.8);
 }
 
 /* Animation de clignotement pour les services actifs */
@@ -1328,12 +1331,12 @@ body {
     0%, 100% {
         opacity: 1;
         transform: scale(1);
-        box-shadow: 0 0 12px rgba(16, 185, 129, 0.9);
+        box-shadow: 0 0 16px rgba(16, 185, 129, 1), 0 0 24px rgba(16, 185, 129, 0.6);
     }
     50% {
-        opacity: 0.6;
-        transform: scale(1.2);
-        box-shadow: 0 0 20px rgba(16, 185, 129, 1);
+        opacity: 0.7;
+        transform: scale(1.3);
+        box-shadow: 0 0 24px rgba(16, 185, 129, 1), 0 0 36px rgba(16, 185, 129, 0.8);
     }
 }
 }
