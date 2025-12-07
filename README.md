@@ -10,14 +10,14 @@
 ## 📋 Table des Matières
 
 - [Vue d'Ensemble](#-vue-densemble)
-- [Architecture](#-architecture)
+- [Architecture](#️-architecture)
 - [Fonctionnalités](#-fonctionnalités)
 - [Prérequis](#-prérequis)
 - [Installation Rapide](#-installation-rapide)
 - [Guides de Déploiement](#-guides-de-déploiement)
-- [Configuration](#-configuration)
+- [Configuration](#️-configuration)
 - [Utilisation](#-utilisation)
-- [Services Inclus](#-services-inclus)
+- [Services Inclus](#️-services-inclus)
 - [Diagrammes UML](#-diagrammes-uml)
 - [API Documentation](#-api-documentation)
 - [Maintenance](#-maintenance)
