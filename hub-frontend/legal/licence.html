@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licence Commerciale - OceanPhenix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            line-height: 1.8;
+            color: #1e293b;
+            background: linear-gradient(135deg, #f8fafc 0%, #ddd6fe 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .legal-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: white;
+            padding: 50px 60px;
+            border-radius: 16px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.08);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 12px 24px;
+            background: #7c3aed;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .back-link:hover {
+            background: #6d28d9;
+            transform: translateX(-5px);
+        }
+        .back-link i { margin-right: 8px; }
+        h1 { 
+            color: #7c3aed; 
+            border-bottom: 4px solid #a78bfa;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+        h2 {
+            color: #6d28d9;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-left: 4px solid #a78bfa;
+            padding-left: 15px;
+            font-size: 1.8rem;
+        }
+        h3 {
+            color: #7c3aed;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            border-left: 4px solid #7c3aed;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+        .highlight-box h3 {
+            margin-top: 0;
+            color: #6d28d9;
+        }
+        .commercial-badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-left: 15px;
+        }
+        .component-list {
+            background: #faf5ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .component-item {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-left: 3px solid #7c3aed;
+            border-radius: 4px;
+        }
+        .component-item strong {
+            color: #7c3aed;
+            font-size: 1.1rem;
+        }
+        .license-badge {
+            display: inline-block;
+            background: #a78bfa;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        .license-badge.commercial {
+            background: #10b981;
+        }
+        .license-badge.copyleft {
+            background: #f59e0b;
+        }
+        .check-list {
+            list-style: none;
+            padding: 0;
+        }
+        .check-list li {
+            padding: 10px 0;
+            padding-left: 35px;
+            position: relative;
+        }
+        .check-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .legal-footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+            color: #64748b;
+        }
+        a {
+            color: #7c3aed;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f1f5f9;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #7c3aed;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th {
+            background: #7c3aed;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        table td {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        table tr:nth-child(even) {
+            background: #faf5ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="legal-container">
+        <h1>
+            <i class="fas fa-balance-scale"></i> Licence & Usage Commercial
+            <span class="commercial-badge">✓ COMPATIBLE COMMERCIAL</span>
+        </h1>
+
+        <div class="highlight-box">
+            <h3><i class="fas fa-check-circle"></i> OceanPhenix est 100% commercialisable</h3>
+            <p>
+                <strong>OceanPhenix</strong> est une plateforme d'intelligence artificielle souveraine que vous pouvez 
+                <strong>vendre, déployer et facturer à vos clients</strong> en toute légalité. Notre modèle de licence 
+                respecte les composants open-source tout en vous permettant une exploitation commerciale complète.
+            </p>
+        </div>
+
+        <h2>1. Modèle de Licence OceanPhenix</h2>
+
+        <h3>1.1 Code Propriétaire OceanPhenix</h3>
+        <p>
+            Le code spécifique développé par OceanPhenix (intégration, configuration, interfaces personnalisées, 
+            scripts d'installation, documentation) est distribué sous <strong>Licence MIT</strong>.
+        </p>
+
+        <div class="highlight-box">
+            <h3>Licence MIT - Usage Commercial Autorisé</h3>
+            <p>Vous êtes <strong>autorisé à :</strong></p>
+            <ul class="check-list">
+                <li>Utiliser OceanPhenix dans un contexte commercial</li>
+                <li>Vendre des installations OceanPhenix à vos clients</li>
+                <li>Facturer des services de déploiement et maintenance</li>
+                <li>Modifier le code source selon vos besoins</li>
+                <li>Créer des versions personnalisées pour vos clients</li>
+                <li>Intégrer OceanPhenix dans vos offres commerciales</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Seule obligation :</strong> Conserver le copyright OceanPhenix dans le code source.</p>
+        </div>
+
+        <h3>1.2 Modèles d'Exploitation Commerciale</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Modèle</th>
+                    <th>Description</th>
+                    <th>Autorisé</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Installation On-Premise</strong></td>
+                    <td>Déployer OceanPhenix chez un client et facturer l'installation</td>
+                    <td><span style="color: #10b981;">✓ OUI</span></td>
+                </tr>
+                <tr>
+                    <td><strong>SaaS Hébergé</strong></td>
+                    <td>Proposer OceanPhenix en mode SaaS (abonnement mensuel)</td>
+                    <td><span style="color: #10b981;">✓ OUI</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Pack Sérénité</strong></td>
+                    <td>Vendre installation + formation + maintenance</td>
+                    <td><span style="color: #10b981;">✓ OUI</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Forfait Mensuel</strong></td>
+                    <td>Facturer un forfait mensuel de maintenance</td>
+                    <td><span style="color: #10b981;">✓ OUI</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Personnalisation</strong></td>
+                    <td>Développements spécifiques facturés en régie</td>
+                    <td><span style="color: #10b981;">✓ OUI</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Revente Directe</strong></td>
+                    <td>Revendre OceanPhenix sous votre marque (whitelabel)</td>
+                    <td><span style="color: #10b981;">✓ OUI</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>2. Licences des Composants Open-Source</h2>
+
+        <p>
+            OceanPhenix est composé de plusieurs briques open-source, chacune avec sa propre licence. 
+            <strong>Toutes ces licences permettent l'usage commercial.</strong>
+        </p>
+
+        <div class="component-list">
+            <div class="component-item">
+                <strong>Ollama</strong> 
+                <span class="license-badge commercial">MIT License</span>
+                <span class="license-badge commercial ">✓ Commercial OK</span><br>
+                Moteur d'inférence LLM local<br>
+                <small>Usage commercial autorisé, aucune restriction</small><br>
+                <a href="https://github.com/ollama/ollama/blob/main/LICENSE" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Voir la licence
+                </a>
+            </div>
+
+            <div class="component-item">
+                <strong>Qdrant</strong> 
+                <span class="license-badge commercial">Apache License 2.0</span>
+                <span class="license-badge commercial">✓ Commercial OK</span><br>
+                Base de données vectorielle<br>
+                <small>Usage commercial autorisé, brevet grant inclus</small><br>
+                <a href="https://github.com/qdrant/qdrant/blob/master/LICENSE" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Voir la licence
+                </a>
+            </div>
+
+            <div class="component-item">
+                <strong>FastAPI</strong> 
+                <span class="license-badge commercial">MIT License</span>
+                <span class="license-badge commercial">✓ Commercial OK</span><br>
+                Framework API Python moderne<br>
+                <small>Usage commercial autorisé, aucune restriction</small><br>
+                <a href="https://github.com/tiangolo/fastapi/blob/master/LICENSE" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Voir la licence
+                </a>
+            </div>
+
+            <div class="component-item">
+                <strong>Caddy</strong> 
+                <span class="license-badge commercial">Apache License 2.0</span>
+                <span class="license-badge commercial">✓ Commercial OK</span><br>
+                Reverse proxy avec SSL automatique<br>
+                <small>Usage commercial autorisé</small><br>
+                <a href="https://github.com/caddyserver/caddy/blob/master/LICENSE" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Voir la licence
+                </a>
+            </div>
+
+            <div class="component-item">
+                <strong>MinIO</strong> 
+                <span class="license-badge copyleft">GNU AGPLv3</span>
+                <span class="license-badge commercial">✓ Commercial OK*</span><br>
+                Stockage objet S3-compatible<br>
+                <small><strong>*Condition :</strong> Si vous modifiez le code source de MinIO, vous devez publier les modifications. 
+                <strong>Usage tel quel = OK commercial</strong></small><br>
+                <a href="https://github.com/minio/minio/blob/master/LICENSE" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Voir la licence
+                </a>
+            </div>
+
+            <div class="component-item">
+                <strong>Grafana</strong> 
+                <span class="license-badge copyleft">AGPLv3</span>
+                <span class="license-badge commercial">✓ Commercial OK*</span><br>
+                Plateforme de visualisation<br>
+                <small><strong>*Condition :</strong> Usage interne ou SaaS autorisé. Si modifications, publier les sources.</small><br>
+                <a href="https://github.com/grafana/grafana/blob/main/LICENSE" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Voir la licence
+                </a>
+            </div>
+
+            <div class="component-item">
+                <strong>n8n</strong> 
+                <span class="license-badge">Sustainable Use License</span>
+                <span class="license-badge commercial">✓ Commercial OK*</span><br>
+                Plateforme d'automatisation<br>
+                <small><strong>*Condition :</strong> Usage commercial autorisé sauf concurrence directe avec n8n Cloud</small><br>
+                <a href="https://github.com/n8n-io/n8n/blob/master/LICENSE.md" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Voir la licence
+                </a>
+            </div>
+
+            <div class="component-item">
+                <strong>Prometheus</strong> 
+                <span class="license-badge commercial">Apache License 2.0</span>
+                <span class="license-badge commercial">✓ Commercial OK</span><br>
+                Système de monitoring<br>
+                <small>Usage commercial autorisé</small><br>
+                <a href="https://github.com/prometheus/prometheus/blob/main/LICENSE" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Voir la licence
+                </a>
+            </div>
+
+            <div class="component-item">
+                <strong>Portainer</strong> 
+                <span class="license-badge commercial">Zlib License</span>
+                <span class="license-badge commercial">✓ Commercial OK</span><br>
+                Interface de gestion Docker<br>
+                <small>Usage commercial autorisé</small><br>
+                <a href="https://github.com/portainer/portainer/blob/develop/LICENSE" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Voir la licence
+                </a>
+            </div>
+        </div>
+
+        <h2>3. Respect des Licences Open-Source</h2>
+
+        <div class="warning-box">
+            <h3><i class="fas fa-exclamation-triangle"></i> Obligations à Respecter</h3>
+            <p><strong>Pour AGPLv3 (MinIO, Grafana) :</strong></p>
+            <ul>
+                <li>Si vous <strong>ne modifiez pas</strong> le code source → <strong>Aucune contrainte</strong></li>
+                <li>Si vous <strong>modifiez</strong> le code source → Vous devez publier vos modifications sous AGPLv3</li>
+                <li>Usage commercial autorisé dans les deux cas</li>
+            </ul>
+            
+            <p style="margin-top: 15px;"><strong>Pour n8n (Sustainable Use License) :</strong></p>
+            <ul>
+                <li>Vous pouvez proposer n8n dans votre offre commerciale</li>
+                <li>Vous ne pouvez pas créer un service concurrent direct à n8n Cloud</li>
+                <li>Pour OceanPhenix : <strong>Aucun problème</strong>, n8n est un composant parmi d'autres</li>
+            </ul>
+        </div>
+
+        <h2>4. Offre Commerciale Type</h2>
+
+        <h3>4.1 Pack Sérénité OceanPhenix</h3>
+        <p>Exemple d'offre commerciale légale :</p>
+
+        <div class="highlight-box">
+            <h3>Contenu du Pack</h3>
+            <ul class="check-list">
+                <li><strong>Installation complète</strong> sur serveur dédié (Hetzner/OVH/autre)</li>
+                <li><strong>Configuration optimisée</strong> pour votre cas d'usage</li>
+                <li><strong>Formation</strong> 4h (administrative + utilisateurs)</li>
+                <li><strong>Documentation personnalisée</strong> à votre marque</li>
+                <li><strong>Support 3 mois</strong> (email + tickets)</li>
+                <li><strong>Mises à jour</strong> mineures incluses</li>
+            </ul>
+            <p style="margin-top: 20px;"><strong>Tarif indicatif :</strong> 2 500€ - 4 500€ selon configuration</p>
+        </div>
+
+        <h3>4.2 Abonnement Maintenance</h3>
+        <div class="highlight-box">
+            <ul class="check-list">
+                <li>Mises à jour sécurité</li>
+                <li>Monitoring proactif</li>
+                <li>Support technique prioritaire</li>
+                <li>Sauvegardes automatisées</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Tarif indicatif :</strong> 150€ - 500€/mois selon SLA</p>
+        </div>
+
+        <h2>5. Copyright & Attribution</h2>
+
+        <p>
+            Le code propriétaire OceanPhenix est © 2025 OceanPhenix. Tous droits réservés sous Licence MIT.
+        </p>
+
+        <pre style="background: #f1f5f9; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>MIT License
+
+Copyright (c) 2025 OceanPhenix
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</code></pre>
+
+        <h2>6. Questions Fréquentes</h2>
+
+        <h3>Puis-je vendre OceanPhenix à mes clients ?</h3>
+        <p><strong>Oui</strong>, vous pouvez facturer l'installation, la configuration, la formation et la maintenance.</p>
+
+        <h3>Puis-je proposer OceanPhenix en SaaS ?</h3>
+        <p><strong>Oui</strong>, vous pouvez héberger OceanPhenix et le facturer en abonnement mensuel.</p>
+
+        <h3>Dois-je reverser une partie à OceanPhenix ?</h3>
+        <p><strong>Non</strong>, la licence MIT ne requiert aucun paiement de royalties ou licences.</p>
+
+        <h3>Puis-je modifier le code ?</h3>
+        <p><strong>Oui</strong>, vous pouvez modifier et personnaliser selon vos besoins.</p>
+
+        <h3>Dois-je publier mes modifications ?</h3>
+        <p>
+            <strong>Non pour le code OceanPhenix</strong> (MIT).<br>
+            <strong>Oui si vous modifiez MinIO ou Grafana</strong> (AGPLv3), mais usage tel quel = pas de contrainte.
+        </p>
+
+        <h2>7. Ressources</h2>
+
+        <ul>
+            <li><a href="https://github.com/stepstev/oceanphenix-IA-souveraine-v5-" target="_blank">
+                <i class="fab fa-github"></i> Code source OceanPhenix sur GitHub
+            </a></li>
+            <li><a href="https://choosealicense.com/licenses/mit/" target="_blank">
+                <i class="fas fa-book"></i> Comprendre la licence MIT
+            </a></li>
+            <li><a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank">
+                <i class="fas fa-book"></i> Comprendre la licence AGPLv3
+            </a></li>
+        </ul>
+
+        <div class="legal-footer">
+            <p><strong>© 2025 OceanPhenix</strong> - Plateforme IA Souveraine | Made with ❤️ in France 🇫🇷</p>
+            <p style="margin-top: 15px;">
+                <a href="cgu.html">CGU</a> |
+                <a href="mentions-legales.html">Mentions Légales</a> |
+                <a href="confidentialite.html">Confidentialité</a>
+            </p>
+            <p style="margin-top: 15px; font-size: 0.9rem;">
+                Cette page explique les droits d'utilisation commerciale d'OceanPhenix.<br>
+                Pour toute question : <a href="mailto:contact@oceanphenix.fr">contact@oceanphenix.fr</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

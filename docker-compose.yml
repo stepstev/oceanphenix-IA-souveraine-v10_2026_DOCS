@@ -1,0 +1,248 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# 🌊 OceanPhenix V8 - Orchestrateur Global
+# ═══════════════════════════════════════════════════════════════════════════
+# Usage :
+#   - Core seulement : docker-compose up -d
+#   - Tout : docker-compose --profile all up -d
+#   - Core + BI : docker-compose --profile core --profile bi up -d
+# ═══════════════════════════════════════════════════════════════════════════
+
+name: oceanphenix-v8
+
+networks:
+  proxy:
+    name: v8_proxy
+  internal:
+    name: v8_internal
+
+volumes:
+  caddy_data: { name: v8_caddy_data }
+  caddy_config: { name: v8_caddy_config }
+  minio_data: { name: v8_minio_data }
+  qdrant_data: { name: v8_qdrant_data }
+  ollama_data: { name: v8_ollama_data }
+  valkey_data: { name: v8_valkey_data }
+  n8n_data: { name: v8_n8n_data }
+  strapi_data: { name: v8_strapi_data }
+  db_data: { name: v8_db_data } # Postgres global
+  portainer_data: { name: v8_portainer_data }
+  prometheus_data: { name: v8_prometheus_data }
+  grafana_data: { name: v8_grafana_data }
+  openwebui_data: { name: v8_openwebui_data }
+
+services:
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # 🌐 PROXY & INFRASTRUCTURE (Profile: core)
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  caddy:
+    image: caddy:latest
+    container_name: v8-proxy
+    restart: unless-stopped
+    profiles: [ core, all ]
+    ports:
+      - "80:80"
+      - "443:443"
+    networks: [ proxy ]
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      # Config dynamique via API ou fichier monté
+      - ./core/proxy/Caddyfile:/etc/caddy/Caddyfile:ro
+    environment:
+      - ACME_AGREE=true
+      - EMAIL=${ACME_EMAIL}
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: v8-portainer
+    restart: unless-stopped
+    profiles: [ core, all ]
+    networks: [ internal ]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    ports:
+      - "9443:9443"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # 📈 MONITORING (Profile: monitoring)
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: v8-prometheus
+    restart: unless-stopped
+    profiles: [ monitoring, all ]
+    networks: [ internal ]
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./core/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: v8-grafana
+    restart: unless-stopped
+    profiles: [ monitoring, all ]
+    networks: [ internal, proxy ]
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # 🧠 INTELLIGENCE ARTIFICIELLE (Profile: rag)
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: v8-ollama
+    restart: unless-stopped
+    profiles: [ rag, all ]
+    networks: [ internal ]
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: v8-studio
+    restart: unless-stopped
+    profiles: [ rag, all ]
+    networks: [ internal, proxy ]
+    ports:
+      - "3000:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+    volumes:
+      - openwebui_data:/app/backend/data
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: v8-qdrant
+    restart: unless-stopped
+    profiles: [ rag, all ]
+    networks: [ internal ]
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # 📦 DATA & STORAGE (Profile: core)
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  minio:
+    image: minio/minio:latest
+    container_name: v8-minio
+    restart: unless-stopped
+    profiles: [ core, all ]
+    networks: [ internal, proxy ]
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: v8-db
+    restart: unless-stopped
+    profiles: [ core, all ]
+    networks: [ internal ]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${ADMIN_PASSWORD_HASH} # Temporaire, utiliser un vrai secret
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # 📱 APPLICATIONS (Profile: apps)
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  # Backend API (FastAPI)
+  api:
+    build: ./backend
+    container_name: v8-api
+    restart: unless-stopped
+    profiles: [ core, all ]
+    networks: [ internal, proxy ]
+    ports:
+      - "8000:8000"
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - MINIO_ENDPOINT=minio:9000
+    depends_on: [ ollama, qdrant, minio ]
+
+  # Dashboard (Hub OceanPhenix)
+  dashboard:
+    image: nginx:alpine
+    container_name: v8-frontend
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    profiles: [ core, all ]
+    networks: [ proxy ]
+
+  strapi:
+    image: strapi/strapi:latest
+    container_name: v8-cms
+    restart: unless-stopped
+    profiles: [ cms, all ]
+    networks: [ internal, proxy ]
+    ports:
+      - "1337:1337"
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+    depends_on: [ postgres ]
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: v8-n8n
+    restart: unless-stopped
+    profiles: [ automation, all ]
+    networks: [ internal, proxy ]
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER}
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # 📊 BUSINESS INTELLIGENCE (Profile: bi)
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  superset:
+    image: apache/superset:latest
+    container_name: v8-bi
+    restart: unless-stopped
+    profiles: [ bi, all ]
+    networks: [ internal, proxy ]
+    ports:
+      - "8088:8088"
+    depends_on: [ postgres, valkey ]
+
+  valkey:
+    image: valkey/valkey:latest
+    container_name: v8-cache
+    restart: unless-stopped
+    profiles: [ core, all ]
+    networks: [ internal ]
+    volumes:
+      - valkey_data:/data

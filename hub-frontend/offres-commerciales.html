@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offres Commerciales - OceanPhenix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: #1e293b;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+        }
+        
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        
+        .sidebar-logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .sidebar h2 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .version-badge {
+            background: #0ea5e9;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            display: inline-block;
+        }
+        
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+        
+        .nav-section-title {
+            padding: 15px 20px 10px;
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: rgba(14, 165, 233, 0.1);
+            color: #0ea5e9;
+        }
+        
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e0f2fe 100%);
+            min-height: 100vh;
+        }
+        
+        .content-wrapper {
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Page Offres Commerciales */
+        .offers-hero {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .offers-hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .offers-hero p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .offer-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .offer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0ea5e9, #0369a1);
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(14, 165, 233, 0.2);
+            border-color: #0ea5e9;
+        }
+        
+        .offer-card.featured {
+            border: 2px solid #10b981;
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.15);
+        }
+        
+        .offer-card.featured::before {
+            background: linear-gradient(90deg, #10b981, #059669);
+        }
+        
+        .offer-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .offer-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            color: #0369a1;
+        }
+        
+        .offer-card.featured .offer-icon {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #059669;
+        }
+        
+        .offer-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .offer-subtitle {
+            color: #64748b;
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+        
+        .offer-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0369a1;
+            margin-bottom: 10px;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .offer-card.featured .offer-price {
+            color: #059669;
+        }
+        
+        .offer-price-detail {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+        
+        .offer-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        
+        .offer-features li {
+            padding: 12px 0;
+            color: #475569;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .offer-features li i {
+            color: #10b981;
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+        
+        .offer-cta {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #0ea5e9, #0369a1);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .offer-cta:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+        }
+        
+        .offer-card.featured .offer-cta {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .offer-card.featured .offer-cta:hover {
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        .custom-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+            padding: 60px 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .custom-section h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            color: #0369a1;
+            margin-bottom: 20px;
+        }
+        
+        .custom-section p {
+            font-size: 1.2rem;
+            color: #475569;
+            max-width: 700px;
+            margin: 0 auto 35px;
+        }
+        
+        .contact-btn {
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #0ea5e9, #0369a1);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .contact-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+        }
+        
+        .contact-btn i {
+            margin-right: 10px;
+        }
+        
+        .faq-section {
+            margin-top: 60px;
+        }
+        
+        .faq-section h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            color: #1e293b;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .faq-item {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #0ea5e9;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: #0369a1;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .faq-answer {
+            color: #475569;
+            line-height: 1.7;
+        }
+        
+        .guarantee-box {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 40px 0;
+            border-left: 5px solid #10b981;
+        }
+        
+        .guarantee-box h3 {
+            color: #059669;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .guarantee-box p {
+            color: #064e3b;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar (copié du hub) -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="images/icon-512.png" alt="Logo" class="sidebar-logo">
+                <h2>OceanPhenix</h2>
+                <p class="version-badge">v6.0</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Tableau de bord</span>
+                </a>
+                
+                <div class="nav-section-title">SERVICES</div>
+                
+                <a href="offres-commerciales.html" class="nav-item active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Offres Commerciales</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- Hero Section -->
+                <div class="offers-hero">
+                    <h1><i class="fas fa-star"></i> Nos Offres Professionnelles</h1>
+                    <p>
+                        Profitez de l'expertise OceanPhenix pour déployer votre infrastructure IA souveraine 
+                        en toute sérénité. Installation, formation, maintenance et support inclus.
+                    </p>
+                </div>
+
+                <!-- Offers Grid -->
+                <div class="offers-grid">
+                    <!-- Pack Sérénité -->
+                    <div class="offer-card featured">
+                        <span class="offer-badge">🔥 Populaire</span>
+                        <div class="offer-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="offer-title">Pack Sérénité</h3>
+                        <p class="offer-subtitle">Installation clé en main + Formation complète</p>
+                        <div class="offer-price">2 500€ - 4 500€</div>
+                        <p class="offer-price-detail">Paiement unique</p>
+                        
+                        <ul class="offer-features">
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Installation complète sur serveur dédié (Hetzner/OVH)</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Configuration optimisée pour votre cas d'usage</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Formation 4h (admin + utilisateurs)</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Documentation personnalisée à votre marque</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Support email 3 mois inclus</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Mises à jour mineures incluses (3 mois)</span>
+                            </li>
+                        </ul>
+                        
+                        <button class="offer-cta" onclick="window.location.href='mailto:contact@oceanphenix.fr?subject=Demande Pack Sérénité'">
+                            <i class="fas fa-envelope"></i> Demander un devis
+                        </button>
+                    </div>
+
+                    <!-- Maintenance Pro -->
+                    <div class="offer-card">
+                        <div class="offer-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3 class="offer-title">Maintenance Pro</h3>
+                        <p class="offer-subtitle">Support et maintenance continue</p>
+                        <div class="offer-price">200€ - 500€</div>
+                        <p class="offer-price-detail">par mois</p>
+                        
+                        <ul class="offer-features">
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Mises à jour de sécurité automatiques</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Monitoring proactif 24/7</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Support technique prioritaire</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Sauvegardes quotidiennes automatisées</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Rapport mensuel de santé</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Hotline support (email + tickets)</span>
+                            </li>
+                        </ul>
+                        
+                        <button class="offer-cta" onclick="window.location.href='mailto:contact@oceanphenix.fr?subject=Demande Maintenance Pro'">
+                            <i class="fas fa-envelope"></i> Demander un devis
+                        </button>
+                    </div>
+
+                    <!-- SaaS Hébergé -->
+                    <div class="offer-card">
+                        <div class="offer-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3 class="offer-title">SaaS Hébergé</h3>
+                        <p class="offer-subtitle">Hébergement géré, zéro maintenance</p>
+                        <div class="offer-price">150€ - 500€</div>
+                        <p class="offer-price-detail">par mois</p>
+                        
+                        <ul class="offer-features">
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Infrastructure hébergée et gérée 100%</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Mises à jour automatiques</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Sauvegardes quotidiennes</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>SSL inclus + domaine personnalisé</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Évolutif selon vos besoins</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>SLA 99.9% de disponibilité</span>
+                            </li>
+                        </ul>
+                        
+                        <button class="offer-cta" onclick="window.location.href='mailto:contact@oceanphenix.fr?subject=Demande SaaS Hébergé'">
+                            <i class="fas fa-envelope"></i> Demander un devis
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Guarantee Box -->
+                <div class="guarantee-box">
+                    <h3>
+                        <i class="fas fa-shield-check"></i>
+                        Garantie Satisfaction 30 jours
+                    </h3>
+                    <p>
+                        Nous sommes tellement convaincus de la qualité de nos services que nous offrons une 
+                        <strong>garantie satisfait ou remboursé de 30 jours</strong> sur le Pack Sérénité. 
+                        Si vous n'êtes pas entièrement satisfait, nous vous remboursons intégralement.
+                    </p>
+                </div>
+
+                <!-- Custom Section -->
+                <div class="custom-section">
+                    <h2><i class="fas fa-cogs"></i> Besoin d'une Solution Sur Mesure ?</h2>
+                    <p>
+                        Votre projet nécessite des développements spécifiques, une intégration particulière 
+                        ou un accompagnement dédié ? Nous créons des solutions 100% personnalisées adaptées 
+                        à vos besoins métier.
+                    </p>
+                    <a href="mailto:contact@oceanphenix.fr?subject=Demande Solution Sur Mesure" class="contact-btn">
+                        <i class="fas fa-comments"></i>
+                        Discutons de votre projet
+                    </a>
+                </div>
+
+                <!-- FAQ Section -->
+                <div class="faq-section">
+                    <h2><i class="fas fa-question-circle"></i> Questions Fréquentes</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <i class="fas fa-chevron-right"></i>
+                            Puis-je tester avant d'acheter ?
+                        </div>
+                        <div class="faq-answer">
+                            Oui ! OceanPhenix est open source. Vous pouvez installer et tester gratuitement 
+                            sur votre serveur. Nos offres payantes concernent l'installation professionnelle, 
+                            la formation et le support.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <i class="fas fa-chevron-right"></i>
+                            Quel délai pour l'installation ?
+                        </div>
+                        <div class="faq-answer">
+                            Une fois votre serveur disponible, l'installation complète prend entre 2 et 5 jours 
+                            ouvrés, incluant la configuration et la formation.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <i class="fas fa-chevron-right"></i>
+                            Où sont hébergées les données ?
+                        </div>
+                        <div class="faq-answer">
+                            Vos données restent 100% souveraines. Pour les installations sur serveur dédié, 
+                            vous choisissez le datacenter (Hetzner Allemagne, OVH France, etc.). Pour le SaaS, 
+                            hébergement en Allemagne (Zone EU).
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <i class="fas fa-chevron-right"></i>
+                            Puis-je changer d'offre plus tard ?
+                        </div>
+                        <div class="faq-answer">
+                            Absolument ! Vous pouvez passer du Pack Sérénité à la Maintenance Pro, ou migrer 
+                            vers le SaaS hébergé à tout moment, sans perte de données.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <i class="fas fa-chevron-right"></i>
+                            Proposez-vous des formations ?
+                        </div>
+                        <div class="faq-answer">
+                            Oui ! Chaque Pack Sérénité inclut 4h de formation. Nous proposons également des 
+                            formations complémentaires à 500€-800€/jour (RAG avancé, administration, 
+                            développement custom).
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <i class="fas fa-chevron-right"></i>
+                            Quel support en cas de problème ?
+                        </div>
+                        <div class="faq-answer">
+                            Le Pack Sérénité inclut 3 mois de support email. La Maintenance Pro offre un support 
+                            prioritaire illimité par email et tickets, avec résolution sous 24-48h selon le SLA.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Contact -->
+                <div style="margin-top: 60px; padding: 40px; background: #f8fafc; border-radius: 16px; text-align: center;">
+                    <h3 style="font-family: 'Outfit', sans-serif; color: #0369a1; font-size: 2rem; margin-bottom: 20px;">
+                        Prêt à Démarrer ?
+                    </h3>
+                    <p style="font-size: 1.1rem; color: #475569; margin-bottom: 30px;">
+                        Contactez-nous pour discuter de vos besoins et obtenir un devis personnalisé
+                    </p>
+                    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                        <a href="mailto:contact@oceanphenix.fr" style="display: inline-flex; align-items: center; gap: 10px; padding: 15px 30px; background: #0ea5e9; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s;">
+                            <i class="fas fa-envelope"></i>
+                            contact@oceanphenix.fr
+                        </a>
+                        <a href="https://github.com/stepstev/oceanphenix-IA-souveraine-v5-" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; padding: 15px 30px; background: #1e293b; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s;">
+                            <i class="fab fa-github"></i>
+                            Code Source GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+{
+    # Global Options
+    email {$ACME_EMAIL}
+}
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 🔒 DOMAINES PRINCIPAUX
+# ═══════════════════════════════════════════════════════════════════════════
+
+# 1. Dashboard Principal (Tabler UI)
+{$DOMAIN_DASHBOARD} {
+    encode gzip
+    reverse_proxy dashboard:80
+    
+    # Sécurisation headers
+    header {
+        Strict-Transport-Security "max-age=31536000;"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+    }
+}
+
+# 2. Backend API
+{$DOMAIN_API} {
+    reverse_proxy api:8000
+    
+    # CORS pour le frontend
+    header Access-Control-Allow-Origin "*"
+    header Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    header Access-Control-Allow-Headers "Content-Type, Authorization"
+}
+
+# 3. MinIO (Stockage)
+{$DOMAIN_MINIO} {
+    reverse_proxy minio:9001
+}
+{$DOMAIN_S3} {
+    reverse_proxy minio:9000
+}
+
+# 4. Automation (n8n)
+{$DOMAIN_N8N} {
+    reverse_proxy n8n:5678
+}
+
+# 5. CMS (Strapi)
+{$DOMAIN_CMS} {
+    reverse_proxy strapi:1337
+}
+
+# 6. BI (Superset)
+{$DOMAIN_BI} {
+    reverse_proxy superset:8088
+}
+
+# 7. AI Studio (OpenWebUI)
+{$DOMAIN_STUDIO} {
+    reverse_proxy openwebui:8080
+}
+
+# 8. Monitoring
+{$DOMAIN_MONITORING} {
+    reverse_proxy grafana:3000
+}
+
+# 9. Portainer
+{$DOMAIN_PORTAINER} {
+    reverse_proxy portainer:9443 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}

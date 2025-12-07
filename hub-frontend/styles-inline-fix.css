@@ -1,0 +1,187 @@
+/* ========================================
+   Styles inline déplacés (best practice)
+   ======================================== */
+
+/* Métriques Summary */
+.metrics-summary-note {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+}
+
+.metrics-kpi-grid span[class*="margin-left"] {
+    margin-left: 1.5rem;
+}
+
+/* Icônes services avec gradients */
+.node-icon-glass.gradient-ollama {
+    background: linear-gradient(135deg, #00d9ff, #0095d9);
+}
+
+.node-icon-glass.gradient-qdrant {
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+}
+
+.node-icon-glass.gradient-openwebui {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.node-icon-glass.gradient-minio {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.node-icon-glass.gradient-api {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.node-icon-glass.gradient-n8n {
+    background: linear-gradient(135deg, #ec4899, #db2777);
+}
+
+.node-icon-glass.gradient-portainer {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+.node-icon-glass.gradient-caddy {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.node-icon-glass.gradient-valkey {
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+}
+
+.node-icon-glass.gradient-strapi {
+    background: linear-gradient(135deg, #4945ff, #7b79ff);
+}
+
+.node-icon-glass.gradient-superset {
+    background: linear-gradient(135deg, #20a7c9, #1a8aa8);
+}
+
+/* Diagramme légende compacte */
+.diagram-legend-compact.hidden {
+    display: none;
+}
+
+/* Footer liens services */
+.footer-services-link {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.footer-new-badge {
+    background: #10b981;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 0.65rem;
+    margin-left: 5px;
+}
+
+/* Modal configuration token */
+.modal-token-label {
+    margin-top: 12px;
+}
+
+.modal-token-badge {
+    margin: 8px 0;
+}
+
+/* Modal légale - styles de contenu */
+.legal-modal-body {
+    padding: 40px;
+}
+
+.legal-modal-intro {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.legal-modal-intro p {
+    font-size: 1.1rem;
+    color: #475569;
+    line-height: 1.8;
+}
+
+.legal-modal-intro strong {
+    color: #0369a1;
+}
+
+.legal-modal-version-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+    padding: 12px 24px;
+    border-radius: 20px;
+    margin-top: 15px;
+}
+
+.legal-modal-version-badge strong {
+    color: #1e40af;
+}
+
+/* Sections modales légales */
+.legal-modal-section {
+    margin-bottom: 35px;
+}
+
+.legal-modal-section h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+}
+
+.legal-modal-section.section-blue h3 {
+    color: #3b82f6;
+    border-bottom-color: #1e40af;
+}
+
+.legal-modal-section.section-cyan h3 {
+    color: #0ea5e9;
+    border-bottom-color: #0ea5e9;
+}
+
+.legal-modal-section p,
+.legal-modal-section ul {
+    color: #475569;
+    line-height: 1.8;
+}
+
+.legal-modal-section ul {
+    margin-left: 20px;
+}
+
+.legal-modal-highlight-box {
+    background: #f0f9ff;
+    padding: 20px;
+    border-left: 4px solid #3b82f6;
+    border-radius: 8px;
+}
+
+.legal-modal-highlight-box p {
+    color: #1e40af;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Définitions modales légales */
+.legal-modal-definitions {
+    display: grid;
+    gap: 12px;
+}
+
+.legal-modal-definition-item {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid #2563eb;
+}
+
+.legal-modal-definition-item strong {
+    color: #1e40af;
+}
+
+.legal-modal-definition-item span {
+    color: #64748b;
+}

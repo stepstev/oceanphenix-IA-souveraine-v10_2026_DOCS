@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OceanPhenix IA Souveraine v6 - Hub Central</title>
+    <meta name="description" content="Tableau de bord centralisé de votre plateforme IA Souveraine OceanPhenix v6 - 100% RGPD, hébergement France.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-enhanced.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/logo-oceanphenix.svg">
+</head>
+<body>
+    <!-- Animated Ocean Background -->
+    <div class="ocean-background">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <img src="assets/logo-oceanphenix.svg" alt="OceanPhenix v6 Logo" class="logo">
+                <div class="brand-text">
+                    <h1>OceanPhenix v6</h1>
+                    <span class="badge-sovereign">🇫🇷 100% Souverain</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-item active" data-tab="dashboard">
+                    <i class="fas fa-chart-line"></i> Tableau de bord
+                </a>
+                <a href="#studio" class="nav-item" data-tab="studio">
+                    <i class="fas fa-brain"></i> AI Studio
+                </a>
+                <a href="#documents" class="nav-item" data-tab="documents">
+                    <i class="fas fa-folder-open"></i> Documents
+                </a>
+                <div class="nav-divider"></div>
+                <span class="nav-label">Architecture</span>
+                <a href="#architecture" class="nav-item" data-tab="architecture">
+                    <i class="fas fa-sitemap"></i> Vue d'ensemble
+                </a>
+                <a href="#components" class="nav-item" data-tab="components">
+                    <i class="fas fa-cubes"></i> Composants
+                </a>
+                <div class="nav-divider"></div>
+                <span class="nav-label">Administration</span>
+                <a href="#admin" class="nav-item" data-tab="admin">
+                    <i class="fas fa-cogs"></i> Console Admin
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <p class="version">v6.0.0 - Décembre 2025</p>
+            </div>
+        </aside>
+
+        <!-- Mobile Overlay -->
+        <div class="mobile-overlay" id="mobile-overlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Header -->
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <h1 class="dashboard-title">RAG-IA Souveraine</h1>
+                    <p class="dashboard-subtitle" id="page-title">Plateforme IA Souveraine avec RAG, auto-hébergée et monitoring 360° (API)</p>
+                </div>
+                <div class="header-right">
+                    <div class="system-info-compact">
+                        <span class="info-item">
+                            <span class="dot" id="global-status-dot"></span>
+                            <span id="global-status-text">Chargement...</span>
+                        </span>
+                        <span class="info-separator">|</span>
+                        <span class="info-item" id="header-api-status-item">
+                            <i class="fas fa-plug" id="header-api-icon"></i>
+                            <span id="header-api-status">Connexion...</span>
+                        </span>
+                        <span class="info-separator">|</span>
+                        <span class="info-item">
+                            <i class="fas fa-server"></i>
+                            <span>Hetzner <span class="badge-region">🇩🇪 DE-NBG1</span></span>
+                        </span>
+                        <span class="info-separator">|</span>
+                        <span class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="header-last-check">--</span>
+                        </span>
+                        <span class="info-separator">|</span>
+                        <button class="about-btn" id="about-btn" title="À propos">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <div id="view-dashboard" class="view active">
+                <!-- API Configuration Card -->
+                <div class="card api-config-card">
+                    <div class="api-config-header">
+                        <div class="api-icon-wrapper">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <div class="api-info">
+                            <h3>Configuration API Backend</h3>
+                            <p class="api-url" id="current-api-url">Non configuré</p>
+                        </div>
+                    </div>
+                    <div class="api-config-body">
+                        <div class="api-status">
+                            <span class="status-indicator">
+                                <i class="fas fa-circle" id="api-status-icon"></i>
+                                <span id="api-status-text">Déconnecté</span>
+                            </span>
+                            <span class="api-last-check">Dernière vérification : <strong id="last-check-time">--</strong></span>
+                        </div>
+                        <div class="api-actions">
+                            <a href="services-urls.html" target="_blank" class="btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-link"></i> URLs Services
+                            </a>
+                            <button class="btn-secondary" onclick="openConfigModal()">
+                                <i class="fas fa-cog"></i> Modifier l'URL
+                            </button>
+                            <button class="btn-primary" onclick="refreshDashboard()">
+                                <i class="fas fa-sync-alt"></i> Actualiser
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="kpi-grid">
+                    <div class="card kpi-card">
+                        <div class="kpi-icon service-up">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>État Plateforme</h3>
+                            <p class="kpi-value" id="kpi-health">--%</p>
+                            <span class="kpi-label">Services opérationnels</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card kpi-card">
+                        <div class="kpi-icon docs-count">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Base RAG</h3>
+                            <p class="kpi-value" id="kpi-docs">0</p>
+                            <span class="kpi-label">Documents indexés</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card kpi-card">
+                        <div class="kpi-icon models-active">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Modèles IA</h3>
+                            <p class="kpi-value" id="kpi-models">2</p>
+                            <span class="kpi-label">Modèles chargés</span>
+                        </div>
+                    </div>
+
+                    <div class="card kpi-card">
+                        <div class="kpi-icon cpu-usage">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Ressources Serveur</h3>
+                            <p class="kpi-value">--</p>
+                            <span class="kpi-label">
+                                <a href="#" id="link-grafana-kpi" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.65rem; font-weight: 300;">
+                                    <i class="fas fa-chart-line"></i> Vue Grafana
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Access URLs Section -->
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                    <h3 class="section-title" style="margin-bottom: 0;">🔗 Accès Rapide Services</h3>
+                    <div class="status-legend">
+                        <span class="legend-item">
+                            <i class="fas fa-circle" style="color: #10b981; font-size: 8px;"></i>
+                            <span>Actif</span>
+                        </span>
+                        <span class="legend-item">
+                            <i class="fas fa-circle" style="color: #ef4444; font-size: 8px;"></i>
+                            <span>Inactif</span>
+                        </span>
+                        <span class="legend-item">
+                            <i class="fas fa-circle" style="color: #6b7280; font-size: 8px;"></i>
+                            <span>Non Exposés (API)</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="quick-urls-section">
+                    <div class="urls-grid">
+                        <!-- Main Services -->
+                        <div class="card url-category-card">
+                            <div class="url-category-header">
+                                <i class="fas fa-rocket"></i>
+                                <h4>Services Principaux</h4>
+                            </div>
+                            <div class="url-list" id="mainUrlsList">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Monitoring Services -->
+                        <div class="card url-category-card">
+                            <div class="url-category-header">
+                                <i class="fas fa-chart-line"></i>
+                                <h4>Monitoring</h4>
+                            </div>
+                            <div class="url-list" id="monitoringUrlsList">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Premium Services -->
+                        <div class="card url-category-card">
+                            <div class="url-category-header">
+                                <i class="fas fa-crown"></i>
+                                <h4>Services Premium</h4>
+                            </div>
+                            <div class="url-list" id="premiumUrlsList">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Internal Services -->
+                        <div class="card url-category-card">
+                            <div class="url-category-header">
+                                <i class="fas fa-network-wired"></i>
+                                <h4>Services Internes</h4>
+                            </div>
+                            <div class="url-list" id="internalUrlsList">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Studio View -->
+            <div id="view-studio" class="view">
+                <h3 class="section-title">🤖 AI Studio - Architecture Interactive</h3>
+                <p class="view-description">
+                    <i class="fas fa-info-circle"></i> <em>Cliquez sur les icônes pour accéder aux interfaces</em>
+                </p>
+                
+                <!-- Architecture Diagram Modern Glassmorphism -->
+                <div class="architecture-diagram modern-glass">
+                    <!-- Legend in diagram -->
+                    <div class="diagram-legend-inline">
+                        <div class="legend-item">
+                            <span class="status-indicator online"></span>
+                            <span>Actif</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="status-indicator offline"></span>
+                            <span>Inactif</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="status-indicator internal"></span>
+                            <span>Non Exposé (API)</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat & RAG (Open WebUI) - Main Tool Highlighted -->
+                    <div class="arch-node modern main-tool-highlight">
+                        <a href="#" id="link-studio-diagram" target="_blank" rel="noopener" class="node-link">
+                            <div class="node-icon-glass node-icon-large" style="background: linear-gradient(135deg, #00d9ff, #0095d9);">
+                                <i class="fas fa-comments"></i>
+                                <span class="status-indicator" data-service="studio"></span>
+                            </div>
+                            <span class="node-name">Chat & RAG</span>
+                            <span class="node-desc">(Open WebUI)</span>
+                        </a>
+                    </div>
+                    
+                    <div class="arch-arrow-modern"><i class="fas fa-arrow-right"></i></div>
+                    
+                    <!-- API -->
+                    <div class="arch-node modern">
+                        <div class="node-icon-glass" style="background: linear-gradient(135deg, #7c3aed, #a855f7);">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <span class="node-name">FastAPI</span>
+                        <span class="node-desc">Backend RAG</span>
+                    </div>
+                    
+                    <div class="arch-arrow-modern"><i class="fas fa-arrow-right"></i></div>
+                    
+                    <!-- Storage Group -->
+                    <div class="node-group-glass">
+                        <div class="group-label-glass">💾 Stockage IA</div>
+                        <div class="arch-node modern">
+                            <a href="http://localhost:11434" id="link-ollama-diagram" target="_blank" rel="noopener" class="node-link">
+                                <div class="node-icon-glass" style="background: linear-gradient(135deg, #10b981, #059669);">
+                                    <i class="fas fa-brain"></i>
+                                    <span class="status-indicator" data-service="ollama"></span>
+                                </div>
+                                <span class="node-name">Ollama</span>
+                                <span class="node-desc">LLM Engine</span>
+                            </a>
+                        </div>
+                        <div class="arch-node modern">
+                            <a href="http://localhost:6333/dashboard" id="link-qdrant-diagram" target="_blank" rel="noopener" class="node-link">
+                                <div class="node-icon-glass" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                                    <i class="fas fa-vector-square"></i>
+                                    <span class="status-indicator" data-service="qdrant"></span>
+                                </div>
+                                <span class="node-name">Qdrant</span>
+                                <span class="node-desc">Vector DB</span>
+                            </a>
+                        </div>
+                        <div class="arch-node modern">
+                            <a href="#" id="link-minio-diagram" target="_blank" rel="noopener" class="node-link">
+                                <div class="node-icon-glass" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                                    <i class="fas fa-database"></i>
+                                    <span class="status-indicator" data-service="minio"></span>
+                                </div>
+                                <span class="node-name">MinIO</span>
+                                <span class="node-desc">S3 Storage</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="arch-divider-glass"></div>
+                    
+                    <!-- Services Group -->
+                    <div class="node-group-glass">
+                        <div class="group-label-glass">🛠️ Services</div>
+                        <div class="arch-node modern">
+                            <a href="#" id="link-n8n-diagram" target="_blank" rel="noopener" class="node-link">
+                                <div class="node-icon-glass" style="background: linear-gradient(135deg, #ec4899, #db2777);">
+                                    <i class="fas fa-project-diagram"></i>
+                                    <span class="status-indicator" data-service="n8n"></span>
+                                </div>
+                                <span class="node-name">n8n</span>
+                                <span class="node-desc">Workflows</span>
+                            </a>
+                        </div>
+                        <div class="arch-node modern">
+                            <a href="#" id="link-grafana-diagram" target="_blank" rel="noopener" class="node-link">
+                                <div class="node-icon-glass" style="background: linear-gradient(135deg, #f97316, #ea580c);">
+                                    <i class="fas fa-chart-area"></i>
+                                    <span class="status-indicator" data-service="grafana"></span>
+                                </div>
+                                <span class="node-name">Grafana</span>
+                                <span class="node-desc">Dashboards</span>
+                            </a>
+                        </div>
+                        <div class="arch-node modern">
+                            <a href="http://localhost:9090" id="link-prometheus-diagram" target="_blank" rel="noopener" class="node-link">
+                                <div class="node-icon-glass" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <span class="node-name">Prometheus</span>
+                                <span class="node-desc">Métriques</span>
+                            </a>
+                        </div>
+                        <div class="arch-node modern">
+                            <a href="#" id="link-portainer-diagram" target="_blank" rel="noopener" class="node-link">
+                                <div class="node-icon-glass" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+                                    <i class="fab fa-docker"></i>
+                                    <span class="status-indicator" data-service="portainer"></span>
+                                </div>
+                                <span class="node-name">Portainer</span>
+                                <span class="node-desc">Docker UI</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="arch-divider-glass"></div>
+                    
+                    <!-- Business Group -->
+                    <div class="node-group-glass">
+                        <div class="group-label-glass">📊 Business</div>
+                        <div class="arch-node modern">
+                            <a href="http://localhost:1337" id="link-strapi-diagram" target="_blank" rel="noopener" class="node-link">
+                                <div class="node-icon-glass" style="background: linear-gradient(135deg, #4945ff, #7b79ff);">
+                                    <i class="fas fa-edit"></i>
+                                    <span class="status-indicator" data-service="strapi"></span>
+                                </div>
+                                <span class="node-name">Strapi</span>
+                                <span class="node-desc">CMS</span>
+                            </a>
+                        </div>
+                        <div class="arch-node modern">
+                            <a href="http://localhost:8088" id="link-superset-diagram" target="_blank" rel="noopener" class="node-link">
+                                <div class="node-icon-glass" style="background: linear-gradient(135deg, #20a7c9, #1a8aa8);">
+                                    <i class="fas fa-chart-pie"></i>
+                                    <span class="status-indicator" data-service="superset"></span>
+                                </div>
+                                <span class="node-name">Superset</span>
+                                <span class="node-desc">Analytics BI</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Legend Compact -->
+                <div class="diagram-legend-compact" style="display: none;">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <span>Cliquez sur les icônes pour ouvrir les interfaces • <strong>Les descriptions expliquent le rôle de chaque service</strong></span>
+                </div>
+            </div>
+
+            <!-- Documents View -->
+            <div id="view-documents" class="view">
+                <div class="card full-width">
+                    <div class="card-header">
+                        <h3>Documents Indexés</h3>
+                        <button class="btn-secondary" onclick="refreshDocs()">Actualiser</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Type</th>
+                                    <th>Taille</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="docs-table-body">
+                                <tr><td colspan="5" class="text-center">Chargement...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin View -->
+            <div id="view-admin" class="view">
+                <h3 class="section-title">🔧 Console d'Administration v6</h3>
+                <p class="view-description">Accès direct aux interfaces d'administration de tous les services OceanPhenix.</p>
+                
+                <div class="admin-grid">
+                    <!-- MinIO S3 Storage -->
+                    <a href="#" id="link-minio" target="_blank" rel="noopener" class="card admin-card">
+                        <div class="admin-card-header">
+                            <div class="admin-icon-wrapper minio-bg">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <span class="status-badge status-active">✓ Actif</span>
+                        </div>
+                        <div class="admin-card-content">
+                            <h3>MinIO Console</h3>
+                            <p class="admin-subtitle">🗄️ Stockage S3 • Port 9001</p>
+                            <p class="admin-desc">Gestion buckets, objets et politiques. Stockage haute performance pour documents RAG et embeddings.</p>
+                        </div>
+                    </a>
+                    
+                    <!-- n8n Automation -->
+                    <a href="#" id="link-n8n" target="_blank" rel="noopener" class="card admin-card">
+                        <div class="admin-card-header">
+                            <div class="admin-icon-wrapper n8n-bg">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <span class="status-badge status-active">✓ Actif</span>
+                        </div>
+                        <div class="admin-card-content">
+                            <h3>n8n Automation</h3>
+                            <p class="admin-subtitle">⚡ Workflows • Port 5678</p>
+                            <p class="admin-desc">Automatisation no-code pour intégrations API, ETL et webhooks. 300+ applications connectables.</p>
+                        </div>
+                    </a>
+                    
+                    <!-- Grafana Monitoring -->
+                    <a href="#" id="link-grafana" target="_blank" rel="noopener" class="card admin-card">
+                        <div class="admin-card-header">
+                            <div class="admin-icon-wrapper grafana-bg">
+                                <i class="fas fa-chart-area"></i>
+                            </div>
+                            <span class="status-badge status-active">✓ Actif</span>
+                        </div>
+                        <div class="admin-card-content">
+                            <h3>Grafana</h3>
+                            <p class="admin-subtitle">📊 Monitoring • Port 3000</p>
+                            <p class="admin-desc">Dashboards temps réel, métriques Prometheus, logs Loki et alerting 24/7.</p>
+                        </div>
+                    </a>
+                    
+                    <!-- Portainer Docker -->
+                    <a href="#" id="link-portainer" target="_blank" rel="noopener" class="card admin-card">
+                        <div class="admin-card-header">
+                            <div class="admin-icon-wrapper portainer-bg">
+                                <i class="fab fa-docker"></i>
+                            </div>
+                            <span class="status-badge status-active">✓ Actif</span>
+                        </div>
+                        <div class="admin-card-content">
+                            <h3>Portainer CE</h3>
+                            <p class="admin-subtitle">🐳 Docker • Port 9443</p>
+                            <p class="admin-desc">Management complet stacks, images, volumes, réseaux et monitoring ressources.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Architecture View -->
+            <div id="view-architecture" class="view">
+                <p class="view-description">Vue d'ensemble de l'architecture OceanPhenix IA Souveraine : stack technique, flux de données et infrastructure.</p>
+                
+                <div class="architecture-grid-compact">
+                    <!-- Backend Stack -->
+                    <div class="card arch-card-compact">
+                        <div class="arch-header-compact">
+                            <i class="fas fa-server"></i>
+                            <h4>Backend Core</h4>
+                        </div>
+                        <div class="arch-items">
+                            <div class="arch-item"><i class="fas fa-brain"></i> <strong>Ollama</strong> - LLM Engine (Mistral 7B)</div>
+                            <div class="arch-item"><i class="fas fa-database"></i> <strong>Qdrant</strong> - Vector DB</div>
+                            <div class="arch-item"><i class="fas fa-code"></i> <strong>FastAPI</strong> - REST API Python</div>
+                            <div class="arch-item"><i class="fas fa-box"></i> <strong>MinIO</strong> - S3 Storage</div>
+                            <div class="arch-item"><i class="fas fa-table"></i> <strong>PostgreSQL</strong> - RDBMS</div>
+                        </div>
+                    </div>
+
+                    <!-- Monitoring Stack -->
+                    <div class="card arch-card-compact">
+                        <div class="arch-header-compact">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>Monitoring & BI</h4>
+                        </div>
+                        <div class="arch-items">
+                            <div class="arch-item"><i class="fas fa-chart-area"></i> <strong>Grafana</strong> - Dashboards temps réel</div>
+                            <div class="arch-item"><i class="fas fa-fire"></i> <strong>Prometheus</strong> - Métriques système</div>
+                            <div class="arch-item"><i class="fas fa-chart-pie"></i> <strong>Superset</strong> - Business Intelligence</div>
+                            <div class="arch-item"><i class="fas fa-project-diagram"></i> <strong>n8n</strong> - Workflows automation</div>
+                        </div>
+                    </div>
+
+                    <!-- Interfaces -->
+                    <div class="card arch-card-compact">
+                        <div class="arch-header-compact">
+                            <i class="fas fa-desktop"></i>
+                            <h4>Interfaces Web</h4>
+                        </div>
+                        <div class="arch-items">
+                            <div class="arch-item"><i class="fas fa-comments"></i> <strong>AI Studio</strong> - Chat RAG interface</div>
+                            <div class="arch-item"><i class="fas fa-pencil-alt"></i> <strong>Strapi</strong> - Headless CMS</div>
+                            <div class="arch-item"><i class="fab fa-docker"></i> <strong>Portainer</strong> - Docker management</div>
+                            <div class="arch-item"><i class="fas fa-tachometer-alt"></i> <strong>Hub Frontend</strong> - Console admin</div>
+                        </div>
+                    </div>
+
+                    <!-- Security & Infra -->
+                    <div class="card arch-card-compact">
+                        <div class="arch-header-compact">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Sécurité & Hébergement</h4>
+                        </div>
+                        <div class="arch-items">
+                            <div class="arch-item"><i class="fas fa-flag"></i> <strong>Hébergement</strong> - Hetzner Allemagne (RGPD)</div>
+                            <div class="arch-item"><i class="fas fa-lock"></i> <strong>SSL/TLS</strong> - Caddy reverse proxy auto</div>
+                            <div class="arch-item"><i class="fas fa-user-shield"></i> <strong>Auth</strong> - JWT + Basic Auth multi-niveaux</div>
+                            <div class="arch-item"><i class="fas fa-hdd"></i> <strong>Resources</strong> - 8vCPU / 32GB RAM / 400GB NVMe</div>
+                        </div>
+                    </div>
+
+                    <!-- Data Flow -->
+                    <div class="card arch-card-compact arch-card-wide">
+                        <div class="arch-header-compact">
+                            <i class="fas fa-arrow-right"></i>
+                            <h4>Flux RAG Pipeline</h4>
+                        </div>
+                        <div class="arch-flow">
+                            <div class="flow-step">
+                                <i class="fas fa-upload"></i>
+                                <span>Upload Document</span>
+                            </div>
+                            <i class="fas fa-chevron-right flow-arrow"></i>
+                            <div class="flow-step">
+                                <i class="fas fa-cut"></i>
+                                <span>Chunking</span>
+                            </div>
+                            <i class="fas fa-chevron-right flow-arrow"></i>
+                            <div class="flow-step">
+                                <i class="fas fa-vector-square"></i>
+                                <span>Embeddings</span>
+                            </div>
+                            <i class="fas fa-chevron-right flow-arrow"></i>
+                            <div class="flow-step">
+                                <i class="fas fa-database"></i>
+                                <span>Qdrant Storage</span>
+                            </div>
+                            <i class="fas fa-chevron-right flow-arrow"></i>
+                            <div class="flow-step">
+                                <i class="fas fa-search"></i>
+                                <span>Semantic Search</span>
+                            </div>
+                            <i class="fas fa-chevron-right flow-arrow"></i>
+                            <div class="flow-step">
+                                <i class="fas fa-brain"></i>
+                                <span>LLM Generation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Components View -->
+            <div id="view-components" class="view">
+                <p class="view-description">Détails des composants de l'écosystème OceanPhenix avec leurs spécifications et statuts en temps réel.</p>
+                
+                <!-- Core Services -->
+                <h3 class="section-title"><i class="fas fa-layer-group"></i> Stack Core</h3>
+                <div class="components-grid">
+                    <div class="card component-card" data-service="ollama">
+                        <div class="component-header">
+                            <i class="fas fa-brain component-icon"></i>
+                            <h4>Ollama LLM Engine</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Moteur d'inférence pour modèles de langage open-source. Exécution locale sans dépendance cloud.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">API REST</span>
+                                <span class="spec-badge">GPU Ready</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>Mistral 7B • LLaMA 2/3</li>
+                                <li>Streaming • 8K tokens</li>
+                                <li>Auto-scaling</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card component-card" data-service="qdrant">
+                        <div class="component-header">
+                            <i class="fas fa-database component-icon"></i>
+                            <h4>Qdrant Vector DB</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Base de données vectorielle haute performance pour la recherche sémantique et le RAG.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">gRPC + REST</span>
+                                <span class="spec-badge">HNSW Index</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>Recherche sub-ms • Filtrage hybride</li>
+                                <li>Snapshots auto • Sharding</li>
+                                <li>Payload indexing</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card component-card" data-service="api">
+                        <div class="component-header">
+                            <i class="fas fa-server component-icon"></i>
+                            <h4>FastAPI Backend</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">API REST moderne et performante construite avec FastAPI. Documentation OpenAPI intégrée.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">Python 3.11</span>
+                                <span class="spec-badge">Async</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>/chat, /upload, /query • JWT Auth</li>
+                                <li>Pydantic • Swagger UI</li>
+                                <li>Health checks</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card component-card" data-service="minio">
+                        <div class="component-header">
+                            <i class="fas fa-box component-icon"></i>
+                            <h4>MinIO Storage</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Stockage objet S3-compatible pour documents, embeddings et backups.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">S3 API</span>
+                                <span class="spec-badge">Versioning</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>Buckets docs & qdrant</li>
+                                <li>Encryption • Lifecycle</li>
+                                <li>Multi-tenant • Console :9001</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card component-card" data-service="openwebui">
+                        <div class="component-header">
+                            <i class="fas fa-comments component-icon"></i>
+                            <h4>OpenWebUI (Studio)</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Interface conversationnelle moderne rebrandée "OceanPhenix AI Studio" pour chat avec LLMs locaux.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">WebUI</span>
+                                <span class="spec-badge">RAG Ready</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>Chat multi-modèles • RAG docs</li>
+                                <li>Historique • Markdown</li>
+                                <li>Export PDF/TXT</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card component-card" data-service="n8n">
+                        <div class="component-header">
+                            <i class="fas fa-project-diagram component-icon"></i>
+                            <h4>n8n Automation</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Plateforme d'automatisation low-code pour workflows, intégrations et orchestration services.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">Workflow Engine</span>
+                                <span class="spec-badge">300+ Nodes</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>Workflows visuels • Webhooks</li>
+                                <li>Scheduled tasks • API intégrations</li>
+                                <li>Error handling</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card component-card" data-service="portainer">
+                        <div class="component-header">
+                            <i class="fas fa-docker component-icon"></i>
+                            <h4>Portainer</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Interface de gestion Docker avec monitoring des containers, images, volumes et réseaux.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">Docker Manager</span>
+                                <span class="spec-badge">WebUI</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>Gestion containers • Logs temps réel</li>
+                                <li>Templates deploy • Stack composer</li>
+                                <li>RBAC & Teams</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card component-card" data-service="caddy">
+                        <div class="component-header">
+                            <i class="fas fa-shield-alt component-icon"></i>
+                            <h4>Caddy Reverse Proxy</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Reverse proxy moderne avec SSL/TLS automatique via Let's Encrypt.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">Auto SSL</span>
+                                <span class="spec-badge">HTTP/2</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>SSL auto • Load balancing</li>
+                                <li>Compression Gzip/Brotli</li>
+                                <li>Security headers • Rate limit</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monitoring Stack -->
+                <h3 class="section-title"><i class="fas fa-chart-line"></i> Stack Monitoring</h3>
+                <div class="components-grid">
+                    <div class="card component-card" data-service="prometheus">
+                        <div class="component-header">
+                            <i class="fas fa-database component-icon"></i>
+                            <h4>Prometheus</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Système de monitoring et time-series database pour métriques et alerting.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">TSDB</span>
+                                <span class="spec-badge">PromQL</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>Scraping métriques • Alerting</li>
+                                <li>Service discovery</li>
+                                <li>Retention 30j • Remote write</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card component-card" data-service="grafana">
+                        <div class="component-header">
+                            <i class="fas fa-chart-area component-icon"></i>
+                            <h4>Grafana</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Plateforme de visualisation et dashboards pour métriques Prometheus.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">Dashboards</span>
+                                <span class="spec-badge">Alerting</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>Dashboards • Panels interactifs</li>
+                                <li>Alerting multi-canal</li>
+                                <li>Variables • Export PNG/PDF</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card component-card" data-service="cadvisor">
+                        <div class="component-header">
+                            <i class="fas fa-docker component-icon"></i>
+                            <h4>cAdvisor</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Container metrics monitoring - CPU, RAM, Network, Disk par container Docker.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">Container Stats</span>
+                                <span class="spec-badge">Real-time</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>Métriques containers • Historique</li>
+                                <li>Export Prometheus • WebUI</li>
+                                <li>Auto-discovery</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card component-card" data-service="node-exporter">
+                        <div class="component-header">
+                            <i class="fas fa-server component-icon"></i>
+                            <h4>Node Exporter</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Exporteur métriques hardware et OS (CPU, RAM, Disk, Network).</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">Hardware Stats</span>
+                                <span class="spec-badge">OS Metrics</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>Métriques système • Filesystem</li>
+                                <li>Network • Process stats</li>
+                                <li>Temps réel</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BI & CMS Stack -->
+                <h3 class="section-title"><i class="fas fa-chart-bar"></i> Stack BI & CMS</h3>
+                <div class="components-grid">
+                    <div class="card component-card" data-service="superset">
+                        <div class="component-header">
+                            <i class="fas fa-chart-pie component-icon"></i>
+                            <h4>Apache Superset</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Plateforme Business Intelligence moderne avec dashboards interactifs et SQL Lab.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">BI Platform</span>
+                                <span class="spec-badge">SQLite/PostgreSQL</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>Dashboards • SQL Lab explorer</li>
+                                <li>Charts custom • Row-Level Security</li>
+                                <li>Export PDF/CSV</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card component-card" data-service="strapi">
+                        <div class="component-header">
+                            <i class="fas fa-edit component-icon"></i>
+                            <h4>Strapi CMS</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Headless CMS pour gestion contenu, base de connaissances et source RAG.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">Port 1337</span>
+                                <span class="spec-badge">Headless CMS</span>
+                                <span class="spec-badge">PostgreSQL</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>Content Types • REST/GraphQL API</li>
+                                <li>Media library • RBAC</li>
+                                <li>Webhooks</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card component-card" data-service="postgres">
+                        <div class="component-header">
+                            <i class="fas fa-database component-icon"></i>
+                            <h4>PostgreSQL</h4>
+                            <span class="service-status-badge" data-status="loading">Chargement...</span>
+                        </div>
+                        <div class="component-body">
+                            <p class="component-desc">Base de données relationnelle pour Strapi CMS et données structurées.</p>
+                            <div class="tech-specs">
+                                <span class="spec-badge">PostgreSQL 15</span>
+                                <span class="spec-badge">Alpine</span>
+                            </div>
+                            <ul class="feature-list">
+                                <li>ACID • JSON/JSONB support</li>
+                                <li>Full-text search • Replication</li>
+                                <li>Backup auto</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-terminal"></i> Logs Système</h3>
+                    <div class="logs-container">
+                        <div class="log-entry info">
+                            <span class="log-time">14:23:45</span>
+                            <span class="log-level">INFO</span>
+                            <span class="log-message">FastAPI: Health check successful - All services running</span>
+                        </div>
+                        <div class="log-entry info">
+                            <span class="log-time">14:23:12</span>
+                            <span class="log-level">INFO</span>
+                            <span class="log-message">Qdrant: Vector search completed in 42ms</span>
+                        </div>
+                        <div class="log-entry info">
+                            <span class="log-time">14:22:58</span>
+                            <span class="log-level">INFO</span>
+                            <span class="log-message">Ollama: Model inference completed - 1.85s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documentation Installation View -->
+            <div id="view-docs-install" class="view">
+                <h2><i class="fas fa-download"></i> Documentation - Installation</h2>
+                <p class="view-description">Guide complet d'installation du backend OceanPhenix IA Souveraine sur serveur Hetzner.</p>
+                
+                <div class="card doc-card">
+                    <div class="doc-header">
+                        <i class="fas fa-server"></i>
+                        <h4>Installation Backend</h4>
+                    </div>
+                    <div class="doc-content">
+                        <h5><i class="fas fa-check-circle"></i> Prérequis</h5>
+                        <ul>
+                            <li>Serveur Ubuntu 22.04 LTS ou Debian 11+</li>
+                            <li>Docker Engine 24+ et Docker Compose V2</li>
+                            <li>Minimum 32GB RAM, 8 vCPU, 400GB SSD NVMe</li>
+                            <li>Nom de domaine avec accès DNS</li>
+                            <li>Ports ouverts : 80, 443, 8000, 11434, 6333, 9000</li>
+                        </ul>
+
+                        <h5><i class="fas fa-terminal"></i> Installation Rapide</h5>
+                        <div class="code-block">git clone https://github.com/oceanphenix/ia-souveraine-v4.git
+cd ia-souveraine-v4/backend
+cp .env.example .env
+# Éditer .env avec vos valeurs
+nano .env
+# Lancer l'installation
+./scripts/install.sh
+docker-compose up -d</div>
+
+                        <h5><i class="fas fa-rocket"></i> Démarrage Frontend</h5>
+                        <div class="code-block"># Frontend statique O2Switch
+cd ../hub-frontend
+# Uploader via FTP/SFTP vers votre domaine
+# Éditer app.js : API_BASE_URL = 'https://api.votre-domaine.com'</div>
+
+                        <h5><i class="fas fa-check-double"></i> Vérification</h5>
+                        <ul>
+                            <li>Health Check API : <code>curl https://api.votre-domaine.com/health</code></li>
+                            <li>Ollama : <code>docker logs ollama</code></li>
+                            <li>Qdrant : <code>curl http://localhost:6333/collections</code></li>
+                            <li>MinIO Console : <code>https://votre-domaine.com:9001</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documentation Configuration View -->
+            <div id="view-docs-config" class="view">
+                <p class="view-description">Configuration et variables d'environnement de la plateforme OceanPhenix IA Souveraine.</p>
+                
+                <div class="card doc-card">
+                    <div class="doc-header">
+                        <i class="fas fa-cogs"></i>
+                        <h4>Configuration Système</h4>
+                    </div>
+                    <div class="doc-content">
+                        <h5><i class="fas fa-database"></i> Architecture Backend</h5>
+                        <table class="config-table">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>Technologie</th>
+                                    <th>Port</th>
+                                    <th>Configuration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>API Backend</strong></td>
+                                    <td>FastAPI + Python 3.11</td>
+                                    <td>3000</td>
+                                    <td>Endpoints RAG, BI, Documents</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ollama</strong></td>
+                                    <td>Mistral 7B / Llama 3</td>
+                                    <td>11434</td>
+                                    <td>Inférence LLM locale</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Qdrant</strong></td>
+                                    <td>Vector Database</td>
+                                    <td>6333</td>
+                                    <td>Embeddings + Recherche sémantique</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>MinIO</strong></td>
+                                    <td>Object Storage (S3)</td>
+                                    <td>9001</td>
+                                    <td>Stockage documents RAG</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PostgreSQL</strong></td>
+                                    <td>Database relationnelle</td>
+                                    <td>5432</td>
+                                    <td>Strapi CMS + BI analytics</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h5><i class="fas fa-chart-line"></i> Stack Monitoring & Business Intelligence</h5>
+                        <table class="config-table">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>Fonction</th>
+                                    <th>Port</th>
+                                    <th>Accès</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Grafana</strong></td>
+                                    <td>Dashboards métriques temps réel</td>
+                                    <td>3001</td>
+                                    <td>Admin UI</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Prometheus</strong></td>
+                                    <td>Collecte métriques système</td>
+                                    <td>9090</td>
+                                    <td>Queries PromQL</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Superset</strong></td>
+                                    <td>Business Intelligence & SQL Lab</td>
+                                    <td>8088</td>
+                                    <td>Dashboards BI</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Strapi</strong></td>
+                                    <td>Headless CMS</td>
+                                    <td>1337</td>
+                                    <td>Admin Panel</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>n8n</strong></td>
+                                    <td>Automatisation workflows</td>
+                                    <td>5678</td>
+                                    <td>Workflow Editor</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h5><i class="fas fa-key"></i> Variables d'Environnement</h5>
+                        <div class="code-block"># Configuration Backend API
+API_URL=http://localhost:3000
+OLLAMA_MODEL=mistral:7b
+QDRANT_API_KEY=your-secure-api-key-here
+
+# Stockage S3 (MinIO)
+MINIO_ENDPOINT=localhost:9000
+MINIO_ROOT_USER=admin
+MINIO_ROOT_PASSWORD=SecurePassword123!
+
+# Base de données
+POSTGRES_USER=strapi
+POSTGRES_PASSWORD=strapi123
+POSTGRES_DB=strapi_db
+
+# Monitoring
+GRAFANA_ADMIN_USER=admin
+GRAFANA_ADMIN_PASSWORD=admin123</div>
+
+                        <h5><i class="fas fa-shield-alt"></i> Sécurité & Bonnes Pratiques</h5>
+                        <ul>
+                            <li><strong>Authentification forte :</strong> Tous les services protégés par login/password</li>
+                            <li><strong>Réseau isolé :</strong> Services backend non exposés publiquement</li>
+                            <li><strong>Certificats SSL/TLS :</strong> Caddy reverse proxy avec Let's Encrypt auto</li>
+                            <li><strong>Backup automatique :</strong> PostgreSQL, Qdrant, MinIO sauvegardés quotidiennement</li>
+                            <li><strong>Logs centralisés :</strong> Grafana Loki pour agrégation et analyse</li>
+                        </ul>
+
+                        <h5><i class="fas fa-rocket"></i> Optimisations Performances</h5>
+                        <div class="code-block"># Ollama - GPU/CPU tuning
+OLLAMA_MAX_LOADED_MODELS=2
+OLLAMA_NUM_PARALLEL=4
+OLLAMA_GPU_LAYERS=35
+
+# Qdrant - Optimisation vecteurs
+QDRANT_MAX_REQUEST_SIZE=10485760
+QDRANT_COLLECTION_SIZE=1000000
+
+# FastAPI - Workers
+WORKERS=4
+LOG_LEVEL=INFO</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <div class="footer-content">
+                    <p class="footer-copyright">
+                        © 2025 OceanPhenix IA Souveraine v6 - Tous droits réservés | Made with ❤️ in France 🇫🇷
+                    </p>
+                    <div class="footer-links">
+                        <a href="https://github.com/stepstev/oceanphenix-IA-souveraine-v6" target="_blank" rel="noopener">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <span class="footer-separator">|</span>
+                        <a href="https://github.com/stepstev/oceanphenix-IA-souveraine-v6/blob/main/docs/DIAGRAMS_MERMAID.md" target="_blank" rel="noopener">
+                            <i class="fas fa-sitemap"></i> Architecture
+                        </a>
+                        <span class="footer-separator">|</span>
+                        <a href="https://github.com/stepstev/oceanphenix-IA-souveraine-v6/blob/main/GUIDE_INSTALLATION_COMPLET.md" target="_blank" rel="noopener">
+                            <i class="fas fa-book"></i> Documentation
+                        </a>
+                        <span class="footer-separator">|</span>
+                        <a href="assets/cgu.html" target="_blank" rel="noopener">
+                            <i class="fas fa-file-contract"></i> CGU
+                        </a>
+                        <span class="footer-separator">|</span>
+                        <a href="assets/mentions-legales.html" target="_blank" rel="noopener">
+                            <i class="fas fa-info-circle"></i> Mentions Légales
+                        </a>
+                        <span class="footer-separator">|</span>
+                        <a href="assets/licence.html" target="_blank" rel="noopener">
+                            <i class="fas fa-shield-alt"></i> Licence
+                        </a>
+                    </div>
+                </div>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Modal À propos -->
+    <div id="about-modal" class="modal">
+        <div class="modal-content about-modal-content">
+            <span class="modal-close" id="about-modal-close">&times;</span>
+            <div class="about-header">
+                <img src="images/icon-512.png" alt="OceanPhenix Logo" class="about-logo">
+                <h2>OceanPhenix IA Souveraine</h2>
+                <p class="version-badge">v6.0.0 - Décembre 2025</p>
+            </div>
+            <div class="about-body">
+                <div class="about-section">
+                    <h3><i class="fas fa-bullseye"></i> Finalité de la Plateforme</h3>
+                    <p>
+                        <strong>OceanPhenix</strong> est une plateforme d'<strong>Intelligence Artificielle 100% souveraine</strong> 
+                        offrant une alternative complète aux solutions cloud propriétaires (OpenAI, Azure, Google).
+                    </p>
+                    <p>
+                        Notre mission : déployer votre infrastructure IA <strong>auto-hébergée en Europe</strong>, garantissant 
+                        la souveraineté des données (Hébergement Allemagne 🇩🇪, RGPD strict), des coûts maîtrisés 
+                        (23€/mois vs 450€/mois), zéro vendor lock-in (100% open-source), et des performances optimales 
+                        avec modèles locaux (Mistral, Llama) et RAG via Qdrant.
+                    </p>
+                </div>
+
+                <div class="about-footer">
+                    <p><i class="fas fa-heart"></i> Made in France 🇫🇷 | Open Source 💙</p>
+                    <div class="about-links">
+                        <a href="https://github.com/stepstev/oceanphenix-IA-souveraine-v6" target="_blank" rel="noopener">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://github.com/stepstev/oceanphenix-IA-souveraine-v6/blob/main/docs/DIAGRAMS_MERMAID.md" target="_blank" rel="noopener">
+                            <i class="fas fa-book"></i> Docs
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration Modal -->
+    <div id="config-modal" class="modal">
+        <div class="modal-content">
+            <h3>Configuration API</h3>
+            <p>Entrez l'URL de votre API Backend OceanPhenix</p>
+            <input type="text" id="api-url-input" placeholder="https://api.oceanphenix.votre-domaine.com">
+            <button id="save-config-btn" class="btn-primary">Enregistrer</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
