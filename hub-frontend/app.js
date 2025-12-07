@@ -726,17 +726,17 @@ function initWebUIModal() {
             e.preventDefault();
             const url = link.href || 'http://localhost:3000';
             
-            // Calculer la taille de la popup (80% de la fenêtre parente)
-            const width = Math.round(window.screen.width * 0.8);
-            const height = Math.round(window.screen.height * 0.8);
+            // Calculer la taille de la popup (75% de la fenêtre parente)
+            const width = Math.round(window.screen.width * 0.75);
+            const height = Math.round(window.screen.height * 0.75);
             const left = Math.round((window.screen.width - width) / 2);
             const top = Math.round((window.screen.height - height) / 2);
             
-            // Ouvrir dans une popup centrée (80% de l'écran)
+            // Ouvrir dans une popup centrée (75% de l'écran, sans barre d'adresse)
             window.open(
                 url, 
                 'OpenWebUI',
-                `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=yes,toolbar=no,menubar=no,location=no`
+                `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=no`
             );
         });
     });
