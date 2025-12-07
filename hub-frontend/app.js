@@ -555,20 +555,119 @@ function updateLinks() {
 
     // Note: Ollama n'a pas de WebUI, lien vers l'API
     if (ollamaDiagram) ollamaDiagram.href = `${protocol}://localhost:11434`;
-    if (qdrantDiagram) qdrantDiagram.href = `${protocol}://localhost:6333/dashboard`;
-    if (minioLink) minioLink.href = `${protocol}://localhost:9001`;
-    if (minioDiagram) minioDiagram.href = `${protocol}://localhost:9001`;
-    if (n8nLink) n8nLink.href = `${protocol}://localhost:5678`;
-    if (n8nDiagram) n8nDiagram.href = `${protocol}://localhost:5678`;
-    if (grafanaLink) grafanaLink.href = `${protocol}://localhost:3001/d/oceanphenix-platform-health`;
-    if (grafanaDiagram) grafanaDiagram.href = `${protocol}://localhost:3001/d/oceanphenix-platform-health`;
-    if (grafanaKpi) grafanaKpi.href = `${protocol}://localhost:3001/d/oceanphenix-platform-health`;
-    if (portainerLink) portainerLink.href = `https://localhost:9443`;
-    if (portainerDiagram) portainerDiagram.href = `https://localhost:9443`;
-    if (prometheusDiagram) prometheusDiagram.href = `${protocol}://localhost:9090`;
-    if (alertmanagerDiagram) alertmanagerDiagram.href = `${protocol}://localhost:9093`;
-    if (strapiDiagram) strapiDiagram.href = `${protocol}://localhost:1337`;
-    if (supersetDiagram) supersetDiagram.href = `${protocol}://localhost:8088`;
+    
+    // Gestionnaires d'événements pour ouvrir les services en popup centrée
+    if (qdrantDiagram) {
+        qdrantDiagram.href = '#';
+        qdrantDiagram.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(`${protocol}://localhost:6333/dashboard`, 'Qdrant Dashboard');
+        });
+    }
+    
+    if (minioLink) {
+        minioLink.href = '#';
+        minioLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(`${protocol}://localhost:9001`, 'MinIO Console');
+        });
+    }
+    
+    if (minioDiagram) {
+        minioDiagram.href = '#';
+        minioDiagram.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(`${protocol}://localhost:9001`, 'MinIO Console');
+        });
+    }
+    
+    if (n8nLink) {
+        n8nLink.href = '#';
+        n8nLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(`${protocol}://localhost:5678`, 'n8n Workflow');
+        });
+    }
+    
+    if (n8nDiagram) {
+        n8nDiagram.href = '#';
+        n8nDiagram.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(`${protocol}://localhost:5678`, 'n8n Workflow');
+        });
+    }
+    
+    if (grafanaLink) {
+        grafanaLink.href = '#';
+        grafanaLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(`${protocol}://localhost:3001/d/oceanphenix-platform-health`, 'Grafana - OceanPhenix Health');
+        });
+    }
+    
+    if (grafanaDiagram) {
+        grafanaDiagram.href = '#';
+        grafanaDiagram.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(`${protocol}://localhost:3001/d/oceanphenix-platform-health`, 'Grafana - OceanPhenix Health');
+        });
+    }
+    
+    if (grafanaKpi) {
+        grafanaKpi.href = '#';
+        grafanaKpi.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(`${protocol}://localhost:3001/d/oceanphenix-platform-health`, 'Grafana - OceanPhenix Health');
+        });
+    }
+    
+    if (portainerLink) {
+        portainerLink.href = '#';
+        portainerLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup('https://localhost:9443', 'Portainer');
+        });
+    }
+    
+    if (portainerDiagram) {
+        portainerDiagram.href = '#';
+        portainerDiagram.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup('https://localhost:9443', 'Portainer');
+        });
+    }
+    
+    if (prometheusDiagram) {
+        prometheusDiagram.href = '#';
+        prometheusDiagram.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(`${protocol}://localhost:9090`, 'Prometheus');
+        });
+    }
+    
+    if (alertmanagerDiagram) {
+        alertmanagerDiagram.href = '#';
+        alertmanagerDiagram.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(`${protocol}://localhost:9093`, 'Alertmanager');
+        });
+    }
+    
+    if (strapiDiagram) {
+        strapiDiagram.href = '#';
+        strapiDiagram.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(`${protocol}://localhost:1337`, 'Strapi CMS');
+        });
+    }
+    
+    if (supersetDiagram) {
+        supersetDiagram.href = '#';
+        supersetDiagram.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(`${protocol}://localhost:8088`, 'Apache Superset');
+        });
+    }
 }
 
 function showErrorState() {
