@@ -1352,7 +1352,60 @@ body {
     z-index: 5;
 }
 
-/* Enhanced Legend with Infrastructure Info */
+/* Enhanced Legend - Split into two sections */
+/* Status Legend - Top Left */
+.diagram-legend-status {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    max-width: 350px;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(145deg, rgba(13, 17, 23, 0.95), rgba(13, 17, 23, 0.85));
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    border-radius: 12px;
+    -webkit-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+/* Services Guide - Bottom Left */
+.diagram-legend-services {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    max-width: 600px;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(145deg, rgba(13, 17, 23, 0.95), rgba(13, 17, 23, 0.85));
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    border-radius: 12px;
+    -webkit-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.diagram-legend-status h5,
+.diagram-legend-services h5 {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.diagram-legend-status h5 i,
+.diagram-legend-services h5 i {
+    font-size: 1rem;
+}
+
+/* Keep existing legend-enhanced for backwards compatibility but hide it */
 .diagram-legend-enhanced {
     position: absolute;
     top: 1rem;
@@ -1498,6 +1551,20 @@ body {
 }
 
 @media (max-width: 1024px) {
+    .diagram-legend-status {
+        top: 0.5rem;
+        left: 0.5rem;
+        max-width: calc(100% - 1rem);
+        padding: 0.85rem 1rem;
+    }
+    
+    .diagram-legend-services {
+        bottom: 0.5rem;
+        left: 0.5rem;
+        max-width: calc(100% - 1rem);
+        padding: 0.85rem 1rem;
+    }
+    
     .diagram-legend-enhanced {
         grid-template-columns: 1fr;
         gap: 1.25rem;
@@ -1526,6 +1593,18 @@ body {
 }
 
 @media (max-width: 768px) {
+    .diagram-legend-status,
+    .diagram-legend-services {
+        padding: 0.75rem 0.85rem;
+        max-width: calc(100% - 1rem);
+    }
+    
+    .diagram-legend-status h5,
+    .diagram-legend-services h5 {
+        font-size: 0.8rem;
+        margin-bottom: 0.6rem;
+    }
+    
     .diagram-legend-enhanced {
         padding: 1rem;
         font-size: 0.75rem;

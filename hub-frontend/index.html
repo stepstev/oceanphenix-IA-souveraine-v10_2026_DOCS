@@ -228,48 +228,47 @@
                 
                 <!-- Architecture Diagram Modern Glassmorphism -->
                 <div class="architecture-diagram modern-glass">
-                    <!-- Enhanced Legend with Services Explanations -->
-                    <div class="diagram-legend-enhanced">
-                        <div class="legend-section">
-                            <h5><i class="fas fa-info-circle"></i> État des Services</h5>
-                            <div class="legend-items">
-                                <div class="legend-item">
-                                    <span class="status-indicator online pulse"></span>
-                                    <div class="legend-text">
-                                        <strong>Actif</strong>
-                                        <small>Service opérationnel et accessible</small>
-                                    </div>
+                    <!-- Status Legend - Top Left -->
+                    <div class="diagram-legend-status">
+                        <h5><i class="fas fa-info-circle"></i> État des Services</h5>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <span class="status-indicator online pulse"></span>
+                                <div class="legend-text">
+                                    <strong>Actif</strong>
+                                    <small>Service opérationnel et accessible</small>
                                 </div>
-                                <div class="legend-item">
-                                    <span class="status-indicator offline"></span>
-                                    <div class="legend-text">
-                                        <strong>Inactif</strong>
-                                        <small>Service arrêté ou inaccessible</small>
-                                    </div>
+                            </div>
+                            <div class="legend-item">
+                                <span class="status-indicator offline"></span>
+                                <div class="legend-text">
+                                    <strong>Inactif</strong>
+                                    <small>Service arrêté ou inaccessible</small>
                                 </div>
-                                <div class="legend-item">
-                                    <span class="status-indicator internal"></span>
-                                    <div class="legend-text">
-                                        <strong>Interne</strong>
-                                        <small>Non exposé publiquement (accès API uniquement)</small>
-                                    </div>
+                            </div>
+                            <div class="legend-item">
+                                <span class="status-indicator internal"></span>
+                                <div class="legend-text">
+                                    <strong>Interne</strong>
+                                    <small>Non exposé publiquement (accès API uniquement)</small>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="legend-section services-guide">
-                            <h5><i class="fas fa-cubes"></i> Guide des Services</h5>
-                            <div class="services-list">
-                                <div class="service-tooltip"><strong>Chat & RAG</strong> - Interface conversationnelle avec IA</div>
-                                <div class="service-tooltip"><strong>FastAPI</strong> - API backend pour pipeline RAG</div>
-                                <div class="service-tooltip"><strong>Ollama</strong> - Moteur d'inférence LLM local</div>
-                                <div class="service-tooltip"><strong>Qdrant</strong> - Base de données vectorielle</div>
-                                <div class="service-tooltip"><strong>MinIO</strong> - Stockage S3 pour documents</div>
-                                <div class="service-tooltip"><strong>n8n</strong> - Automatisation de workflows</div>
-                                <div class="service-tooltip"><strong>Grafana</strong> - Tableaux de bord monitoring</div>
-                                <div class="service-tooltip"><strong>Prometheus</strong> - Collecte de métriques</div>
-                                <div class="service-tooltip"><strong>Portainer</strong> - Gestion Docker visuelle</div>
-                            </div>
+                    </div>
+                    
+                    <!-- Services Guide - Bottom Left -->
+                    <div class="diagram-legend-services">
+                        <h5><i class="fas fa-cubes"></i> Guide des Services</h5>
+                        <div class="services-list">
+                            <div class="service-tooltip"><strong>Chat & RAG</strong> - Interface conversationnelle avec IA</div>
+                            <div class="service-tooltip"><strong>FastAPI</strong> - API backend pour pipeline RAG</div>
+                            <div class="service-tooltip"><strong>Ollama</strong> - Moteur d'inférence LLM local</div>
+                            <div class="service-tooltip"><strong>Qdrant</strong> - Base de données vectorielle</div>
+                            <div class="service-tooltip"><strong>MinIO</strong> - Stockage S3 pour documents</div>
+                            <div class="service-tooltip"><strong>n8n</strong> - Automatisation de workflows</div>
+                            <div class="service-tooltip"><strong>Grafana</strong> - Tableaux de bord monitoring</div>
+                            <div class="service-tooltip"><strong>Prometheus</strong> - Collecte de métriques</div>
+                            <div class="service-tooltip"><strong>Portainer</strong> - Gestion Docker visuelle</div>
                         </div>
                     </div>
                     
