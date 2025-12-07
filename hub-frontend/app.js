@@ -716,35 +716,32 @@ function initWebUIModal() {
         document.getElementById('link-studio-external')
     ];
 
-    // Vérifier le mode (o2switch = nouvel onglet, local = modal)
+    // Vérifier le mode (o2switch = popup, local = modal ou popup)
     const isO2switch = window.OCEANPHENIX_CONFIG?.apiUrlDefault?.includes('oceanphenix.fr') || 
                        window.location.hostname !== 'localhost';
 
-    // Ouvrir le modal ou nouvel onglet selon le mode
+    // Ouvrir la modal ou popup selon le mode
     studioLinks.forEach(link => {
         link?.addEventListener('click', (e) => {
             e.preventDefault();
             const url = link.href || 'http://localhost:3000';
             
-            // En mode O2switch ou prod, ouvrir dans un nouvel onglet (iframe bloquée par X-Frame-Options)
-            if (isO2switch) {
-                window.open(url, '_blank', 'noopener,noreferrer');
-                return;
-            }
+            // Calculer la taille de la popup (80% de la fenêtre parente)
+            const width = Math.round(window.screen.width * 0.8);
+            const height = Math.round(window.screen.height * 0.8);
+            const left = Math.round((window.screen.width - width) / 2);
+            const top = Math.round((window.screen.height - height) / 2);
             
-            // En mode local, utiliser la modal avec iframe
-            webuiIframe.src = url;
-            webuiModal.style.display = 'flex';
-            
-            // Animation d'entrée
-            setTimeout(() => {
-                webuiModal.querySelector('.webui-modal-content').style.opacity = '1';
-                webuiModal.querySelector('.webui-modal-content').style.transform = 'scale(1)';
-            }, 10);
+            // Ouvrir dans une popup centrée (80% de l'écran)
+            window.open(
+                url, 
+                'OpenWebUI',
+                `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=yes,toolbar=no,menubar=no,location=no`
+            );
         });
     });
 
-    // Fermer le modal avec le bouton X
+    // Fermer le modal avec le bouton X (garde pour compatibilité)
     webuiModalClose?.addEventListener('click', () => {
         closeWebUIModal();
     });
