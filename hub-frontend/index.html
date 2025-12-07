@@ -228,19 +228,44 @@
                 
                 <!-- Architecture Diagram Modern Glassmorphism -->
                 <div class="architecture-diagram modern-glass">
-                    <!-- Legend in diagram -->
-                    <div class="diagram-legend-inline">
-                        <div class="legend-item">
-                            <span class="status-indicator online"></span>
-                            <span>Actif</span>
+                    <!-- Enhanced Legend with Infrastructure Info -->
+                    <div class="diagram-legend-enhanced">
+                        <div class="legend-section">
+                            <h5><i class="fas fa-info-circle"></i> État des Services</h5>
+                            <div class="legend-items">
+                                <div class="legend-item">
+                                    <span class="status-indicator online pulse"></span>
+                                    <div class="legend-text">
+                                        <strong>Actif</strong>
+                                        <small>Service opérationnel et accessible</small>
+                                    </div>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="status-indicator offline"></span>
+                                    <div class="legend-text">
+                                        <strong>Inactif</strong>
+                                        <small>Service arrêté ou inaccessible</small>
+                                    </div>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="status-indicator internal"></span>
+                                    <div class="legend-text">
+                                        <strong>Interne</strong>
+                                        <small>Non exposé publiquement (accès API uniquement)</small>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="legend-item">
-                            <span class="status-indicator offline"></span>
-                            <span>Inactif</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="status-indicator internal"></span>
-                            <span>Non Exposé (API)</span>
+                        
+                        <div class="legend-section">
+                            <h5><i class="fas fa-server"></i> Infrastructure</h5>
+                            <div class="infra-badges">
+                                <span class="infra-badge"><i class="fas fa-globe"></i> Hetzner CAX41</span>
+                                <span class="infra-badge"><i class="fas fa-microchip"></i> 8 vCPU ARM</span>
+                                <span class="infra-badge"><i class="fas fa-memory"></i> 32 GB RAM</span>
+                                <span class="infra-badge"><i class="fas fa-hdd"></i> 400 GB NVMe</span>
+                                <span class="infra-badge"><i class="fas fa-shield-alt"></i> RGPD</span>
+                            </div>
                         </div>
                     </div>
                     
