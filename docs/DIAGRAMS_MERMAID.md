@@ -89,10 +89,14 @@ graph TB
     %% Internet
     Users[👥 Utilisateurs]
     
+    %% O2Switch - Frontend statique
+    subgraph O2["☁️ O2Switch - Hébergement Frontend"]
+        HubFront[📱 Frontend Hub<br/>Interface Web Statique]:::tierPresentation
+    end
+    
     %% Tier 1: Présentation - Serveur Hetzner CAX41
-    subgraph T1[" Tier 1: Présentation - Serveur Hetzner CAX41"]
+    subgraph T1[" Tier 1: Reverse Proxy & Monitoring - Serveur Hetzner CAX41"]
         Caddy[🛡️ Caddy Reverse Proxy<br/>HTTPS/SSL Auto]:::tierPresentation
-        HubFront[📱 Frontend Hub<br/>Interface Web]:::tierPresentation
         Grafana[📊 Grafana<br/>Monitoring]:::tierPresentation
     end
     
@@ -118,8 +122,10 @@ graph TB
         ApacheBI[📊 Apache Superset<br/>Business Intelligence]:::tierBi
     end
     
-    %% Connexions Internet → Caddy
+    %% Connexions Internet → O2Switch & Hetzner
+    Users -->|HTTPS| HubFront
     Users -->|HTTPS:443| Caddy
+    HubFront -.->|API Calls| Caddy
     
     %% Caddy routing
     Caddy -->|/grafana| Grafana
@@ -148,6 +154,7 @@ graph TB
     ApacheBI -->|Analyze| Strapi
     
     %% Styling tiers
+    style O2 fill:#F3E5F5,stroke:#9C27B0,stroke-width:4px
     style T1 fill:#E8F5E9,stroke:#4CAF50,stroke-width:4px
     style T2 fill:#E3F2FD,stroke:#2196F3,stroke-width:4px
     style T3 fill:#FFF3E0,stroke:#FF9800,stroke-width:4px
@@ -157,12 +164,13 @@ graph TB
 
 ### Légende des Tiers
 
-| Tier | Couleur | Rôle | Services |
-|------|---------|------|----------|
-| **Tier 1: Présentation** | 🟢 Vert | Exposition HTTPS, Reverse Proxy, Monitoring UI | Caddy, Hub Frontend, Grafana |
-| **Tier 2: Application** | 🔵 Bleu | Logique métier, API, Automation | FastAPI, OpenWebUI, n8n |
-| **Tier 3: Data Layer** | 🟠 Orange | Stockage données, LLM, Base de connaissances | Ollama, Qdrant, MinIO, Strapi, PostgreSQL |
-| **Tier 4: Analytics** | 🟣 Violet | Métriques, Business Intelligence | Prometheus, Apache Superset |
+| Serveur | Tier | Couleur | Rôle | Services |
+|---------|------|---------|------|----------|
+| **O2Switch** | Frontend | 💜 Violet | Interface utilisateur statique | Hub Frontend (HTML/CSS/JS) |
+| **Hetzner** | Tier 1: Reverse Proxy | 🟫 Vert | Exposition HTTPS, Monitoring UI | Caddy, Grafana |
+| **Hetzner** | Tier 2: Application | 🔵 Bleu | Logique métier, API, Automation | FastAPI, OpenWebUI, n8n |
+| **Hetzner** | Tier 3: Data Layer | 🟠 Orange | Stockage données, LLM, Base de connaissances | Ollama, Qdrant, MinIO, Strapi, PostgreSQL |
+| **Hetzner** | Tier 4: Analytics | 🟣 Violet | Métriques, Business Intelligence | Prometheus, Apache Superset |
 
 ---
 

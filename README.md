@@ -62,10 +62,14 @@ graph TB
     %% Internet
     Users[👥 Utilisateurs]
     
-    %% Tier 1: Présentation - Serveur Hetzner CAX41
-    subgraph T1[" Tier 1: Présentation - Serveur Hetzner CAX41"]
+    %% O2Switch - Frontend statique
+    subgraph O2["☁️ O2Switch - Hébergement Frontend"]
+        HubFront[📱 Frontend Hub<br/>Interface Web Statique]:::tierPresentation
+    end
+    
+    %% Tier 1: Reverse Proxy & Monitoring - Serveur Hetzner CAX41
+    subgraph T1[" Tier 1: Reverse Proxy & Monitoring - Serveur Hetzner CAX41"]
         Caddy[🛡️ Caddy Reverse Proxy<br/>HTTPS/SSL Auto]:::tierPresentation
-        HubFront[📱 Frontend Hub<br/>Interface Web]:::tierPresentation
         Grafana[📊 Grafana<br/>Monitoring]:::tierPresentation
     end
     
@@ -91,14 +95,15 @@ graph TB
         ApacheBI[📊 Apache Superset<br/>Business Intelligence]:::tierBi
     end
     
-    %% Connexions Internet → Caddy
+    %% Connexions Internet → O2Switch & Hetzner
+    Users -->|HTTPS| HubFront
     Users -->|HTTPS:443| Caddy
+    HubFront -.->|API Calls| Caddy
     
     %% Caddy routing
     Caddy -->|/grafana| Grafana
     Caddy -->|/bi| ApacheBI
     Caddy -->|/n8n| N8N
-    Caddy -->|/studio| HubFront
     Caddy -->|/api| FastAPI
     Caddy -->|/strapi| Strapi
     
@@ -121,6 +126,7 @@ graph TB
     ApacheBI -->|Analyze| Strapi
     
     %% Styling tiers
+    style O2 fill:#F3E5F5,stroke:#9C27B0,stroke-width:4px
     style T1 fill:#E8F5E9,stroke:#4CAF50,stroke-width:4px
     style T2 fill:#E3F2FD,stroke:#2196F3,stroke-width:4px
     style T3 fill:#FFF3E0,stroke:#FF9800,stroke-width:4px
