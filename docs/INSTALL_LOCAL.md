@@ -33,7 +33,7 @@ winget install Git.Git
 choco install make
 ```
 
-#### Linux (Ubuntu/Debian)
+#### Linux (Ubuntu 22.04 LTS - Recommandé)
 
 ```bash
 # Docker & Docker Compose
@@ -48,6 +48,8 @@ sudo apt install git make -y
 # Redémarrer session pour groupe docker
 newgrp docker
 ```
+
+> **Note** : Compatible aussi avec Debian 11+, mais Ubuntu 22.04 LTS est recommandé pour une stabilité optimale.
 
 #### macOS
 

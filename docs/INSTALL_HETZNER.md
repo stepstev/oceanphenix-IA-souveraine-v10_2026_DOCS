@@ -20,6 +20,7 @@ Ce déploiement configure :
 
 | Composant | Minimum | Recommandé | Optimal |
 |-----------|---------|------------|---------|
+| OS | Ubuntu 22.04 LTS | **Ubuntu 22.04 LTS** | **Ubuntu 22.04 LTS** |
 | CPU | 4 vCPU | 8 vCPU | 16 vCPU |
 | RAM | 16 GB | 32 GB | 64 GB |
 | Stockage | 200 GB SSD | 500 GB NVMe | 1 TB NVMe |
@@ -49,7 +50,7 @@ Ce déploiement configure :
 2. **New Project** : "oceanphenix-prod"
 3. **Add Server** :
    - Location : Nuremberg (de-nbg1) ou Helsinki (fi-hel1)
-   - Image : Ubuntu 22.04 LTS
+   - Image : **Ubuntu 22.04 LTS** (Recommandé)
    - Type : CCX33 (8 vCPU, 32 GB)
    - Volumes : Optionnel (backup externe)
    - SSH Key : Ajouter votre clé publique

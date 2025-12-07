@@ -186,7 +186,7 @@ graph TB
 
 ### Systèmes Supportés
 
-- ✅ Linux (Ubuntu 22.04+, Debian 11+, CentOS 8+)
+- ✅ **Linux (Recommandé)** : Ubuntu 22.04 LTS, Debian 11+, CentOS 8+
 - ✅ Windows 10/11 avec WSL2
 - ✅ macOS 12+ (Intel/Apple Silicon)
 
