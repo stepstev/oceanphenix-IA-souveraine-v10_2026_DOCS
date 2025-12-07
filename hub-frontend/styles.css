@@ -1465,6 +1465,38 @@ body {
     animation: pulse-status 2s ease-in-out infinite;
 }
 
+/* Services Guide Section */
+.services-guide {
+    max-width: 100%;
+}
+
+.services-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+}
+
+.service-tooltip {
+    padding: 0.4rem 0.75rem;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(0, 217, 255, 0.03));
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.service-tooltip strong {
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+
+.service-tooltip:hover {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.15), rgba(0, 217, 255, 0.08));
+    border-color: rgba(0, 217, 255, 0.4);
+    transform: translateY(-2px);
+}
+
 @media (max-width: 1024px) {
     .diagram-legend-enhanced {
         grid-template-columns: 1fr;
@@ -1476,6 +1508,11 @@ body {
     
     .legend-items {
         gap: 1rem;
+    }
+    
+    .services-list {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.4rem;
     }
     
     .infra-badges {
@@ -1504,6 +1541,16 @@ body {
     
     .legend-text small {
         font-size: 0.65rem;
+    }
+    
+    .services-list {
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+    }
+    
+    .service-tooltip {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.7rem;
     }
     
     .legend-item .status-indicator {
