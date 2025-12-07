@@ -601,7 +601,7 @@ function updateLinks() {
         grafanaLink.href = '#';
         grafanaLink.addEventListener('click', (e) => {
             e.preventDefault();
-            openServicePopup(`${protocol}://localhost:3001/d/oceanphenix-platform-health`, 'Grafana - OceanPhenix Health');
+            openServicePopup('http://localhost:3001/d/oceanphenix-platform-health/oceanphenix-platform-health?orgId=1&from=now-6h&to=now&timezone=Europe%2FParis&refresh=30s', 'Grafana - OceanPhenix Health');
         });
     }
 
@@ -609,7 +609,7 @@ function updateLinks() {
         grafanaDiagram.href = '#';
         grafanaDiagram.addEventListener('click', (e) => {
             e.preventDefault();
-            openServicePopup(`${protocol}://localhost:3001/d/oceanphenix-platform-health`, 'Grafana - OceanPhenix Health');
+            openServicePopup('http://localhost:3001/d/oceanphenix-platform-health/oceanphenix-platform-health?orgId=1&from=now-6h&to=now&timezone=Europe%2FParis&refresh=30s', 'Grafana - OceanPhenix Health');
         });
     }
 
@@ -617,7 +617,7 @@ function updateLinks() {
         grafanaKpi.href = '#';
         grafanaKpi.addEventListener('click', (e) => {
             e.preventDefault();
-            openServicePopup(`${protocol}://localhost:3001/d/oceanphenix-platform-health`, 'Grafana - OceanPhenix Health');
+            openServicePopup('http://localhost:3001/d/oceanphenix-platform-health/oceanphenix-platform-health?orgId=1&from=now-6h&to=now&timezone=Europe%2FParis&refresh=30s', 'Grafana - OceanPhenix Health');
         });
     }
 
@@ -1059,7 +1059,7 @@ function populateQuickUrls() {
         const serviceUrls = {
             'studio': 'http://localhost:3000',
             'openwebui': 'http://localhost:3000',
-            'grafana': 'http://localhost:3001',
+            'grafana': 'http://localhost:3001/d/oceanphenix-platform-health/oceanphenix-platform-health?orgId=1&from=now-6h&to=now&timezone=Europe%2FParis&refresh=30s',
             'prometheus': 'http://localhost:9090',
             'portainer': 'https://localhost:9443',
             'minio': 'http://localhost:9001',
