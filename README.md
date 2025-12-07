@@ -7,13 +7,27 @@
 
 > **Plateforme IA Souveraine complète** avec RAG (Retrieval-Augmented Generation), auto-hébergée, monitoring 360° et orchestration intelligente.
 
+## ⚡ Installation Rapide (5 minutes)
+
+**📖 [QUICK_START.md](QUICK_START.md)** - Guide express pour tous les modes d'installation
+
+```bash
+# Installation locale express
+git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git
+cd oceanphenix-IA-souveraine-v8
+cp .env.example .env  # Éditer avec vos secrets
+docker compose --profile all up -d
+docker exec v8-ollama ollama pull mistral:latest
+# ✅ http://localhost:8080
+```
+
 ## 📋 Table des Matières
 
+- **[⚡ Installation Rapide (5 min)](QUICK_START.md)** ← Commencer ici
 - [Vue d'Ensemble](#-vue-densemble)
 - [Architecture](#️-architecture)
 - [Fonctionnalités](#-fonctionnalités)
 - [Prérequis](#-prérequis)
-- [Installation Rapide](#-installation-rapide)
 - [Guides de Déploiement](#-guides-de-déploiement)
 - [Configuration](#️-configuration)
 - [Utilisation](#-utilisation)
