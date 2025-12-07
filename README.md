@@ -47,17 +47,17 @@
 ## 🏗️ Architecture
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': {'fontSize':'18px', 'fontFamily':'Arial'}}}%%
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'24px', 'fontFamily':'Arial, sans-serif'}}}%%
 graph TB
     %% Définition des styles
-    classDef tierPresentation fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff,font-size:16px
-    classDef tierApp fill:#2196F3,stroke:#1565C0,stroke-width:3px,color:#fff,font-size:16px
-    classDef tierData fill:#FF9800,stroke:#E65100,stroke-width:3px,color:#fff,font-size:16px
-    classDef tierAnalytics fill:#9C27B0,stroke:#6A1B9A,stroke-width:3px,color:#fff,font-size:16px
-    classDef tierBi fill:#E91E63,stroke:#AD1457,stroke-width:3px,color:#fff,font-size:16px
-    classDef storage fill:#00BCD4,stroke:#00838F,stroke-width:2px,color:#fff,font-size:16px
-    classDef vectordb fill:#9C27B0,stroke:#6A1B9A,stroke-width:2px,color:#fff,font-size:16px
-    classDef strapi fill:#F44336,stroke:#C62828,stroke-width:2px,color:#fff,font-size:16px
+    classDef tierPresentation fill:#4CAF50,stroke:#2E7D32,stroke-width:4px,color:#fff,font-size:22px
+    classDef tierApp fill:#2196F3,stroke:#1565C0,stroke-width:4px,color:#fff,font-size:22px
+    classDef tierData fill:#FF9800,stroke:#E65100,stroke-width:4px,color:#fff,font-size:22px
+    classDef tierAnalytics fill:#9C27B0,stroke:#6A1B9A,stroke-width:4px,color:#fff,font-size:22px
+    classDef tierBi fill:#E91E63,stroke:#AD1457,stroke-width:4px,color:#fff,font-size:22px
+    classDef storage fill:#00BCD4,stroke:#00838F,stroke-width:3px,color:#fff,font-size:22px
+    classDef vectordb fill:#9C27B0,stroke:#6A1B9A,stroke-width:3px,color:#fff,font-size:22px
+    classDef strapi fill:#F44336,stroke:#C62828,stroke-width:3px,color:#fff,font-size:22px
     
     %% Internet
     Users[👥 Utilisateurs]
@@ -566,7 +566,7 @@ graph TB
 ### Diagramme de Déploiement
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': {'fontSize':'18px', 'fontFamily':'Arial'}}}%%
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'24px', 'fontFamily':'Arial, sans-serif'}}}%%
 graph TB
     subgraph Client["👥 Clients / Utilisateurs"]
         BROWSER[🌐 Navigateur Web]
