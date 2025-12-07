@@ -855,28 +855,21 @@ function startServicesHealthPolling() {
  * @param {number} heightPercent - Hauteur en pourcentage de l'écran (par défaut 75%)
  */
 function openServicePopup(url, serviceName = 'Service', widthPercent = 75, heightPercent = 75) {
-    // Calculer les dimensions de la popup
-    const width = Math.round(window.screen.width * (widthPercent / 100));
-    const height = Math.round(window.screen.height * (heightPercent / 100));
+    const screenWidth = window.screen.availWidth || window.screen.width;
+    const screenHeight = window.screen.availHeight || window.screen.height;
+    const width = Math.round(screenWidth * (widthPercent / 100));
+    const height = Math.round(screenHeight * (heightPercent / 100));
+    const left = Math.round((screenWidth - width) / 2) + (window.screen.availLeft || 0);
+    const top = Math.round((screenHeight - height) / 2) + (window.screen.availTop || 0);
     
-    // Centrer la fenêtre par rapport à l'écran
-    const left = Math.round((window.screen.width - width) / 2);
-    const top = Math.round((window.screen.height - height) / 2);
-    
-    // Ouvrir dans une popup centrée sans barre d'adresse
     const popup = window.open(
         url, 
-        serviceName.replace(/\s+/g, '_'), // Nom de fenêtre sans espaces
-        `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=no`
+        serviceName.replace(/\s+/g, '_'),
+        `width=${width},height=${height},left=${left},top=${top},toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no`
     );
     
-    // Focus sur la nouvelle fenêtre
-    if (popup) {
-        popup.focus();
-    } else {
-        // Si le popup est bloqué, ouvrir dans un nouvel onglet
-        window.open(url, '_blank');
-    }
+    if (popup) popup.focus();
+    else window.open(url, '_blank');
 }
 
 /**

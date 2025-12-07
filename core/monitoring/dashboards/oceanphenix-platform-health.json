@@ -723,8 +723,8 @@
       "pluginVersion": "9.0.0",
       "targets": [
         {
-          "expr": "100 - ((node_filesystem_avail_bytes{fstype!=\"tmpfs\",fstype!=\"overlay\"} * 100) / node_filesystem_size_bytes{fstype!=\"tmpfs\",fstype!=\"overlay\"})",
-          "legendFormat": "{{mountpoint}}",
+          "expr": "100 - ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes)",
+          "legendFormat": "{{mountpoint}} ({{fstype}})",
           "refId": "A"
         }
       ],
