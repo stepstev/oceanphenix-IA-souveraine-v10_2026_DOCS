@@ -196,7 +196,7 @@ Guide complet pour développement local (Windows, Mac, Linux).
 
 Guide pour déploiement production sur VPS Hetzner.
 
-**📖 Voir** : [docs/deployment/INSTALL_HETZNER.md](docs/deployment/INSTALL_HETZNER.md)
+**📖 Voir** : [docs/INSTALL_HETZNER.md](docs/INSTALL_HETZNER.md)
 
 **Étapes principales** :
 1. Création serveur Hetzner (Ubuntu 22.04, 8GB+ RAM)
@@ -217,7 +217,7 @@ Guide pour déploiement production sur VPS Hetzner.
 
 Guide pour hébergement frontend statique sur O2Switch.
 
-**📖 Voir** : [docs/deployment/INSTALL_O2SWITCH.md](docs/deployment/INSTALL_O2SWITCH.md)
+**📖 Voir** : [docs/INSTALL_O2SWITCH.md](docs/INSTALL_O2SWITCH.md)
 
 **Étapes principales** :
 1. Préparation archive frontend
