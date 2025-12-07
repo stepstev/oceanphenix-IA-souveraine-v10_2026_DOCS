@@ -1392,15 +1392,10 @@ body {
     border: 1px solid rgba(0, 217, 255, 0.2);
     border-radius: 6px;
     font-size: 0.75rem;
-    color: var(--text-secondary);
+    color: var(--accent-cyan);
+    font-weight: 500;
     white-space: nowrap;
     transition: all 0.3s ease;
-}
-
-.service-tooltip-inline strong {
-    color: var(--accent-cyan);
-    font-weight: 600;
-    margin-right: 0.25rem;
 }
 
 .service-tooltip-inline:hover {
