@@ -274,18 +274,35 @@ Guide pour déploiement production sur VPS Hetzner.
 
 Guide pour hébergement frontend statique sur O2Switch.
 
-**📖 Voir** : [docs/INSTALL_O2SWITCH.md](docs/INSTALL_O2SWITCH.md)
+**⚡ Guide Express (10 minutes)** : [docs/INSTALL_O2SWITCH_SIMPLE.md](docs/INSTALL_O2SWITCH_SIMPLE.md)
+
+**📖 Guide Complet** : [docs/INSTALL_O2SWITCH.md](docs/INSTALL_O2SWITCH.md)
 
 **Étapes principales** :
-1. Préparation archive frontend
-2. Upload FTP vers O2Switch
-3. Configuration `config.prod.js` avec IP Hetzner
-4. Activation HTTPS (Let's Encrypt)
-5. Test de l'intégration
+
+1. Copier `config.prod.js` → `config.js` et éditer vos domaines
+2. Upload FTP sur O2Switch (`/public_html/ia/`)
+3. Configurer CORS sur backend Hetzner pour autoriser le domaine frontend
+4. SSL automatique Let's Encrypt
+5. Test connexion API
+
+**Connexion API Backend** :
+
+```javascript
+// config.js - Configuration API vers Hetzner
+apiUrlDefault: 'https://api.votredomaine.com',  // Backend Hetzner
+services: {
+  api: 'https://api.votredomaine.com/health',
+  openwebui: 'https://studio.votredomaine.com/health',
+  grafana: 'https://grafana.votredomaine.com/api/health'
+}
+```
 
 **Avantages O2Switch** :
+
 - Hébergement mutualisé français
 - Domaine + SSL inclus
+- Upload FTP simple (FileZilla ou cPanel)
 - Support francophone
 - Coût : ~5€/mois
 

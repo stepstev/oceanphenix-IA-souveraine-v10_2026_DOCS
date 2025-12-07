@@ -1,6 +1,10 @@
 # 🌐 Guide de Déploiement O2Switch (Frontend) - OceanPhenix V8
 
-Guide pour déployer le Hub Frontend d'OceanPhenix sur hébergement mutualisé O2Switch.
+Guide **complet** pour déployer le Hub Frontend d'OceanPhenix sur hébergement mutualisé O2Switch.
+
+> **⚡ Besoin d'un guide rapide ?** Voir [INSTALL_O2SWITCH_SIMPLE.md](INSTALL_O2SWITCH_SIMPLE.md) (10 minutes)
+>
+> Ce guide contient les détails avancés : optimisations, CDN, PWA, CI/CD, etc.
 
 ## 🎯 Vue d'Ensemble
 
