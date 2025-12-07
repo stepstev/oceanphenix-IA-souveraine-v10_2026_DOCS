@@ -525,7 +525,7 @@ graph TB
     end
 
     subgraph O2Switch["☁️ O2Switch - Frontend Hébergement"]
-        STATIC[📄 Hub Frontend<br/>HTML/CSS/JS Statique<br/>HTTPS Let's Encrypt]
+        STATIC["Hub Frontend - HTTPS"]
     end
 
     subgraph Internet["🌐 Internet"]
@@ -534,7 +534,7 @@ graph TB
 
     subgraph Hetzner["🖥️ Hetzner VPS - Backend"]
         subgraph Firewall["🛡️ UFW Firewall"]
-            FW_RULES[Rules:<br/>- 80/tcp (HTTP)<br/>- 443/tcp (HTTPS)<br/>- 22/tcp (SSH)]
+            FW_RULES["Ports: 80, 443, 22"]
         end
         
         subgraph Docker["🐳 Docker Host Ubuntu 22.04"]
@@ -546,10 +546,10 @@ graph TB
                 VDB[Qdrant]
                 S3[MinIO]
                 MON[Grafana+Prometheus]
-                AUTO_SERVICES[n8n + Portainer<br/>+ Sync + Indexer]
+                AUTO_SERVICES["n8n + Portainer + Sync"]
             end
             
-            VOLUMES[(Docker Volumes<br/>Persistent Storage)]
+            VOLUMES[("Docker Volumes")]
         end
     end
 
