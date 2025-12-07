@@ -280,10 +280,53 @@ async function fetchServices() {
         if (response.ok) {
             state.services = await response.json();
             populateQuickUrls(); // Mettre à jour l'affichage des services
+        } else {
+            // Si l'API backend n'est pas disponible, vérifier les services localement
+            await checkServicesHealthLocal();
         }
     } catch (e) {
-        // Mode local : API backend non disponible
+        // Mode local : API backend non disponible, vérifier localement
+        await checkServicesHealthLocal();
     }
+}
+
+// Vérification locale de la santé des services
+async function checkServicesHealthLocal() {
+    const services = [];
+    
+    for (const [serviceName, endpoint] of Object.entries(CONFIG.SERVICES_ENDPOINTS)) {
+        let status = 'unknown';
+        
+        if (!endpoint) {
+            status = 'internal';
+        } else {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 2000);
+                
+                const response = await fetch(endpoint, {
+                    method: 'HEAD',
+                    mode: 'no-cors',
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                // En mode no-cors, la requête réussit si le service répond
+                status = 'up';
+            } catch (error) {
+                status = 'down';
+            }
+        }
+        
+        services.push({
+            name: serviceName,
+            status: status,
+            healthcheck_url: endpoint
+        });
+    }
+    
+    state.services = services;
+    populateQuickUrls();
 }
 
 async function fetchStats() {
