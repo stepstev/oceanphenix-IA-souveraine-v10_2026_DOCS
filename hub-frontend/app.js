@@ -14,6 +14,7 @@ const CONFIG = {
         api: 'http://localhost:8000/health',
         minio: 'http://localhost:9000/minio/health/live',
         openwebui: 'http://localhost:3000/health',
+        studio: 'http://localhost:3000/health',
         n8n: 'http://localhost:5678/healthz',
         portainer: 'http://localhost:9002/api/status',
         caddy: null, // Pas d'endpoint health direct
@@ -28,7 +29,8 @@ const CONFIG = {
         // BI & CMS
         superset: 'http://localhost:8088/health',
         strapi: 'http://localhost:1337/_health',
-        postgres: null // Vérification via API backend
+        postgres: null, // Vérification via API backend
+        valkey: null
     }
 };
 
@@ -277,6 +279,7 @@ async function fetchServices() {
         const response = await fetch(`${CONFIG.API_URL}/bi/services`);
         if (response.ok) {
             state.services = await response.json();
+            populateQuickUrls(); // Mettre à jour l'affichage des services
         }
     } catch (e) {
         // Mode local : API backend non disponible
@@ -836,234 +839,115 @@ function initAboutModal() {
 
 // Populate Quick Access URLs
 function populateQuickUrls() {
-    // Détection de l'environnement
-    const hostname = window.location.hostname;
-    const isLocal = hostname === 'localhost' ||
-        hostname.startsWith('192.168') ||
-        hostname.startsWith('127.0') ||
-        hostname === '';
-
-    // Définition des services avec URLs
-    const services = {
-        main: [
-            {
-                name: 'Open WebUI',
-                icon: 'fas fa-comments',
-                local: 'http://localhost:8080',
-                prod: 'https://chatbot.example.com',
-                status: 'public'
-            },
-            {
-                name: 'Strapi CMS',
-                icon: 'fas fa-file-alt',
-                local: 'http://localhost:1337',
-                prod: 'https://cms.example.com',
-                status: 'auth'
-            },
-            {
-                name: 'n8n Workflows',
-                icon: 'fas fa-project-diagram',
-                local: 'http://localhost:5678',
-                prod: 'https://n8n.example.com',
-                status: 'auth'
-            },
-            {
-                name: 'Portainer',
-                icon: 'fas fa-cubes',
-                local: 'http://localhost:9002',
-                prod: 'https://portainer.example.com',
-                status: 'auth'
-            }
-        ],
-        monitoring: [
-            {
-                name: 'Grafana',
-                icon: 'fas fa-chart-area',
-                local: 'http://localhost:3000',
-                prod: 'https://grafana.example.com',
-                status: 'auth'
-            },
-            {
-                name: 'Prometheus',
-                icon: 'fas fa-search',
-                local: 'http://localhost:9090',
-                prod: 'https://prometheus.example.com',
-                status: 'internal',
-                skipHealthCheck: true
-            },
-            {
-                name: 'Node Exporter',
-                icon: 'fas fa-chart-line',
-                local: 'http://localhost:9100',
-                prod: 'https://node-exporter.example.com',
-                status: 'internal',
-                skipHealthCheck: true
-            },
-            {
-                name: 'cAdvisor',
-                icon: 'fas fa-server',
-                local: 'http://localhost:9200',
-                prod: 'https://cadvisor.example.com',
-                status: 'internal',
-                skipHealthCheck: true
-            }
-        ],
-        premium: [
-            {
-                name: 'Superset BI',
-                icon: 'fas fa-chart-bar',
-                local: 'http://localhost:8088',
-                prod: 'https://bi.example.com',
-                status: 'auth'
-            },
-            {
-                name: 'Qdrant Vector DB',
-                icon: 'fas fa-database',
-                local: 'http://localhost:6333',
-                prod: 'https://qdrant.example.com',
-                status: 'internal',
-                skipHealthCheck: true
-            },
-            {
-                name: 'PostgreSQL',
-                icon: 'fas fa-table',
-                local: 'http://localhost:5432',
-                prod: 'https://postgres.example.com',
-                status: 'internal',
-                skipHealthCheck: true
-            }
-        ],
-        internal: [
-            {
-                name: 'Ollama API',
-                icon: 'fas fa-brain',
-                local: 'http://localhost:11434',
-                prod: 'https://ollama.example.com',
-                status: 'internal',
-                skipHealthCheck: true
-            },
-            {
-                name: 'API Backend',
-                icon: 'fas fa-cog',
-                local: 'http://localhost:8000',
-                prod: 'https://api.example.com',
-                status: 'internal'
-            },
-            {
-                name: 'MinIO Storage',
-                icon: 'fas fa-hdd',
-                local: 'http://localhost:9000',
-                prod: 'https://minio.example.com',
-                status: 'internal',
-                skipHealthCheck: true
-            }
-        ]
+    // Définir les catégories de services
+    const serviceCategories = {
+        main: ['studio', 'openwebui', 'ollama', 'qdrant', 'api'],
+        monitoring: ['grafana', 'prometheus', 'cadvisor', 'node-exporter', 'alertmanager'],
+        bi: ['superset', 'strapi'],
+        infra: ['minio', 'portainer', 'n8n', 'caddy', 'postgres', 'valkey']
     };
 
-    // Fonction pour générer le HTML d'un item avec indicateur d'état
-    function generateUrlItem(service, isLocal) {
-        const url = isLocal ? service.local : service.prod;
-        const statusClass = service.status;
-        const statusText = {
-            'public': 'Public',
-            'auth': 'Auth',
-            'internal': 'Internal'
-        }[service.status];
+    // Créer la liste complète des services depuis CONFIG.SERVICES_ENDPOINTS
+    const allServices = [];
+    
+    for (const [serviceName, endpoint] of Object.entries(CONFIG.SERVICES_ENDPOINTS)) {
+        const serviceInfo = state.services?.find(s => s.name.toLowerCase() === serviceName.toLowerCase());
+        
+        const service = {
+            name: serviceName,
+            status: serviceInfo?.status || 'unknown',
+            healthcheck_url: endpoint,
+            displayName: serviceName.charAt(0).toUpperCase() + serviceName.slice(1).replace(/-/g, ' ')
+        };
+        
+        allServices.push(service);
+    }
 
-        // Extraire le nom court du service pour la vérification de santé
-        const serviceKey = service.name.toLowerCase().replace(/\s+/g, '-');
-        const healthId = `health-${serviceKey}`;
+    // Organiser les services par catégorie
+    const categorizedServices = {
+        main: [],
+        monitoring: [],
+        bi: [],
+        infra: []
+    };
 
-        // Désactiver le lien pour les services internes
-        const isInternal = service.status === 'internal';
-        const linkDisabled = isInternal ? 'disabled' : '';
-        const linkHref = isInternal ? '#' : url;
-        const linkClick = isInternal ? 'onclick="return false;"' : '';
+    allServices.forEach(service => {
+        for (const [category, serviceNames] of Object.entries(serviceCategories)) {
+            if (serviceNames.includes(service.name.toLowerCase())) {
+                categorizedServices[category].push(service);
+                break;
+            }
+        }
+    });
+
+    // Fonction pour générer le HTML d'un service avec puce colorée
+    function generateServiceItem(service) {
+        let statusColor = '#6b7280'; // Gris par défaut (non exposé/unknown)
+        let statusIcon = 'fa-circle';
+        
+        // Déterminer la couleur selon le statut
+        if (!service.healthcheck_url) {
+            statusColor = '#6b7280'; // Gris - Non exposé
+        } else if (service.status === 'up' || service.status === 'healthy') {
+            statusColor = '#10b981'; // Vert - Actif
+        } else if (service.status === 'down' || service.status === 'unhealthy') {
+            statusColor = '#ef4444'; // Rouge - Inactif
+        } else {
+            statusColor = '#6b7280'; // Gris - Statut inconnu
+        }
+
+        // Badge type de service
+        let badge = '';
+        if (!service.healthcheck_url) {
+            badge = '<span class="url-status-badge internal">Internal</span>';
+        } else if (['grafana', 'portainer', 'n8n', 'strapi', 'superset'].includes(service.name.toLowerCase())) {
+            badge = '<span class="url-status-badge auth">Auth</span>';
+        } else {
+            badge = '<span class="url-status-badge public">Public</span>';
+        }
 
         return `
             <div class="url-item">
                 <div class="url-item-left">
-                    <span class="url-item-icon"><i class="${service.icon}"></i></span>
-                    <span class="url-item-name">${service.name}</span>
-                    <span class="url-health-dot" id="${healthId}" title="Vérification...">
-                        <i class="fas fa-circle" style="color: #6b7280; font-size: 8px;"></i>
+                    <span class="url-health-dot">
+                        <i class="fas ${statusIcon}" style="color: ${statusColor}; font-size: 10px;"></i>
                     </span>
+                    <span class="url-item-name">${service.displayName}</span>
                 </div>
                 <div class="url-item-right">
-                    <span class="url-status-badge ${statusClass}">${statusText}</span>
-                    <a href="${linkHref}" target="_blank" class="url-link-btn ${linkDisabled}" ${linkClick} title="${isInternal ? 'Service interne non accessible' : 'Ouvrir ' + service.name}">
-                        <i class="fas fa-${isInternal ? 'lock' : 'external-link-alt'}"></i>
-                    </a>
+                    ${badge}
                 </div>
             </div>
         `;
     }
 
     // Peupler chaque catégorie
-    const mainList = document.getElementById('mainUrlsList');
-    const monitoringList = document.getElementById('monitoringUrlsList');
-    const premiumList = document.getElementById('premiumUrlsList');
-    const internalList = document.getElementById('internalUrlsList');
+    const mainList = document.getElementById('mainServicesList');
+    const monitoringList = document.getElementById('monitoringServicesList');
+    const biList = document.getElementById('biServicesList');
+    const infraList = document.getElementById('infraServicesList');
 
     if (mainList) {
-        mainList.innerHTML = services.main.map(service => generateUrlItem(service, isLocal)).join('');
+        mainList.innerHTML = categorizedServices.main.length > 0
+            ? categorizedServices.main.map(service => generateServiceItem(service)).join('')
+            : '<div class="url-item"><span class="url-item-name" style="color: #6b7280;">Aucun service</span></div>';
     }
 
     if (monitoringList) {
-        monitoringList.innerHTML = services.monitoring.map(service => generateUrlItem(service, isLocal)).join('');
+        monitoringList.innerHTML = categorizedServices.monitoring.length > 0
+            ? categorizedServices.monitoring.map(service => generateServiceItem(service)).join('')
+            : '<div class="url-item"><span class="url-item-name" style="color: #6b7280;">Aucun service</span></div>';
     }
 
-    if (premiumList) {
-        premiumList.innerHTML = services.premium.map(service => generateUrlItem(service, isLocal)).join('');
+    if (biList) {
+        biList.innerHTML = categorizedServices.bi.length > 0
+            ? categorizedServices.bi.map(service => generateServiceItem(service)).join('')
+            : '<div class="url-item"><span class="url-item-name" style="color: #6b7280;">Aucun service</span></div>';
     }
 
-    if (internalList) {
-        internalList.innerHTML = services.internal.map(service => generateUrlItem(service, isLocal)).join('');
-    }
-
-    // Vérifier la santé des services après le rendu
-    setTimeout(() => checkQuickUrlsHealth(services, isLocal), 500);
-}
-
-// Vérifier la santé des services dans Quick URLs
-async function checkQuickUrlsHealth(services, isLocal) {
-    const allServices = [
-        ...services.main,
-        ...services.monitoring,
-        ...services.premium,
-        ...services.internal
-    ];
-
-    for (const service of allServices) {
-        const serviceKey = service.name.toLowerCase().replace(/\s+/g, '-');
-        const healthId = `health-${serviceKey}`;
-        const healthDot = document.getElementById(healthId);
-
-        if (!healthDot) continue;
-
-        // Si le service doit ignorer le healthcheck (service interne non exposé)
-        if (service.skipHealthCheck) {
-            healthDot.innerHTML = '<i class="fas fa-circle" style="color: #6b7280; font-size: 8px;"></i>';
-            healthDot.title = 'Service interne (non vérifié)';
-            continue;
-        }
-
-        const url = isLocal ? service.local : service.prod;
-
-        try {
-            const response = await fetch(url, {
-                method: 'HEAD',
-                mode: 'no-cors',
-                cache: 'no-cache',
-                signal: AbortSignal.timeout(2000)
-            });
-
-            // Mode no-cors retourne toujours opaque, donc on considère que le service répond
-            healthDot.innerHTML = '<i class="fas fa-circle" style="color: #10b981; font-size: 8px;"></i>';
-            healthDot.title = 'En ligne';
-        } catch (error) {
-            healthDot.innerHTML = '<i class="fas fa-circle" style="color: #ef4444; font-size: 8px;"></i>';
-            healthDot.title = 'Hors ligne ou non accessible';
-        }
+    if (infraList) {
+        infraList.innerHTML = categorizedServices.infra.length > 0
+            ? categorizedServices.infra.map(service => generateServiceItem(service)).join('')
+            : '<div class="url-item"><span class="url-item-name" style="color: #6b7280;">Aucun service</span></div>';
     }
 }
