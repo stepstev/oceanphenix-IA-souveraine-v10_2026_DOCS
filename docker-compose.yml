@@ -95,6 +95,45 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./core/monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./core/monitoring/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./core/monitoring/dashboards:/var/lib/grafana/dashboards:ro
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: v8-node-exporter
+    restart: unless-stopped
+    profiles: [ monitoring, all ]
+    networks: [ internal ]
+    ports:
+      - "9100:9100"
+    command:
+      - '--path.rootfs=/host'
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: v8-cadvisor
+    restart: unless-stopped
+    profiles: [ monitoring, all ]
+    networks: [ internal ]
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    privileged: true
+    devices:
+      - /dev/kmsg
 
   # ═══════════════════════════════════════════════════════════════════════════
   # 🧠 INTELLIGENCE ARTIFICIELLE (Profile: rag)
