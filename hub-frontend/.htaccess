@@ -1,0 +1,183 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# 🌊 OceanPhenix V8 - Configuration Apache (O2switch)
+# ═══════════════════════════════════════════════════════════════════════════
+# Compatible : cPanel / Apache 2.4+ / O2switch mutualisé
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ─────────────────────────────────────────────────────────────────────────
+# 🔒 SÉCURITÉ
+# ─────────────────────────────────────────────────────────────────────────
+
+# Headers de sécurité
+<IfModule mod_headers.c>
+    # Protection XSS
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Empêcher l'interprétation MIME
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Protection contre le clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # Referrer Policy
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Permissions Policy
+    Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    
+    # Content Security Policy (ajuster selon vos CDN)
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.oceanphenix.fr https://api.oceanphenix.fr;"
+    
+    # HSTS (Strict Transport Security) - Activer uniquement si SSL configuré
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# Désactiver la signature du serveur
+ServerSignature Off
+
+# Bloquer l'accès aux fichiers sensibles
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protéger les fichiers de configuration
+<FilesMatch "\.(env|json|config\.js|config\.php|md)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Autoriser architecture.json (utilisé par le dashboard)
+<FilesMatch "^architecture\.json$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+# ─────────────────────────────────────────────────────────────────────────
+# ⚡ PERFORMANCE & CACHE
+# ─────────────────────────────────────────────────────────────────────────
+
+# Activer la compression GZIP
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Cache navigateur
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Images
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # CSS & JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    
+    # Fonts
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    
+    # HTML (pas de cache)
+    ExpiresByType text/html "access plus 0 seconds"
+    
+    # JSON & XML
+    ExpiresByType application/json "access plus 0 seconds"
+    ExpiresByType application/xml "access plus 0 seconds"
+</IfModule>
+
+# Cache-Control headers
+<IfModule mod_headers.c>
+    # Assets statiques (images, fonts)
+    <FilesMatch "\.(jpg|jpeg|png|gif|svg|webp|ico|woff|woff2|ttf|otf)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # CSS & JS
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
+    
+    # HTML (pas de cache)
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>
+
+# ─────────────────────────────────────────────────────────────────────────
+# 🌐 CORS NON NÉCESSAIRE (Frontend statique)
+# ─────────────────────────────────────────────────────────────────────────
+# Le CORS doit être configuré sur le backend (Hetzner VPS)
+# Ce frontend statique fait des appels directs à l'API
+# Voir: core/proxy/Caddyfile pour configuration CORS backend
+
+# ─────────────────────────────────────────────────────────────────────────
+# 🔄 REWRITE & ROUTING (SPA)
+# ─────────────────────────────────────────────────────────────────────────
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Forcer HTTPS (à activer après configuration SSL)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Ignorer les fichiers physiques existants
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Rediriger tout vers index.html (Single Page Application)
+    RewriteRule ^(.*)$ index.html [L,QSA]
+</IfModule>
+
+# ─────────────────────────────────────────────────────────────────────────
+# 📄 MIME TYPES
+# ─────────────────────────────────────────────────────────────────────────
+
+<IfModule mod_mime.c>
+    AddType application/javascript .js
+    AddType text/css .css
+    AddType image/svg+xml .svg
+    AddType application/json .json
+    AddType font/woff .woff
+    AddType font/woff2 .woff2
+</IfModule>
+
+# ─────────────────────────────────────────────────────────────────────────
+# 🛡️ PROTECTION ANTI-HOTLINK
+# ─────────────────────────────────────────────────────────────────────────
+
+# Bloquer le hotlinking des images (optionnel)
+# <IfModule mod_rewrite.c>
+#     RewriteCond %{HTTP_REFERER} !^$
+#     RewriteCond %{HTTP_REFERER} !^https?://(www\.)?oceanphenix\.fr [NC]
+#     RewriteRule \.(jpg|jpeg|png|gif|svg)$ - [F,L]
+# </IfModule>
+
+# ─────────────────────────────────────────────────────────────────────────
+# 🚫 DÉSACTIVER LISTAGE RÉPERTOIRES
+# ─────────────────────────────────────────────────────────────────────────
+
+Options -Indexes
+
+# ─────────────────────────────────────────────────────────────────────────
+# 📊 PAS DE PHP - FRONTEND 100% STATIQUE
+# ─────────────────────────────────────────────────────────────────────────
+# Ce frontend est purement statique (HTML/CSS/JS)
+# Aucun traitement PHP n'est nécessaire
+
+# ═══════════════════════════════════════════════════════════════════════════
+# FIN DE CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════

@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OceanPhenix IA Souveraine v6 - Hub Central</title>
-    <meta name="description" content="Tableau de bord centralisé de votre plateforme IA Souveraine OceanPhenix v6 - 100% RGPD, hébergement France.">
+    <title>OceanPhenix IA Souveraine V8 - Hub Central</title>
+    <meta name="description" content="Tableau de bord centralisé de votre plateforme IA Souveraine OceanPhenix V8 - 100% RGPD, hébergement France.">
+    
+    <!-- Compatibilité O2switch / Hébergement Mutualisé -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,9 +41,9 @@
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="brand">
-                <img src="assets/logo-oceanphenix.svg" alt="OceanPhenix v6 Logo" class="logo">
+                <img src="assets/logo-oceanphenix.svg" alt="OceanPhenix V8 Logo" class="logo">
                 <div class="brand-text">
-                    <h1>OceanPhenix v6</h1>
+                    <h1>OceanPhenix V8</h1>
                     <span class="badge-sovereign">🇫🇷 100% Souverain</span>
                 </div>
             </div>
@@ -51,9 +54,6 @@
                 </a>
                 <a href="#studio" class="nav-item" data-tab="studio">
                     <i class="fas fa-brain"></i> AI Studio
-                </a>
-                <a href="#documents" class="nav-item" data-tab="documents">
-                    <i class="fas fa-folder-open"></i> Documents
                 </a>
                 <div class="nav-divider"></div>
                 <span class="nav-label">Architecture</span>
@@ -71,7 +71,7 @@
             </nav>
             
             <div class="sidebar-footer">
-                <p class="version">v6.0.0 - Décembre 2025</p>
+                <p class="version">V8.0.0 - Décembre 2025</p>
             </div>
         </aside>
 
@@ -164,13 +164,13 @@
                     </div>
                     
                     <div class="card kpi-card">
-                        <div class="kpi-icon docs-count">
-                            <i class="fas fa-file-alt"></i>
+                        <div class="kpi-icon models-active">
+                            <i class="fas fa-database"></i>
                         </div>
                         <div class="kpi-content">
-                            <h3>Base RAG</h3>
-                            <p class="kpi-value" id="kpi-docs">0</p>
-                            <span class="kpi-label">Documents indexés</span>
+                            <h3>Base Vectorielle</h3>
+                            <p class="kpi-value" id="kpi-vectors">-</p>
+                            <span class="kpi-label">Vecteurs stockés (Qdrant)</span>
                         </div>
                     </div>
                     
@@ -434,32 +434,6 @@
                 </div>
             </div>
 
-            <!-- Documents View -->
-            <div id="view-documents" class="view">
-                <div class="card full-width">
-                    <div class="card-header">
-                        <h3>Documents Indexés</h3>
-                        <button class="btn-secondary" onclick="refreshDocs()">Actualiser</button>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Type</th>
-                                    <th>Taille</th>
-                                    <th>Date</th>
-                                    <th>Statut</th>
-                                </tr>
-                            </thead>
-                            <tbody id="docs-table-body">
-                                <tr><td colspan="5" class="text-center">Chargement...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
             <!-- Admin View -->
             <div id="view-admin" class="view">
                 <h3 class="section-title">🔧 Console d'Administration v6</h3>
@@ -476,7 +450,7 @@
                         </div>
                         <div class="admin-card-content">
                             <h3>MinIO Console</h3>
-                            <p class="admin-subtitle">🗄️ Stockage S3 • Port 9001</p>
+                            <p class="admin-subtitle">🗄️ Stockage S3</p>
                             <p class="admin-desc">Gestion buckets, objets et politiques. Stockage haute performance pour documents RAG et embeddings.</p>
                         </div>
                     </a>
@@ -491,7 +465,7 @@
                         </div>
                         <div class="admin-card-content">
                             <h3>n8n Automation</h3>
-                            <p class="admin-subtitle">⚡ Workflows • Port 5678</p>
+                            <p class="admin-subtitle">⚡ Workflows</p>
                             <p class="admin-desc">Automatisation no-code pour intégrations API, ETL et webhooks. 300+ applications connectables.</p>
                         </div>
                     </a>
@@ -506,7 +480,7 @@
                         </div>
                         <div class="admin-card-content">
                             <h3>Grafana</h3>
-                            <p class="admin-subtitle">📊 Monitoring • Port 3000</p>
+                            <p class="admin-subtitle">📊 Monitoring</p>
                             <p class="admin-desc">Dashboards temps réel, métriques Prometheus, logs Loki et alerting 24/7.</p>
                         </div>
                     </a>
@@ -521,7 +495,7 @@
                         </div>
                         <div class="admin-card-content">
                             <h3>Portainer CE</h3>
-                            <p class="admin-subtitle">🐳 Docker • Port 9443</p>
+                            <p class="admin-subtitle">🐳 Docker</p>
                             <p class="admin-desc">Management complet stacks, images, volumes, réseaux et monitoring ressources.</p>
                         </div>
                     </a>

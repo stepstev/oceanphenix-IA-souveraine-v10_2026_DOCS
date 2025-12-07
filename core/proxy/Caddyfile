@@ -8,7 +8,7 @@
 # ═══════════════════════════════════════════════════════════════════════════
 
 # 1. Dashboard Principal (Tabler UI)
-{$DOMAIN_DASHBOARD} {
+{$DOMAIN_DASHBOARD}, http://localhost {
     encode gzip
     reverse_proxy dashboard:80
     
