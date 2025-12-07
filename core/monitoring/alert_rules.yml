@@ -1,0 +1,220 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# 📊 Règles d'Alertes Prometheus
+# ═══════════════════════════════════════════════════════════════════════════
+
+groups:
+  # ─────────────────────────────────────────────────────────────────────────
+  # 🖥️ Alertes Infrastructure
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: infrastructure
+    interval: 30s
+    rules:
+      # Instance down
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} est DOWN"
+          description: "L'instance {{ $labels.instance }} du job {{ $labels.job }} ne répond plus depuis plus d'1 minute."
+      
+      # CPU élevé
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "CPU élevé sur {{ $labels.instance }}"
+          description: "L'utilisation CPU est de {{ $value | humanize }}% sur {{ $labels.instance }}."
+      
+      # CPU critique
+      - alert: CriticalCPUUsage
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 95
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "CPU CRITIQUE sur {{ $labels.instance }}"
+          description: "L'utilisation CPU est de {{ $value | humanize }}% sur {{ $labels.instance }}. Action immédiate requise."
+      
+      # Mémoire élevée
+      - alert: HighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Mémoire élevée sur {{ $labels.instance }}"
+          description: "L'utilisation mémoire est de {{ $value | humanize }}% sur {{ $labels.instance }}."
+      
+      # Mémoire critique
+      - alert: CriticalMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 95
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Mémoire CRITIQUE sur {{ $labels.instance }}"
+          description: "L'utilisation mémoire est de {{ $value | humanize }}% sur {{ $labels.instance }}. Risque d'OOM."
+      
+      # Disque plein
+      - alert: DiskSpaceLow
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 < 20
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Espace disque faible sur {{ $labels.instance }}"
+          description: "Il reste seulement {{ $value | humanize }}% d'espace disque sur {{ $labels.device }} ({{ $labels.mountpoint }})."
+      
+      # Disque critique
+      - alert: DiskSpaceCritical
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 < 10
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Espace disque CRITIQUE sur {{ $labels.instance }}"
+          description: "Il reste seulement {{ $value | humanize }}% d'espace disque sur {{ $labels.device }}. Action urgente."
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # 🐳 Alertes Docker / Conteneurs
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: containers
+    interval: 30s
+    rules:
+      # Conteneur down
+      - alert: ContainerDown
+        expr: absent(container_last_seen{name!=""})
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Conteneur {{ $labels.name }} est DOWN"
+          description: "Le conteneur {{ $labels.name }} ne répond plus."
+      
+      # Conteneur redémarré
+      - alert: ContainerRestarted
+        expr: rate(container_last_seen[5m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Conteneur {{ $labels.name }} redémarré"
+          description: "Le conteneur {{ $labels.name }} a redémarré récemment."
+      
+      # CPU conteneur élevé
+      - alert: ContainerHighCPU
+        expr: rate(container_cpu_usage_seconds_total{name!=""}[5m]) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "CPU élevé pour {{ $labels.name }}"
+          description: "Le conteneur {{ $labels.name }} utilise {{ $value | humanize }}% CPU."
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # 🧠 Alertes Services IA
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: ai_services
+    interval: 30s
+    rules:
+      # Ollama down
+      - alert: OllamaDown
+        expr: up{job="oceanphenix-core", instance=~"ollama.*"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Ollama LLM Engine est DOWN"
+          description: "Le service Ollama ne répond plus. Les requêtes IA vont échouer."
+      
+      # Qdrant down
+      - alert: QdrantDown
+        expr: up{job="oceanphenix-core", instance=~"qdrant.*"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Qdrant Vector DB est DOWN"
+          description: "La base vectorielle Qdrant ne répond plus. Le RAG est indisponible."
+      
+      # API Backend down
+      - alert: BackendAPIDown
+        expr: up{job="oceanphenix-core", instance=~"api.*"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "API Backend est DOWN"
+          description: "L'API FastAPI backend ne répond plus."
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # 💾 Alertes Stockage
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: storage
+    interval: 1m
+    rules:
+      # MinIO down
+      - alert: MinIODown
+        expr: up{job="oceanphenix-core", instance=~"minio.*"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "MinIO S3 Storage est DOWN"
+          description: "Le stockage S3 MinIO ne répond plus. Les uploads/downloads vont échouer."
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # 🔄 Alertes Proxy & Réseau
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: proxy
+    interval: 30s
+    rules:
+      # Caddy down
+      - alert: CaddyProxyDown
+        expr: up{job="oceanphenix-core", instance=~"caddy.*"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Caddy Reverse Proxy est DOWN"
+          description: "Le reverse proxy Caddy ne répond plus. Tous les services externes sont inaccessibles."
+      
+      # Taux d'erreur HTTP élevé
+      - alert: HighHTTPErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Taux d'erreur HTTP élevé"
+          description: "Le taux d'erreur HTTP 5xx est de {{ $value | humanizePercentage }}."
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # 📈 Alertes Monitoring
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: monitoring
+    interval: 1m
+    rules:
+      # Prometheus down
+      - alert: PrometheusDown
+        expr: up{job="prometheus"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Prometheus est DOWN"
+          description: "Le système de monitoring Prometheus ne répond plus."
+      
+      # Grafana down
+      - alert: GrafanaDown
+        expr: up{instance=~"grafana.*"} == 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Grafana Dashboard est DOWN"
+          description: "L'interface Grafana ne répond plus."

@@ -27,6 +27,7 @@ volumes:
   db_data: { name: v8_db_data } # Postgres global
   portainer_data: { name: v8_portainer_data }
   prometheus_data: { name: v8_prometheus_data }
+  alertmanager_data: { name: v8_alertmanager_data }
   grafana_data: { name: v8_grafana_data }
   openwebui_data: { name: v8_openwebui_data }
 
@@ -89,9 +90,37 @@ services:
     networks: [ internal ]
     ports:
       - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-lifecycle'
     volumes:
-      - ./core/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./core/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./core/monitoring/alert_rules.yml:/etc/prometheus/alert_rules.yml:ro
       - prometheus_data:/prometheus
+    depends_on:
+      - alertmanager
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: v8-alertmanager
+    restart: unless-stopped
+    profiles: [ monitoring, all ]
+    networks: [ internal, proxy ]
+    ports:
+      - "9093:9093"
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+      - '--web.external-url=http://localhost:9093'
+    environment:
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+    volumes:
+      - ./core/monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - ./core/monitoring/templates:/etc/alertmanager/templates:ro
+      - alertmanager_data:/alertmanager
 
   grafana:
     image: grafana/grafana-oss:latest

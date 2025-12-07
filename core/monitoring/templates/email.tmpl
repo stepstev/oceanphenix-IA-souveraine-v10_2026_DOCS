@@ -1,0 +1,209 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# 📧 Templates Email Alertmanager
+# ═══════════════════════════════════════════════════════════════════════════
+
+{{ define "email.default.subject" }}
+[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .GroupLabels.alertname }}
+{{ end }}
+
+{{ define "email.default.html" }}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+    .header {
+      border-bottom: 3px solid #2196F3;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      margin: 0;
+      color: #2196F3;
+      font-size: 24px;
+    }
+    .alert-card {
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 6px;
+      border-left: 5px solid;
+    }
+    .alert-firing {
+      background-color: #ffebee;
+      border-color: #f44336;
+    }
+    .alert-resolved {
+      background-color: #e8f5e9;
+      border-color: #4caf50;
+    }
+    .severity-critical {
+      background-color: #ffcdd2 !important;
+      border-color: #d32f2f !important;
+    }
+    .severity-warning {
+      background-color: #fff3e0;
+      border-color: #ff9800;
+    }
+    .severity-info {
+      background-color: #e3f2fd;
+      border-color: #2196f3;
+    }
+    .alert-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0 0 10px 0;
+    }
+    .alert-status {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .status-firing {
+      background-color: #f44336;
+      color: white;
+    }
+    .status-resolved {
+      background-color: #4caf50;
+      color: white;
+    }
+    .alert-info {
+      margin: 15px 0;
+    }
+    .alert-info-row {
+      margin: 8px 0;
+    }
+    .alert-info-label {
+      font-weight: bold;
+      color: #666;
+      display: inline-block;
+      min-width: 120px;
+    }
+    .labels {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .label-tag {
+      display: inline-block;
+      background: #e0e0e0;
+      padding: 3px 10px;
+      margin: 3px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-family: monospace;
+    }
+    .footer {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+      text-align: center;
+      color: #666;
+      font-size: 12px;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #2196F3;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 15px;
+    }
+    .button:hover {
+      background-color: #1976D2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🌊 OceanPhenix IA Souveraine</h1>
+      <p style="margin: 5px 0 0 0; color: #666;">Système de Monitoring & Alertes</p>
+    </div>
+    
+    {{ range .Alerts }}
+    <div class="alert-card alert-{{ .Status }} severity-{{ .Labels.severity }}">
+      <div class="alert-title">
+        {{ if eq .Status "firing" }}🔥{{ else }}✅{{ end }} {{ .Labels.alertname }}
+      </div>
+      
+      <span class="alert-status status-{{ .Status }}">{{ .Status }}</span>
+      
+      <div class="alert-info">
+        {{ if .Annotations.summary }}
+        <div class="alert-info-row">
+          <span class="alert-info-label">📋 Résumé:</span>
+          {{ .Annotations.summary }}
+        </div>
+        {{ end }}
+        
+        {{ if .Annotations.description }}
+        <div class="alert-info-row">
+          <span class="alert-info-label">📝 Description:</span>
+          {{ .Annotations.description }}
+        </div>
+        {{ end }}
+        
+        {{ if .Labels.instance }}
+        <div class="alert-info-row">
+          <span class="alert-info-label">🖥️ Instance:</span>
+          <code>{{ .Labels.instance }}</code>
+        </div>
+        {{ end }}
+        
+        <div class="alert-info-row">
+          <span class="alert-info-label">⏰ Début:</span>
+          {{ .StartsAt.Format "2006-01-02 15:04:05 MST" }}
+        </div>
+        
+        {{ if .EndsAt }}
+        <div class="alert-info-row">
+          <span class="alert-info-label">✔️ Résolu à:</span>
+          {{ .EndsAt.Format "2006-01-02 15:04:05 MST" }}
+        </div>
+        {{ end }}
+      </div>
+      
+      <div class="labels">
+        <strong>🏷️ Labels:</strong><br>
+        {{ range .Labels.SortedPairs }}
+          <span class="label-tag">{{ .Name }}={{ .Value }}</span>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+    
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="{{ .ExternalURL }}" class="button">Accéder à Alertmanager</a>
+    </div>
+    
+    <div class="footer">
+      <p>
+        <strong>OceanPhenix V8</strong> - Plateforme IA Souveraine<br>
+        Ce message a été généré automatiquement par Alertmanager<br>
+        <a href="{{ .ExternalURL }}">{{ .ExternalURL }}</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
+{{ end }}

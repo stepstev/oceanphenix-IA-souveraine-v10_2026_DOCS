@@ -1,0 +1,161 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# 🚨 Alertmanager - Configuration Email
+# ═══════════════════════════════════════════════════════════════════════════
+# Configuration des alertes Prometheus par email
+# Documenté : https://prometheus.io/docs/alerting/latest/configuration/
+# ═══════════════════════════════════════════════════════════════════════════
+
+global:
+  # Temps de résolution par défaut si non spécifié
+  resolve_timeout: 5m
+  
+  # Configuration SMTP (à configurer selon votre fournisseur)
+  smtp_from: 'alertes@oceanphenix.com'
+  smtp_smarthost: 'smtp.example.com:587'  # Ex: smtp.gmail.com:587, smtp.office365.com:587
+  smtp_auth_username: 'alertes@oceanphenix.com'
+  smtp_auth_password: '${SMTP_PASSWORD}'  # À définir dans .env
+  smtp_require_tls: true
+
+# Templates pour les emails
+templates:
+  - '/etc/alertmanager/templates/*.tmpl'
+
+# Route principale
+route:
+  # Groupe les alertes par...
+  group_by: ['alertname', 'cluster', 'service']
+  
+  # Délai avant d'envoyer la première notification pour un groupe
+  group_wait: 10s
+  
+  # Délai avant d'envoyer une notification pour de nouvelles alertes dans un groupe existant
+  group_interval: 10s
+  
+  # Délai minimum entre deux envois pour le même groupe
+  repeat_interval: 12h
+  
+  # Récepteur par défaut
+  receiver: 'email-oceanphenix'
+  
+  # Routes spécifiques
+  routes:
+    # Alertes critiques (envoi immédiat)
+    - match:
+        severity: critical
+      receiver: 'email-critical'
+      group_wait: 0s
+      repeat_interval: 5m
+    
+    # Alertes warning (moins urgentes)
+    - match:
+        severity: warning
+      receiver: 'email-oceanphenix'
+      repeat_interval: 1h
+    
+    # Alertes info (notifications quotidiennes)
+    - match:
+        severity: info
+      receiver: 'email-oceanphenix'
+      repeat_interval: 24h
+
+# Récepteurs (destinations des alertes)
+receivers:
+  # Récepteur par défaut
+  - name: 'email-oceanphenix'
+    email_configs:
+      - to: 'admin@oceanphenix.com'  # À modifier avec votre email
+        headers:
+          Subject: '[OceanPhenix] {{ .GroupLabels.alertname }}'
+        html: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <style>
+              body { font-family: Arial, sans-serif; }
+              .alert { padding: 15px; margin: 10px 0; border-radius: 5px; }
+              .firing { background-color: #ffebee; border-left: 4px solid #f44336; }
+              .resolved { background-color: #e8f5e9; border-left: 4px solid #4caf50; }
+              .critical { background-color: #ffcdd2; }
+              .warning { background-color: #fff3e0; }
+              h2 { color: #333; }
+              .label { display: inline-block; padding: 3px 8px; margin: 2px; background: #e0e0e0; border-radius: 3px; font-size: 12px; }
+            </style>
+          </head>
+          <body>
+            <h2>🌊 OceanPhenix IA Souveraine - Alertes</h2>
+            {{ range .Alerts }}
+            <div class="alert {{ .Status }} {{ .Labels.severity }}">
+              <h3>{{ .Labels.alertname }}</h3>
+              <p><strong>État:</strong> {{ .Status }}</p>
+              <p><strong>Sévérité:</strong> {{ .Labels.severity }}</p>
+              <p><strong>Description:</strong> {{ .Annotations.summary }}</p>
+              <p><strong>Détails:</strong> {{ .Annotations.description }}</p>
+              <p><strong>Début:</strong> {{ .StartsAt }}</p>
+              {{ if .EndsAt }}<p><strong>Fin:</strong> {{ .EndsAt }}</p>{{ end }}
+              <div>
+                <strong>Labels:</strong><br>
+                {{ range .Labels.SortedPairs }}
+                  <span class="label">{{ .Name }}: {{ .Value }}</span>
+                {{ end }}
+              </div>
+            </div>
+            {{ end }}
+            <hr>
+            <p style="color: #666; font-size: 12px;">
+              Envoyé par Alertmanager - OceanPhenix V8<br>
+              {{ .ExternalURL }}
+            </p>
+          </body>
+          </html>
+        send_resolved: true
+  
+  # Récepteur pour alertes critiques (peut ajouter SMS, Slack, etc.)
+  - name: 'email-critical'
+    email_configs:
+      - to: 'admin@oceanphenix.com, support@oceanphenix.com'  # Plusieurs destinataires
+        headers:
+          Subject: '🚨 [CRITIQUE] {{ .GroupLabels.alertname }}'
+        html: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <style>
+              body { font-family: Arial, sans-serif; background-color: #ffebee; padding: 20px; }
+              .alert { background: white; padding: 20px; border-radius: 8px; border-left: 6px solid #f44336; }
+              h2 { color: #c62828; }
+            </style>
+          </head>
+          <body>
+            <div class="alert">
+              <h2>🚨 ALERTE CRITIQUE - Action Immédiate Requise</h2>
+              {{ range .Alerts }}
+              <h3>{{ .Labels.alertname }}</h3>
+              <p><strong>Sévérité:</strong> CRITIQUE</p>
+              <p><strong>Résumé:</strong> {{ .Annotations.summary }}</p>
+              <p><strong>Description:</strong> {{ .Annotations.description }}</p>
+              <p><strong>Instance:</strong> {{ .Labels.instance }}</p>
+              <p><strong>Début:</strong> {{ .StartsAt }}</p>
+              {{ end }}
+              <hr>
+              <p>Connectez-vous au système immédiatement pour diagnostiquer le problème.</p>
+              <p><a href="{{ .ExternalURL }}">Accéder à Alertmanager</a></p>
+            </div>
+          </body>
+          </html>
+        send_resolved: true
+
+# Inhibition rules (éviter le spam d'alertes)
+inhibit_rules:
+  # Si une alerte critique est active, ne pas envoyer les warnings liés
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'instance']
+  
+  # Si un nœud est down, ignorer les alertes de ses services
+  - source_match:
+      alertname: 'NodeDown'
+    target_match_re:
+      alertname: '.*'
+    equal: ['instance']
