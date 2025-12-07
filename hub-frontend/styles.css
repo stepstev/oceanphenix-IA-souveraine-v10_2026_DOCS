@@ -1291,9 +1291,8 @@ body {
     height: 14px;
     border-radius: 50%;
     border: 2px solid rgba(13, 17, 23, 0.9);
-    background: #6b7280;
+    background: #6b7280; /* Gris par défaut (interne) */
     box-shadow: 0 0 8px rgba(107, 114, 128, 0.6);
-    animation: pulse-status 2s ease-in-out infinite;
 }
 
 /* Status indicator dans les nodes du diagramme */
@@ -1305,30 +1304,38 @@ body {
     z-index: 10;
 }
 
+/* Vert clignotant pour Actif */
 .status-indicator.online {
     background: #10b981;
     box-shadow: 0 0 12px rgba(16, 185, 129, 0.9);
+    animation: pulse-online 1.5s ease-in-out infinite;
 }
 
+/* Rouge pour Inactif */
 .status-indicator.offline {
     background: #ef4444;
     box-shadow: 0 0 12px rgba(239, 68, 68, 0.9);
 }
 
+/* Gris pour Interne */
 .status-indicator.internal {
     background: #6b7280;
     box-shadow: 0 0 8px rgba(107, 114, 128, 0.6);
 }
 
-@keyframes pulse-status {
+/* Animation de clignotement pour les services actifs */
+@keyframes pulse-online {
     0%, 100% {
         opacity: 1;
         transform: scale(1);
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.9);
     }
     50% {
-        opacity: 0.7;
-        transform: scale(1.15);
+        opacity: 0.6;
+        transform: scale(1.2);
+        box-shadow: 0 0 20px rgba(16, 185, 129, 1);
     }
+}
 }
 
 /* Legend Inline - Top Left */
@@ -1614,8 +1621,9 @@ body {
     flex-shrink: 0;
 }
 
-.legend-item .status-indicator.pulse {
-    animation: pulse-status 2s ease-in-out infinite;
+.legend-item .status-indicator.pulse,
+.legend-item .status-indicator.online {
+    animation: pulse-online 1.5s ease-in-out infinite;
 }
 
 /* Services Guide Section */
