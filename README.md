@@ -182,6 +182,7 @@ graph TB
 - ✅ **Auto-Indexation** : Upload → MinIO → Vectorisation → RAG (automatique)
 - ✅ **S3 Storage** : Stockage documents compatible S3 (MinIO)
 - ✅ **API REST** : Backend FastAPI pour intégrations
+- ✅ **Documentation API** : Swagger UI & ReDoc automatiques (OpenAPI 3.1)
 
 ### Monitoring & Observability
 
@@ -460,7 +461,36 @@ docker compose --profile all up -d
 | **n8n** | <http://localhost:5678> | Signup |
 | **Portainer** | <https://localhost:9443> | Signup |
 | **Qdrant Dashboard** | <http://localhost:6333>/dashboard | Aucun |
-| **API Swagger** | <http://localhost:8000>/docs | Aucun |
+| **API Swagger UI** | <http://localhost:8000>/docs | Aucun |
+| **API OpenAPI Spec** | <http://localhost:8000>/openapi.json | Aucun |
+
+### 📡 Documentation API
+
+L'API FastAPI fournit une documentation interactive complète :
+
+**🔹 Swagger UI** - Interface interactive
+- URL : <http://localhost:8000>/docs
+- Testez les endpoints directement
+- Exemples de requêtes inclus
+- Support Try-it-out
+
+**🔹 OpenAPI Specification** - Format JSON
+- URL : <http://localhost:8000>/openapi.json
+- Compatible avec tous les outils OpenAPI
+- Génération de clients API automatique
+
+**Endpoints disponibles :**
+- `GET /health` - Santé globale de la plateforme
+- `POST /rag/ingest` - Ingestion de documents
+- `POST /rag/ask` - Requête RAG avec contexte
+- `GET /documents/` - Liste des documents
+- `POST /documents/upload` - Upload de fichiers
+- `GET /models/` - Liste des modèles Ollama
+- `POST /models/pull` - Installation de modèles
+- `GET /bi/services` - Statut des services
+- `GET /bi/stats/documents` - Statistiques documents
+
+> **💡 Astuce** : Depuis le Hub Frontend, accédez à la documentation via la sidebar → Section "Documentation API"
 
 ### Workflow RAG Complet
 
