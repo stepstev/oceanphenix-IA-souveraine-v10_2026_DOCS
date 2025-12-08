@@ -81,12 +81,107 @@ async def lifespan(app: FastAPI):
 # ═══════════════════════════════════════════════════════════════════════════
 
 app = FastAPI(
-    title="OceanPhenix IA Souveraine API",
-    description="API RAG complète pour plateforme IA souveraine",
+    title="▸ OceanPhenix IA Souveraine API",
+    description="""
+# API REST pour Plateforme IA Souveraine
+
+## ▸ Vue d'ensemble
+
+API complète pour la gestion d'une plateforme d'intelligence artificielle souveraine avec RAG (Retrieval-Augmented Generation).
+
+## ◆ Fonctionnalités principales
+
+* **▹ RAG (Retrieval-Augmented Generation)** : Ingestion de documents et génération de réponses contextuelles
+* **▹ Gestion des documents** : Upload, téléchargement et suppression de fichiers
+* **▹ Gestion des modèles** : Installation, listage et suppression de modèles IA
+* **▹ Business Intelligence** : Statistiques et métriques de la plateforme
+* **▹ Health Checks** : Surveillance de l'état des services
+
+## ◇ Architecture
+
+La plateforme s'appuie sur :
+- **Ollama** : Serveur de modèles IA locaux
+- **Qdrant** : Base de données vectorielle
+- **MinIO** : Stockage objet S3-compatible
+- **FastAPI** : Framework web moderne et performant
+
+## ◈ Authentification
+
+Actuellement, l'API est en mode ouvert pour le développement. L'authentification sera ajoutée dans une version future.
+
+## ■ Documentation
+
+- **Swagger UI** : Interface interactive à [/docs](/docs)
+- **ReDoc** : Documentation détaillée à [/redoc](/redoc)
+- **OpenAPI Spec** : Spécification JSON à [/openapi.json](/openapi.json)
+
+---
+
+# 📚 Liens API Documentation
+
+## Interface Interactive Swagger UI
+**URL** : [http://localhost:8000/docs](http://localhost:8000/docs)
+
+▹ Testez les endpoints directement depuis le navigateur  
+▹ Essayez les requêtes avec des exemples  
+▹ Interface complète pour explorer l'API  
+
+## Documentation ReDoc Élégante
+**URL** : [http://localhost:8000/redoc](http://localhost:8000/redoc)
+
+▹ Vue complète avec descriptions détaillées  
+▹ Navigation par tags (Health, RAG, Documents, Models, BI)  
+▹ Design moderne et professionnel  
+
+## Spécification OpenAPI JSON
+**URL** : [http://localhost:8000/openapi.json](http://localhost:8000/openapi.json)
+
+▹ Spécification OpenAPI 3.1 complète  
+▹ Format JSON pour intégration  
+▹ Compatible avec tous les outils OpenAPI  
+
+---
+
+## ● Support
+
+Pour toute question ou problème, contactez l'équipe OceanPhenix.
+    """,
     version="1.0.0",
+    contact={
+        "name": "OceanPhenix Support",
+        "url": "https://oceanphenix.com",
+        "email": "support@oceanphenix.com"
+    },
+    license_info={
+        "name": "Propriétaire - OceanPhenix",
+        "url": "https://oceanphenix.com/licence"
+    },
     docs_url="/docs",
     redoc_url="/redoc",
-    lifespan=lifespan
+    openapi_url="/openapi.json",
+    lifespan=lifespan,
+    openapi_tags=[
+        {
+            "name": "Health",
+            "description": "◆ **Surveillance de la santé** - Endpoints pour vérifier l'état de santé de tous les services de la plateforme (Ollama, Qdrant, MinIO)."
+        },
+        {
+            "name": "RAG",
+            "description": "◆ **Retrieval-Augmented Generation** - Ingestion de documents et génération de réponses intelligentes basées sur le contenu indexé."
+        },
+        {
+            "name": "Documents",
+            "description": "◆ **Gestion documentaire** - Upload, listage, téléchargement et suppression de documents. Stockage sécurisé dans MinIO."
+        },
+        {
+            "name": "Models",
+            "description": "◆ **Gestion des modèles IA** - Installation (pull), listage et suppression de modèles Ollama. Recommandations de modèles optimisés."
+        },
+        {
+            "name": "Business Intelligence",
+            "description": "◆ **Analytics & Métriques** - Statistiques en temps réel sur l'utilisation de la plateforme, statut des services et métriques de performance."
+        }
+    ]
 )
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -131,7 +226,22 @@ app.include_router(models_router, prefix="/models", tags=["Models"])
 # Routes de base
 # ═══════════════════════════════════════════════════════════════════════════
 
-@app.get("/", status_code=status.HTTP_200_OK)
+@app.get(
+    "/",
+    status_code=status.HTTP_200_OK,
+    summary="▸ Page d'accueil de l'API",
+    description="""
+    Endpoint racine fournissant les informations générales sur l'API.
+    
+    Retourne :
+    - Le nom du service
+    - La version actuelle
+    - Le statut opérationnel
+    - La liste des endpoints disponibles
+    """,
+    response_description="Informations générales de l'API",
+    tags=["General"]
+)
 async def root():
     """Route racine avec informations API"""
     return {
@@ -148,7 +258,14 @@ async def root():
         }
     }
 
-@app.get("/version", status_code=status.HTTP_200_OK)
+@app.get(
+    "/version",
+    status_code=status.HTTP_200_OK,
+    summary="■ Version de l'API",
+    description="Retourne les informations de version de la plateforme OceanPhenix IA Souveraine.",
+    response_description="Informations de version",
+    tags=["General"]
+)
 async def version():
     """Version de l'API"""
     return {

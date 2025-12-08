@@ -1179,3 +1179,27 @@ function populateQuickUrls() {
         attachServiceClickHandlers(infraList);
     }
 }
+
+/**
+ * Initialise les liens de documentation API dans la sidebar
+ */
+function initAPIDocLinks() {
+    const apiDocLinks = document.querySelectorAll('.api-doc-link');
+    
+    apiDocLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = link.getAttribute('data-api-url');
+            const name = link.getAttribute('data-api-name');
+            
+            // Ouvrir dans une popup centrée à 70% de largeur
+            openServicePopup(url, name, 70, 90);
+        });
+    });
+}
+
+// Appeler l'initialisation au chargement
+document.addEventListener('DOMContentLoaded', () => {
+    initAPIDocLinks();
+});
+

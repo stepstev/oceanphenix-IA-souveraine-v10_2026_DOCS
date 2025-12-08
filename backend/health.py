@@ -84,7 +84,29 @@ async def check_service_health(name: str, url: str) -> ServiceHealth:
 # Routes
 # ═══════════════════════════════════════════════════════════════════════════
 
-@router.get("/health", response_model=HealthResponse, status_code=status.HTTP_200_OK)
+@router.get(
+    "/health",
+    response_model=HealthResponse,
+    status_code=status.HTTP_200_OK,
+    summary="◆ Health Check Global",
+    description="""
+    Vérifie l'état de santé de tous les services de la plateforme.
+    
+    ## Services surveillés :
+    - **Ollama** : Serveur de modèles IA
+    - **Qdrant** : Base de données vectorielle
+    - **MinIO** : Stockage objet S3
+    
+    ## Statuts possibles :
+    - `healthy` : Tous les services fonctionnent (100%)
+    - `degraded` : Certains services ont des problèmes (50-99%)
+    - `unhealthy` : La majorité des services sont hors ligne (<50%)
+    
+    ## Temps de réponse
+    Le temps de réponse de chaque service est mesuré en millisecondes.
+    """,
+    response_description="État de santé détaillé de tous les services"
+)
 async def health_check():
     """
     Endpoint de santé global de la plateforme
@@ -120,7 +142,18 @@ async def health_check():
         health_percentage=round(health_percentage, 2)
     )
 
-@router.get("/health/simple", status_code=status.HTTP_200_OK)
+@router.get(
+    "/health/simple",
+    status_code=status.HTTP_200_OK,
+    summary="● Health Check Simple",
+    description="""
+    Endpoint de health check minimaliste pour les outils de monitoring externes.
+    
+    Retourne simplement un statut "ok" avec un timestamp.
+    Idéal pour les probes Kubernetes ou les load balancers.
+    """,
+    response_description="Statut simple de l'API"
+)
 async def health_simple():
     """
     Health check simple pour monitoring externe
@@ -130,7 +163,18 @@ async def health_simple():
         "timestamp": datetime.utcnow().isoformat()
     }
 
-@router.get("/health/ready", status_code=status.HTTP_200_OK)
+@router.get(
+    "/health/ready",
+    status_code=status.HTTP_200_OK,
+    summary="○ Readiness Probe",
+    description="""
+    Probe de disponibilité pour orchestrateurs (Kubernetes, Docker Swarm).
+    
+    Vérifie si l'API est prête à recevoir du trafic.
+    Utilisé pour déterminer quand commencer à router les requêtes vers ce conteneur.
+    """,
+    response_description="Statut de disponibilité de l'API"
+)
 async def readiness_check():
     """
     Readiness probe - vérifie si l'API est prête à recevoir du trafic
@@ -141,7 +185,18 @@ async def readiness_check():
         "timestamp": datetime.utcnow().isoformat()
     }
 
-@router.get("/health/live", status_code=status.HTTP_200_OK)
+@router.get(
+    "/health/live",
+    status_code=status.HTTP_200_OK,
+    summary="◈ Liveness Probe",
+    description="""
+    Probe de vitalité pour orchestrateurs (Kubernetes, Docker Swarm).
+    
+    Vérifie si l'application est vivante et fonctionnelle.
+    Si cette probe échoue, le conteneur sera redémarré automatiquement.
+    """,
+    response_description="Statut de vitalité de l'API"
+)
 async def liveness_check():
     """
     Liveness probe - vérifie si l'API est vivante
