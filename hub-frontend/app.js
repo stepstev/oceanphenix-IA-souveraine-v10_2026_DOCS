@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initAboutModal();
     initWebUIModal();
+    initMonitoringButtons(); // Nouvelle fonction pour les boutons monitoring
     checkConfig();
     updateApiDisplay();
     populateQuickUrls(); // Nouvelle fonction
@@ -216,7 +217,7 @@ function checkConfig() {
  * Gestion de la navigation (Tabs)
  */
 function initNavigation() {
-    const navItems = document.querySelectorAll('.nav-item');
+    const navItems = document.querySelectorAll('.nav-item[data-tab]');
     const views = document.querySelectorAll('.view');
 
     navItems.forEach(item => {
@@ -243,6 +244,34 @@ function initNavigation() {
             document.getElementById('page-title').innerText = titleMap[targetId];
         });
     });
+}
+
+/**
+ * Initialisation des boutons de monitoring
+ */
+function initMonitoringButtons() {
+    const monitoringPlatform = document.getElementById('monitoring-platform');
+    const monitoringContainers = document.getElementById('monitoring-containers');
+
+    if (monitoringPlatform) {
+        monitoringPlatform.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(
+                'http://localhost:3001/d/oceanphenix-platform-health/oceanphenix-platform-health?orgId=1&from=now-6h&to=now&timezone=Europe%2FParis&refresh=30s&kiosk',
+                'Monitoring - Santé Plateforme'
+            );
+        });
+    }
+
+    if (monitoringContainers) {
+        monitoringContainers.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup(
+                'http://localhost:3001/d/oceanphenix-containers-monitoring/oceanphenix-containers-monitoring?orgId=1&from=now-6h&to=now&timezone=Europe%2FParis&refresh=30s&kiosk',
+                'Monitoring - Conteneurs Docker'
+            );
+        });
+    }
 }
 
 /**
