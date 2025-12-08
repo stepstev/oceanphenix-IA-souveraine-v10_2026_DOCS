@@ -7,33 +7,56 @@
 
 > **Plateforme IA Souveraine complète** avec RAG (Retrieval-Augmented Generation), auto-hébergée, monitoring 360° et orchestration intelligente.
 
-## ⚡ Installation Rapide (5 minutes)
+## ⚡ Démarrage Rapide (3 choix)
 
-**📖 [QUICK_START.md](QUICK_START.md)** - Guide express pour tous les modes d'installation
+### 🎯 Installation Simple (30 min) - **RECOMMANDÉ**
+**Frontend O2Switch + Backend Hetzner**
+
+📖 **[docs/01-GUIDE_SIMPLE.md](docs/01-GUIDE_SIMPLE.md)** ← Commencer ici
 
 ```bash
-# Installation locale express
+# Frontend: Upload hub-frontend/ sur O2Switch
+# Backend: 3 commandes SSH sur Hetzner
+ssh root@46.224.72.83
+curl -o /tmp/install.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/docs/deploy-hetzner.sh
+bash /tmp/install.sh
+```
+
+### 💻 Installation Locale (10 min)
+
+```bash
 git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git
 cd oceanphenix-IA-souveraine-v8
-cp .env.example .env  # Éditer avec vos secrets
-docker compose --profile all up -d
-docker exec v8-ollama ollama pull mistral:latest
-# ✅ http://localhost:8080
+docker-compose --profile all up -d
+# ✅ http://localhost:8000
 ```
+
+### 🚀 Production Complète (1h)
+
+📖 **[docs/05-DEPLOY_PRODUCTION.md](docs/05-DEPLOY_PRODUCTION.md)** - DNS + SSL + Sécurité
+
+---
+
+## 📚 Documentation
+
+| Guide | Description | Durée |
+|-------|-------------|-------|
+| **[01-GUIDE_SIMPLE.md](docs/01-GUIDE_SIMPLE.md)** | ⭐ Frontend O2Switch + Backend Hetzner | 30 min |
+| [02-INSTALLATION.md](docs/02-INSTALLATION.md) | Installation locale complète | 15 min |
+| [03-FRONTEND_SETUP.md](docs/03-FRONTEND_SETUP.md) | Configuration Hub Frontend | 10 min |
+| [04-DEPLOY_HETZNER.md](docs/04-DEPLOY_HETZNER.md) | Déploiement serveur Hetzner | 20 min |
+| [05-DEPLOY_PRODUCTION.md](docs/05-DEPLOY_PRODUCTION.md) | Production avec DNS et SSL | 1h |
+
+---
 
 ## 📋 Table des Matières
 
-- **[⚡ Installation Rapide (5 min)](QUICK_START.md)** ← Commencer ici
 - [Vue d'Ensemble](#-vue-densemble)
 - [Architecture](#️-architecture)
 - [Fonctionnalités](#-fonctionnalités)
-- [Prérequis](#-prérequis)
-- [Guides de Déploiement](#-guides-de-déploiement)
-- [Configuration](#️-configuration)
-- [Utilisation](#-utilisation)
 - [Services Inclus](#️-services-inclus)
-- [Diagrammes UML](#-diagrammes-uml)
-- [API Documentation](#-api-documentation)
+- [Utilisation](#-utilisation)
+- [Configuration](#️-configuration)
 - [Maintenance](#-maintenance)
 - [Troubleshooting](#-troubleshooting)
 - [License](#-license)
