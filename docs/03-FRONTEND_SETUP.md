@@ -59,9 +59,9 @@ docker-compose logs -f dashboard
 
 ### Accès
 
-- **Local**: http://localhost (via Caddy proxy)
-- **Direct**: http://localhost:80 (si exposé)
-- **Production**: https://hub.votredomaine.fr
+- **Local**: <http://localhost> (via Caddy proxy)
+- **Direct**: <http://localhost:80> (si exposé)
+- **Production**: <https://hub.votredomaine.fr>
 
 ---
 
@@ -72,26 +72,26 @@ docker-compose logs -f dashboard
 ```javascript
 // hub-frontend/config.js
 const CONFIG = {
-    API_URL: localStorage.getItem('oceanphenix_api_url') || 'http://localhost:8000',
+    API_URL: localStorage.getItem('oceanphenix_api_url') || '<http://localhost:8000',>
     SERVICES: {
-        'studio': 'http://localhost:3000',
-        'grafana': 'http://localhost:3001',
-        'prometheus': 'http://localhost:9090',
-        'portainer': 'https://localhost:9443',
-        'minio': 'http://localhost:9001',
+        'studio': '<http://localhost:3000',>
+        'grafana': '<http://localhost:3001',>
+        'prometheus': '<http://localhost:9090',>
+        'portainer': '<https://localhost:9443',>
+        'minio': '<http://localhost:9001',>
         // ... autres services
     }
 };
 ```
 
-**Modification pour production:**
+Modification pour production:
 
 ```javascript
 const CONFIG = {
-    API_URL: 'https://api.votredomaine.fr',
+    API_URL: '<https://api.votredomaine.fr',>
     SERVICES: {
-        'studio': 'https://studio.votredomaine.fr',
-        'grafana': 'https://monitoring.votredomaine.fr',
+        'studio': '<https://studio.votredomaine.fr',>
+        'grafana': '<https://monitoring.votredomaine.fr',>
         // ...
     }
 };
@@ -137,7 +137,7 @@ server {
 EOF
 ```
 
-**Modifier docker-compose.yml:**
+Modifier docker-compose.yml:
 
 ```yaml
 dashboard:
@@ -166,7 +166,7 @@ cp votre-logo.svg hub-frontend/assets/logo-oceanphenix.svg
 # Ligne ~45: <img src="assets/logo-oceanphenix.svg" ...>
 ```
 
-**Couleurs (styles.css):**
+Couleurs (styles.css):
 
 ```css
 :root {
@@ -181,7 +181,7 @@ cp votre-logo.svg hub-frontend/assets/logo-oceanphenix.svg
 
 ### 2. Ajouter des services
 
-**Dans architecture.json:**
+Dans architecture.json:
 
 ```json
 {
@@ -193,24 +193,24 @@ cp votre-logo.svg hub-frontend/assets/logo-oceanphenix.svg
       "status": "up",
       "description": "Description",
       "technologies": ["Tech1", "Tech2"],
-      "healthcheck_url": "http://localhost:XXXX/health"
+      "healthcheck_url": "<http://localhost:XXXX/health">
     }
   ]
 }
 ```
 
-**Dans app.js (serviceUrls):**
+Dans app.js (serviceUrls):
 
 ```javascript
 const serviceUrls = {
-    'nouveau-service': 'http://localhost:XXXX',
+    'nouveau-service': '<http://localhost:XXXX',>
     // ...
 };
 ```
 
 ### 3. Modifier la sidebar
 
-**Dans index.html (lignes 50-75):**
+Dans index.html (lignes 50-75):
 
 ```html
 <nav class="nav-menu">
@@ -221,7 +221,7 @@ const serviceUrls = {
 </nav>
 ```
 
-**Ajouter la vue correspondante:**
+Ajouter la vue correspondante:
 
 ```html
 <!-- Dans main content -->
@@ -313,7 +313,7 @@ nginx -s reload
 
 ### Problèmes courants
 
-**1. Page blanche**
+1. Page blanche
 
 ```bash
 # Vérifier les fichiers
@@ -323,7 +323,7 @@ docker exec v8-frontend ls -la /usr/share/nginx/html/
 docker exec v8-frontend cat /usr/share/nginx/html/index.html
 ```
 
-**2. CSS ne charge pas**
+2. CSS ne charge pas
 
 ```bash
 # Vérifier les chemins dans index.html
@@ -332,7 +332,7 @@ docker exec v8-frontend cat /usr/share/nginx/html/index.html
 # Pas: <link rel="stylesheet" href="/styles.css">
 ```
 
-**3. JavaScript erreurs**
+3. JavaScript erreurs
 
 ```bash
 # Ouvrir la console navigateur (F12)
@@ -340,14 +340,14 @@ docker exec v8-frontend cat /usr/share/nginx/html/index.html
 # Vérifier config.js est chargé
 ```
 
-**4. API non accessible**
+4. API non accessible
 
 ```javascript
 // Vérifier config.js
 console.log(CONFIG.API_URL);
 
 // Tester l'API directement
-curl http://localhost:8000/health
+curl <http://localhost:8000/health>
 ```
 
 ---
@@ -356,13 +356,13 @@ curl http://localhost:8000/health
 
 ### 1. Minification
 
-**Installer les outils:**
+Installer les outils:
 
 ```bash
 npm install -g terser csso-cli html-minifier
 ```
 
-**Minifier les fichiers:**
+Minifier les fichiers:
 
 ```bash
 cd hub-frontend
@@ -379,7 +379,7 @@ csso styles-enhanced.css -o styles-enhanced.min.css
 html-minifier --collapse-whitespace --remove-comments index.html -o index.min.html
 ```
 
-**Utiliser les versions minifiées dans index.html:**
+Utiliser les versions minifiées dans index.html:
 
 ```html
 <link rel="stylesheet" href="styles.min.css">
@@ -392,20 +392,20 @@ Configuré automatiquement dans Nginx Alpine, mais vérifier:
 
 ```bash
 # Tester la compression
-curl -H "Accept-Encoding: gzip" -I http://localhost/styles.css
+curl -H "Accept-Encoding: gzip" -I <http://localhost/styles.css>
 # Doit contenir: Content-Encoding: gzip
 ```
 
 ### 3. CDN pour assets lourds
 
-**Utiliser des CDN pour les bibliothèques:**
+Utiliser des CDN pour les bibliothèques:
 
 ```html
 <!-- Font Awesome -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="<https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> rel="stylesheet">
 
 <!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="<https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"> rel="stylesheet">
 ```
 
 ---
@@ -414,7 +414,7 @@ curl -H "Accept-Encoding: gzip" -I http://localhost/styles.css
 
 Si vous voulez créer votre propre image Docker:
 
-**Créer Dockerfile:**
+Créer Dockerfile:
 
 ```dockerfile
 # hub-frontend/Dockerfile
@@ -434,14 +434,14 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-**Builder:**
+Builder:
 
 ```bash
 cd hub-frontend
 docker build -t oceanphenix-frontend:latest .
 ```
 
-**Modifier docker-compose.yml:**
+Modifier docker-compose.yml:
 
 ```yaml
 dashboard:
@@ -469,7 +469,7 @@ docker exec v8-frontend sh -c "cat /var/log/nginx/access.log | wc -l"
 
 ### 2. Intégration Prometheus
 
-**Ajouter nginx-exporter (optionnel):**
+Ajouter nginx-exporter (optionnel):
 
 ```yaml
 # Dans docker-compose.yml
@@ -477,7 +477,7 @@ nginx-exporter:
   image: nginx/nginx-prometheus-exporter:latest
   container_name: v8-nginx-exporter
   command:
-    - '-nginx.scrape-uri=http://v8-frontend:80/stub_status'
+    - '-nginx.scrape-uri=<http://v8-frontend:80/stub_status'>
   networks: [ internal ]
 ```
 
@@ -485,10 +485,10 @@ nginx-exporter:
 
 ## 📚 Ressources
 
-- **Nginx Docs**: https://nginx.org/en/docs/
-- **Docker Nginx**: https://hub.docker.com/_/nginx
-- **Font Awesome Icons**: https://fontawesome.com/icons
-- **Google Fonts**: https://fonts.google.com/
+- **Nginx Docs**: <https://nginx.org/en/docs/>
+- **Docker Nginx**: <https://hub.docker.com/_/nginx>
+- **Font Awesome Icons**: <https://fontawesome.com/icons>
+- **Google Fonts**: <https://fonts.google.com/>
 
 ---
 
@@ -497,7 +497,7 @@ nginx-exporter:
 - [ ] Fichiers hub-frontend/ présents
 - [ ] docker-compose.yml configuré
 - [ ] Container dashboard démarré
-- [ ] Accessible sur http://localhost
+- [ ] Accessible sur <http://localhost>
 - [ ] config.js modifié pour production (si besoin)
 - [ ] Dashboards Grafana importés
 - [ ] Section Monitoring fonctionnelle

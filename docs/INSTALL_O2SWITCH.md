@@ -15,7 +15,7 @@ Cette configuration permet de :
 - ✅ Performance optimale avec CDN
 
 **Architecture** :
-```
+```text
 ┌─────────────────┐         ┌──────────────────┐
 │   O2Switch      │         │     Hetzner      │
 │                 │         │                  │
@@ -30,7 +30,7 @@ Cette configuration permet de :
 ### Compte O2Switch
 
 - Offre O2Switch active (hébergement mutualisé)
-- Accès cPanel : https://cpanel.o2switch.net
+- Accès cPanel : <https://cpanel.o2switch.net>
 - FTP configuré
 
 ### Domaine
@@ -41,7 +41,7 @@ Cette configuration permet de :
 ### Backend API (Hetzner)
 
 - Stack OceanPhenix déployée sur Hetzner (voir [INSTALL_HETZNER.md](INSTALL_HETZNER.md))
-- API accessible : `https://api.votredomaine.com`
+- API accessible : `<https://api.votredomaine.com`>
 - CORS configuré pour accepter le domaine frontend
 
 ## 🚀 Étape 1 : Préparation Frontend
@@ -50,7 +50,7 @@ Cette configuration permet de :
 
 ```bash
 # Clone projet
-git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git
+git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git>
 cd oceanphenix-IA-souveraine-v8/hub-frontend
 ```
 
@@ -62,21 +62,21 @@ cd oceanphenix-IA-souveraine-v8/hub-frontend
 // Configuration Production O2Switch
 const CONFIG = {
     // API Backend sur Hetzner
-    API_URL: 'https://api.votredomaine.com',
+    API_URL: '<https://api.votredomaine.com',>
     
     // Open WebUI sur Hetzner
-    OPENWEBUI_URL: 'https://ia-backend.votredomaine.com',
+    OPENWEBUI_URL: '<https://ia-backend.votredomaine.com',>
     
     // MinIO Console
-    MINIO_CONSOLE_URL: 'https://minio.votredomaine.com',
+    MINIO_CONSOLE_URL: '<https://minio.votredomaine.com',>
     
     // Grafana
-    GRAFANA_URL: 'https://grafana.votredomaine.com',
+    GRAFANA_URL: '<https://grafana.votredomaine.com',>
     
     // Services additionnels
-    N8N_URL: 'https://n8n.votredomaine.com',
-    PORTAINER_URL: 'https://portainer.votredomaine.com',
-    QDRANT_URL: 'https://qdrant.votredomaine.com',
+    N8N_URL: '<https://n8n.votredomaine.com',>
+    PORTAINER_URL: '<https://portainer.votredomaine.com',>
+    QDRANT_URL: '<https://qdrant.votredomaine.com',>
     
     // Environment
     ENV: 'production',
@@ -138,7 +138,7 @@ Adresse IPv4: [IP O2Switch fournie]
 TTL: 14400
 ```
 
-4. **Enregistrer**
+4. Enregistrer
 
 Attendre propagation DNS (5-30 minutes)
 
@@ -151,8 +151,10 @@ dig ia.votredomaine.com +short
 
 ### Méthode 1 : FileZilla
 
-1. **Télécharger** FileZilla : https://filezilla-project.org
+1. **Télécharger** FileZilla : <https://filezilla-project.org>
+
 2. **Connexion** :
+
    - Hôte : `ftp.votredomaine.com` ou `IP O2Switch`
    - Utilisateur : Votre login cPanel
    - Mot de passe : Votre mot de passe cPanel
@@ -160,8 +162,10 @@ dig ia.votredomaine.com +short
 
 3. **Naviguer** vers `/public_html/ia/` (créer si nécessaire)
 
+
 4. **Upload** tous les fichiers :
-   ```
+
+   ```text
    hub-frontend/
    ├── index.html
    ├── config.prod.js
@@ -207,12 +211,14 @@ quit
 
 ### Créer Sous-Domaine
 
-1. **cPanel** → **Sous-domaines**
+1. **cPanel** → Sous-domaines
+
 2. **Créer sous-domaine** :
+
    - Sous-domaine : `ia`
    - Domaine : `votredomaine.com`
    - Racine du document : `/public_html/ia`
-3. **Créer**
+3. Créer
 
 ### SSL/TLS (Let's Encrypt)
 
@@ -224,7 +230,7 @@ quit
 Vérifier certificat :
 
 ```bash
-curl -I https://ia.votredomaine.com
+curl -I <https://ia.votredomaine.com>
 # HTTP/2 200 attendu
 ```
 
@@ -236,7 +242,7 @@ Créer `/public_html/ia/.htaccess` :
 # Force HTTPS
 RewriteEngine On
 RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^(.*)$ <https://%{HTTP_HOST}%{REQUEST_URI}> [L,R=301]
 
 # Activer compression
 <IfModule mod_deflate.c>
@@ -290,8 +296,8 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://ia.votredomaine.com",  # Frontend O2Switch
-        "http://localhost:8080",         # Dev local
+        "<https://ia.votredomaine.com",>  # Frontend O2Switch
+        "<http://localhost:8080",>         # Dev local
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -314,7 +320,7 @@ api.votredomaine.com {
     reverse_proxy backend:8000
     
     header {
-        Access-Control-Allow-Origin "https://ia.votredomaine.com"
+        Access-Control-Allow-Origin "<https://ia.votredomaine.com">
         Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
         Access-Control-Allow-Headers "Content-Type, Authorization"
         Access-Control-Allow-Credentials "true"
@@ -335,8 +341,10 @@ docker exec v8-caddy caddy reload --config /etc/caddy/Caddyfile
 
 ### Test Frontend
 
-1. **Ouvrir** : https://ia.votredomaine.com
+1. **Ouvrir** : <https://ia.votredomaine.com>
+
 2. **Vérifier** :
+
    - ✅ Page s'affiche correctement
    - ✅ Styles chargés
    - ✅ JavaScript fonctionnel
@@ -348,7 +356,7 @@ Ouvrir Console navigateur (F12) :
 
 ```javascript
 // Test fetch API
-fetch('https://api.votredomaine.com/health')
+fetch('<https://api.votredomaine.com/health'>)
     .then(r => r.json())
     .then(data => console.log('API OK:', data))
     .catch(err => console.error('API Error:', err));
@@ -372,7 +380,7 @@ Ajouter avant `</head>` dans `index.html` :
 
 ```html
 <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script async src="<https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -384,10 +392,12 @@ Ajouter avant `</head>` dans `index.html` :
 ### Uptime Monitoring
 
 **UptimeRobot** (Gratuit) :
-1. https://uptimerobot.com
+1. <https://uptimerobot.com>
+
 2. Add Monitor :
+
    - Type : HTTPS
-   - URL : https://ia.votredomaine.com
+   - URL : <https://ia.votredomaine.com>
    - Interval : 5 minutes
 3. Alert contacts : votre email
 
@@ -466,10 +476,10 @@ Configurer secrets dans GitHub :
 
 ```bash
 # Vérifier headers API
-curl -I https://api.votredomaine.com/health
+curl -I <https://api.votredomaine.com/health>
 
 # Doit contenir :
-# Access-Control-Allow-Origin: https://ia.votredomaine.com
+# Access-Control-Allow-Origin: <https://ia.votredomaine.com>
 ```
 
 ### CSS/JS non chargés
@@ -498,7 +508,9 @@ Vérifier chemins dans `index.html` :
 
 1. **Cloudflare** → Add Site : votredomaine.com
 2. Changer nameservers chez registrar
+
 3. **Speed** → **Optimization** :
+
    - Auto Minify : ✅ JS, CSS, HTML
    - Rocket Loader : ✅
    - Brotli : ✅
@@ -563,10 +575,10 @@ if ('serviceWorker' in navigator) {
 
 ## 📚 Ressources
 
-- **O2Switch cPanel** : https://cpanel.o2switch.net
-- **Documentation O2Switch** : https://faq.o2switch.fr
-- **Repository GitHub** : https://github.com/stepstev/oceanphenix-IA-souveraine-v8
+- **O2Switch cPanel** : <https://cpanel.o2switch.net>
+- **Documentation O2Switch** : <https://faq.o2switch.fr>
+- **Repository GitHub** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8>
 
 ---
 
-**Support** : https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues
+**Support** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>

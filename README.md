@@ -10,25 +10,26 @@
 ## ⚡ Démarrage Rapide (3 choix)
 
 ### 🎯 Installation Simple (30 min) - **RECOMMANDÉ**
-**Frontend O2Switch + Backend Hetzner**
+
+Frontend O2Switch + Backend Hetzner
 
 📖 **[docs/01-GUIDE_SIMPLE.md](docs/01-GUIDE_SIMPLE.md)** ← Commencer ici
 
 ```bash
 # Frontend: Upload hub-frontend/ sur O2Switch
 # Backend: 3 commandes SSH sur Hetzner
-ssh root@46.224.72.83
-curl -o /tmp/install.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/docs/deploy-hetzner.sh
+ssh root@VOTRE_IP_HETZNER
+curl -o /tmp/install.sh <https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/docs/deploy-hetzner.sh>
 bash /tmp/install.sh
 ```
 
 ### 💻 Installation Locale (10 min)
 
 ```bash
-git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git
+git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v8>.git
 cd oceanphenix-IA-souveraine-v8
 docker-compose --profile all up -d
-# ✅ http://localhost:8000
+# ✅ <<http://localhost:8000>>
 ```
 
 ### 🚀 Production Complète (1h)
@@ -233,7 +234,7 @@ graph TB
 
 ```bash
 # 1. Cloner le repository
-git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git
+git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v8>.git
 cd oceanphenix-IA-souveraine-v8
 
 # 2. Configurer les variables d'environnement
@@ -248,10 +249,10 @@ docker compose --profile all up -d
 docker exec v8-ollama ollama pull mistral:latest
 
 # 5. Accéder aux interfaces
-# Hub Frontend: http://localhost:8080
-# Open WebUI: http://localhost:3000
-# MinIO: http://localhost:9001
-# Grafana: http://localhost:3001
+# Hub Frontend: <http://localhost:8080>
+# Open WebUI: <http://localhost:3000>
+# MinIO: <http://localhost:9001>
+# Grafana: <http://localhost:3001>
 ```
 
 ### Vérification
@@ -264,7 +265,7 @@ docker compose ps
 docker compose logs -f
 
 # Health check
-curl http://localhost:8000/health
+curl <http://localhost:8000>/health
 ```
 
 ## 📚 Guides de Déploiement
@@ -293,6 +294,7 @@ Guide pour déploiement production sur VPS Hetzner.
 **📖 Voir** : [docs/INSTALL_HETZNER.md](docs/INSTALL_HETZNER.md)
 
 **Étapes principales** :
+
 1. Création serveur Hetzner (Ubuntu 22.04, 8GB+ RAM)
 2. Installation Docker
 3. Configuration firewall (UFW)
@@ -301,6 +303,7 @@ Guide pour déploiement production sur VPS Hetzner.
 6. Configuration domaine et SSL
 
 **Ressources recommandées** :
+
 - **VPS** : CX31 ou supérieur (4 vCPU, 8GB RAM, 160GB SSD)
 - **OS** : Ubuntu 22.04 LTS
 - **Coût** : ~15€/mois
@@ -347,7 +350,7 @@ services: {
 
 ### 🏗️ Architecture Complète
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │              👥 UTILISATEURS                             │
 └────────────┬────────────────────────────────────────────┘
@@ -396,6 +399,7 @@ services: {
 > **⚠️ IMPORTANT : NE JAMAIS COMMITER `.env` SUR GIT**
 >
 > Le fichier `.env` contient vos **credentials sensibles** (mots de passe, API keys, tokens).
+>
 > - ✅ `.env.example` → Commité sur git (valeurs d'exemple)
 > - ❌ `.env` → **JAMAIS** sur git (protégé par `.gitignore`)
 
@@ -449,19 +453,21 @@ docker compose --profile all up -d
 
 | Service | URL | Identifiants |
 |---------|-----|-------------|
-| **Hub Frontend** | http://localhost:8080 | Aucun |
-| **Open WebUI** | http://localhost:3000 | Signup |
-| **MinIO Console** | http://localhost:9001 | admin / [password] |
-| **Grafana** | http://localhost:3001 | admin / [password] |
-| **n8n** | http://localhost:5678 | Signup |
-| **Portainer** | https://localhost:9443 | Signup |
-| **Qdrant Dashboard** | http://localhost:6333/dashboard | Aucun |
-| **API Swagger** | http://localhost:8000/docs | Aucun |
+| **Hub Frontend** | <http://localhost:8080> | Aucun |
+| **Open WebUI** | <http://localhost:3000> | Signup |
+| **MinIO Console** | <http://localhost:9001> | admin / [password] |
+| **Grafana** | <http://localhost:3001> | admin / [password] |
+| **n8n** | <http://localhost:5678> | Signup |
+| **Portainer** | <https://localhost:9443> | Signup |
+| **Qdrant Dashboard** | <http://localhost:6333>/dashboard | Aucun |
+| **API Swagger** | <http://localhost:8000>/docs | Aucun |
 
 ### Workflow RAG Complet
 
+
 1. **Upload Document**
-   - Aller sur MinIO Console (http://localhost:9001)
+
+   - Aller sur MinIO Console (<http://localhost:9001>)
    - Login : admin / [votre_password]
    - Upload dans bucket `rag-documents`
 
@@ -472,7 +478,7 @@ docker compose --profile all up -d
    - Les vecteurs sont stockés dans Qdrant
 
 3. **Query RAG**
-   - Aller sur Open WebUI (http://localhost:3000)
+   - Aller sur Open WebUI (<http://localhost:3000>)
    - Poser une question sur le document
    - Le LLM répond avec le contexte du document
 
@@ -780,10 +786,10 @@ classDiagram
 
 ### Backend API (FastAPI)
 
-**Base URL** : `http://localhost:8000`
+**Base URL** : `<http://localhost:8000>`
 
-**Swagger UI** : http://localhost:8000/docs  
-**ReDoc** : http://localhost:8000/redoc
+**Swagger UI** : <http://localhost:8000>/docs  
+**ReDoc** : <http://localhost:8000>/redoc
 
 #### Endpoints principaux
 
@@ -810,15 +816,15 @@ POST /api/models/pull       # Pull nouveau modèle
 
 ```bash
 # Health check
-curl http://localhost:8000/health
+curl <http://localhost:8000>/health
 
 # Upload document
-curl -X POST http://localhost:8000/api/documents \
+curl -X POST <http://localhost:8000>/api/documents \
   -F "file=@document.pdf" \
   -H "Content-Type: multipart/form-data"
 
 # RAG query
-curl -X POST http://localhost:8000/api/rag/query \
+curl -X POST <http://localhost:8000>/api/rag/query \
   -H "Content-Type: application/json" \
   -d '{
     "query": "Quelle est la politique de remboursement ?",
@@ -826,16 +832,17 @@ curl -X POST http://localhost:8000/api/rag/query \
   }'
 
 # List models
-curl http://localhost:8000/api/models
+curl <http://localhost:8000>/api/models
 ```
 
 ### Open WebUI API
 
-**Base URL** : `http://localhost:3000`
+**Base URL** : `<http://localhost:3000>`
 
-**Documentation** : https://docs.openwebui.com/api
+**Documentation** : <https://docs.openwebui.com/api>
 
 Pour générer une API Key :
+
 1. Open WebUI → Settings
 2. Account → API Keys
 3. Create new key
@@ -877,6 +884,7 @@ docker compose logs -f
 ### Monitoring
 
 Dashboards Grafana disponibles :
+
 - **Platform Health** : CPU, RAM, Disk, Network
 - **Docker Stats** : Containers, images, volumes
 - **Ollama Performance** : Requêtes LLM, latence
@@ -909,7 +917,7 @@ docker exec v8-ollama ollama list
 docker exec v8-ollama ollama pull mistral:latest
 
 # Test connexion
-curl http://localhost:11434/api/tags
+curl <http://localhost:11434>/api/tags
 ```
 
 ### MinIO bucket non créé
@@ -945,12 +953,12 @@ Ce projet est sous licence MIT. Voir [LICENSE](LICENSE) pour plus de détails.
 
 ## 🔗 Liens Utiles
 
-- **Repository GitHub** : https://github.com/stepstev/oceanphenix-IA-souveraine-v8
+- **Repository GitHub** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8>
 - **Documentation** : [docs/](docs/)
-- **Issues** : https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues
+- **Issues** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8>/issues
 
 ---
 
-**Développé avec ❤️ par l'équipe OceanPhenix**
+Développé avec ❤️ par l'équipe OceanPhenix
 
-*Version 8.0.0 - Décembre 2025*
+Version 8.0.0 - Décembre 2025

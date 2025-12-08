@@ -39,16 +39,18 @@ Ce déploiement configure :
 
 ### Accès Hetzner Cloud
 
-- Compte Hetzner Cloud : https://console.hetzner.cloud
+- Compte Hetzner Cloud : <https://console.hetzner.cloud>
 - Clé SSH configurée
 
 ## 🔧 Étape 1 : Création du Serveur Hetzner
 
 ### Via Interface Web Hetzner Cloud
 
-1. **Console Hetzner** : https://console.hetzner.cloud
+1. **Console Hetzner** : <https://console.hetzner.cloud>
 2. **New Project** : "oceanphenix-prod"
+
 3. **Add Server** :
+
    - Location : Nuremberg (de-nbg1) ou Helsinki (fi-hel1)
    - Image : **Ubuntu 22.04 LTS** (Recommandé)
    - Type : CCX33 (8 vCPU, 32 GB)
@@ -176,7 +178,7 @@ sudo fail2ban-client status
 
 ```bash
 # Script installation Docker
-curl -fsSL https://get.docker.com -o get-docker.sh
+curl -fsSL <https://get.docker.com> -o get-docker.sh
 sudo sh get-docker.sh
 
 # Ajouter user au groupe
@@ -220,7 +222,7 @@ sudo systemctl restart docker
 cd /home/oceanphenix
 
 # Cloner projet
-git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git
+git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git>
 cd oceanphenix-IA-souveraine-v8
 ```
 
@@ -394,11 +396,11 @@ docker logs v8-caddy | grep -i certificate
 
 ```bash
 # Vérifier SSL
-curl -I https://ia.votredomaine.com
+curl -I <https://ia.votredomaine.com>
 # Doit retourner : HTTP/2 200
 
 # Test API
-curl https://api.votredomaine.com/health
+curl <https://api.votredomaine.com/health>
 ```
 
 ## 📊 Étape 7 : Configuration Monitoring
@@ -406,11 +408,11 @@ curl https://api.votredomaine.com/health
 ### Grafana
 
 ```bash
-# URL : https://grafana.votredomaine.com
+# URL : <https://grafana.votredomaine.com>
 # Login : admin / [password_from_.env]
 
 # 1. Add Prometheus datasource
-#    URL: http://prometheus:9090
+#    URL: <http://prometheus:9090>
 # 
 # 2. Import dashboards
 #    - Platform Health (ID: dashboard disponible dans core/monitoring/dashboards/)
@@ -502,7 +504,7 @@ services=("ia:443" "api:443" "grafana:443" "minio:443")
 
 for service in "${services[@]}"; do
   IFS=':' read -r name port <<< "$service"
-  if curl -sk "https://$name.votredomaine.com" > /dev/null; then
+  if curl -sk "<https://$name.votredomaine.com"> > /dev/null; then
     echo "✅ $name - OK"
   else
     echo "❌ $name - DOWN"
@@ -562,7 +564,7 @@ sudo ufw status
 sudo netstat -tlnp | grep :443
 
 # Tester depuis serveur
-curl -I http://localhost:8080  # Open WebUI
+curl -I <http://localhost:8080>  # Open WebUI
 ```
 
 ### Manque de ressources
@@ -652,10 +654,10 @@ api.votredomaine.com {
 
 ## 📚 Ressources
 
-- **Hetzner Cloud** : https://console.hetzner.cloud
-- **Documentation Caddy** : https://caddyserver.com/docs
-- **Repository GitHub** : https://github.com/stepstev/oceanphenix-IA-souveraine-v8
+- **Hetzner Cloud** : <https://console.hetzner.cloud>
+- **Documentation Caddy** : <https://caddyserver.com/docs>
+- **Repository GitHub** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8>
 
 ---
 
-**Support** : https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues
+**Support** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>

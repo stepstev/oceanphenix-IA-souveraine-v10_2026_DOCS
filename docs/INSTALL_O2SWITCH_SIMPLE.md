@@ -17,7 +17,7 @@ Guide ultra-simplifié pour déployer le Hub Frontend OceanPhenix V8 sur O2Switc
 
 ```bash
 # 1. Cloner le projet
-git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git
+git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git>
 cd oceanphenix-IA-souveraine-v8/hub-frontend
 
 # 2. Configurer l'API (remplacer votredomaine.com)
@@ -25,28 +25,28 @@ cp config.prod.js config.js
 nano config.js  # ou notepad sur Windows
 
 # Éditer ces lignes :
-# apiUrlDefault: 'https://api.VOTRE-DOMAINE.com',
-# openwebui: 'https://studio.VOTRE-DOMAINE.com/health',
-# minio: 'https://minio.VOTRE-DOMAINE.com/minio/health/live',
-# grafana: 'https://grafana.VOTRE-DOMAINE.com/api/health',
+# apiUrlDefault: '<https://api.VOTRE-DOMAINE.com',>
+# openwebui: '<https://studio.VOTRE-DOMAINE.com/health',>
+# minio: '<https://minio.VOTRE-DOMAINE.com/minio/health/live',>
+# grafana: '<https://grafana.VOTRE-DOMAINE.com/api/health',>
 ```
 
-**Exemple de configuration :**
+Exemple de configuration :
 
 ```javascript
 // Dans config.js
 const OCEANPHENIX_MODE = 'production';
 
 typeof window !== 'undefined' && (window.OCEANPHENIX_CONFIG = {
-  apiUrlDefault: 'https://api.oceanphenix.fr',  // ← Votre domaine
+  apiUrlDefault: '<https://api.oceanphenix.fr',>  // ← Votre domaine
   apiAuthToken: null,
   useProxy: false,
   
   services: {
-    api: 'https://api.oceanphenix.fr/health',
-    openwebui: 'https://studio.oceanphenix.fr/health',
-    minio: 'https://minio.oceanphenix.fr/minio/health/live',
-    grafana: 'https://grafana.oceanphenix.fr/api/health',
+    api: '<https://api.oceanphenix.fr/health',>
+    openwebui: '<https://studio.oceanphenix.fr/health',>
+    minio: '<https://minio.oceanphenix.fr/minio/health/live',>
+    grafana: '<https://grafana.oceanphenix.fr/api/health',>
     // ... autres services
   }
 });
@@ -56,10 +56,12 @@ typeof window !== 'undefined' && (window.OCEANPHENIX_CONFIG = {
 
 ### 🌐 Étape 2 : Upload FTP (3 minutes)
 
-**Option A : FileZilla (Interface graphique)**
+Option A : FileZilla (Interface graphique)
 
-1. Télécharger FileZilla : <https://filezilla-project.org>
+1. Télécharger FileZilla : <<https://filezilla-project.org>>
+
 2. Connexion :
+
    - Hôte : `ftp.votredomaine.com` (ou IP fournie par O2Switch)
    - Utilisateur : Votre login cPanel
    - Mot de passe : Votre mot de passe cPanel
@@ -68,7 +70,7 @@ typeof window !== 'undefined' && (window.OCEANPHENIX_CONFIG = {
 4. Créer dossier `ia/` (ou `studio/`)
 5. Uploader TOUS les fichiers du dossier `hub-frontend/` :
 
-```
+```text
 📁 Fichiers à uploader :
 ├── index.html
 ├── config.js (le fichier que vous venez d'éditer !)
@@ -83,9 +85,9 @@ typeof window !== 'undefined' && (window.OCEANPHENIX_CONFIG = {
 └── 📁 legal/
 ```
 
-**Option B : cPanel File Manager (Sans logiciel)**
+Option B : cPanel File Manager (Sans logiciel)
 
-1. Connexion : <https://cpanel.o2switch.net>
+1. Connexion : <<https://cpanel.o2switch.net>>
 2. **Gestionnaire de fichiers**
 3. **public_html/** → **Nouveau dossier** : `ia`
 4. **Upload** → Sélectionner tous les fichiers du dossier `hub-frontend/`
@@ -116,9 +118,9 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://ia.votredomaine.com",      # ← Frontend O2Switch
-        "https://studio.votredomaine.com",   # ← Alternative
-        "http://localhost:8080",             # Dev local
+        "<https://ia.votredomaine.com",>      # ← Frontend O2Switch
+        "<https://studio.votredomaine.com",>   # ← Alternative
+        "<http://localhost:8080",>             # Dev local
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -140,11 +142,11 @@ docker compose restart backend
 
 Ouvrir dans un navigateur :
 
-```
-https://ia.votredomaine.com
+```text
+<https://ia.votredomaine.com>
 ```
 
-**✅ Vous devriez voir :**
+✅ Vous devriez voir :
 
 - Le Hub Frontend OceanPhenix
 - Interface propre et stylée
@@ -155,13 +157,13 @@ https://ia.votredomaine.com
 Ouvrir la **Console du navigateur** (F12) et exécuter :
 
 ```javascript
-fetch('https://api.votredomaine.com/health')
+fetch('<https://api.votredomaine.com/health'>)
   .then(r => r.json())
   .then(data => console.log('✅ API OK:', data))
   .catch(err => console.error('❌ API Error:', err));
 ```
 
-**✅ Résultat attendu :**
+✅ Résultat attendu :
 
 ```json
 {
@@ -174,10 +176,10 @@ fetch('https://api.votredomaine.com/health')
 }
 ```
 
-**❌ Si erreur CORS :**
+❌ Si erreur CORS :
 
 ```
-Access to fetch at 'https://api...' from origin 'https://ia...' has been blocked by CORS
+Access to fetch at '<https://api...'> from origin '<https://ia...'> has been blocked by CORS
 ```
 
 → Retourner à l'Étape 3 et vérifier la configuration CORS backend
@@ -186,9 +188,9 @@ Access to fetch at 'https://api...' from origin 'https://ia...' has been blocked
 
 Cliquer sur les tuiles du Hub :
 
-- ✅ Open WebUI → Ouvre `https://studio.votredomaine.com`
-- ✅ Grafana → Ouvre `https://grafana.votredomaine.com`
-- ✅ MinIO Console → Ouvre `https://minio.votredomaine.com`
+- ✅ Open WebUI → Ouvre `<https://studio.votredomaine.com`>
+- ✅ Grafana → Ouvre `<https://grafana.votredomaine.com`>
+- ✅ MinIO Console → Ouvre `<https://minio.votredomaine.com`>
 
 ---
 
@@ -211,7 +213,7 @@ Créer `/public_html/ia/.htaccess` :
 # Force HTTPS
 RewriteEngine On
 RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^(.*)$ <https://%{HTTP_HOST}%{REQUEST_URI}> [L,R=301]
 
 # Désactiver listing
 Options -Indexes
@@ -264,7 +266,7 @@ Ajouter dans `.htaccess` :
 
 1. Vérifier `backend/main.py` contient votre domaine dans `allow_origins`
 2. Redémarrer backend : `docker compose restart backend`
-3. Tester : `curl -I https://api.votredomaine.com/health`
+3. Tester : `curl -I <https://api.votredomaine.com/health`>
 
 ### Services ne s'ouvrent pas
 
@@ -280,7 +282,7 @@ Ajouter dans `.htaccess` :
 
 ## 📊 Schéma de Connexion
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────┐
 │                         🌐 INTERNET                                 │
 └────────────────────┬────────────────────────────────┬───────────────┘
@@ -300,11 +302,11 @@ Ajouter dans `.htaccess` :
              Static Hosting                 Docker Services
 ```
 
-**Flux de communication :**
+Flux de communication :
 
-1. **Utilisateur** → Accède à `https://ia.votredomaine.com` (O2Switch)
+1. **Utilisateur** → Accède à `<https://ia.votredomaine.com`> (O2Switch)
 2. **Frontend** → Charge HTML/CSS/JS depuis O2Switch
-3. **JavaScript** → Appelle API `https://api.votredomaine.com` (Hetzner)
+3. **JavaScript** → Appelle API `<https://api.votredomaine.com`> (Hetzner)
 4. **Backend Hetzner** → Vérifie CORS → Répond avec données
 5. **Frontend** → Affiche les données
 
@@ -314,12 +316,12 @@ Ajouter dans `.htaccess` :
 
 | Type | URL | Hébergement |
 |------|-----|-------------|
-| 🎨 **Frontend Hub** | `https://ia.votredomaine.com` | O2Switch |
-| 🔌 **API Backend** | `https://api.votredomaine.com` | Hetzner |
-| 💬 **Open WebUI** | `https://studio.votredomaine.com` | Hetzner |
-| 📊 **Grafana** | `https://grafana.votredomaine.com` | Hetzner |
-| 💾 **MinIO Console** | `https://minio.votredomaine.com` | Hetzner |
-| 🔄 **n8n** | `https://n8n.votredomaine.com` | Hetzner |
+| 🎨 **Frontend Hub** | `<https://ia.votredomaine.com`> | O2Switch |
+| 🔌 **API Backend** | `<https://api.votredomaine.com`> | Hetzner |
+| 💬 **Open WebUI** | `<https://studio.votredomaine.com`> | Hetzner |
+| 📊 **Grafana** | `<https://grafana.votredomaine.com`> | Hetzner |
+| 💾 **MinIO Console** | `<https://minio.votredomaine.com`> | Hetzner |
+| 🔄 **n8n** | `<https://n8n.votredomaine.com`> | Hetzner |
 
 ---
 
@@ -334,6 +336,6 @@ Pour configuration avancée, voir :
 
 ---
 
-**Support** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>
+**Support** : <<https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>>
 
 **Développé avec ❤️ par l'équipe OceanPhenix**

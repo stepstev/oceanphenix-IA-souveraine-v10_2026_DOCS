@@ -24,7 +24,7 @@ Ce guide vous accompagne dans l'installation complète d'OceanPhenix IA Souverai
 
 ```powershell
 # Docker Desktop (avec WSL2)
-# Télécharger depuis : https://www.docker.com/products/docker-desktop
+# Télécharger depuis : <https://www.docker.com/products/docker-desktop>
 
 # Git
 winget install Git.Git
@@ -37,7 +37,7 @@ choco install make
 
 ```bash
 # Docker & Docker Compose
-curl -fsSL https://get.docker.com -o get-docker.sh
+curl -fsSL <https://get.docker.com> -o get-docker.sh
 sudo sh get-docker.sh
 sudo usermod -aG docker $USER
 
@@ -55,7 +55,7 @@ newgrp docker
 
 ```bash
 # Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+/bin/bash -c "$(curl -fsSL <https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh>)"
 
 # Docker Desktop
 brew install --cask docker
@@ -70,7 +70,7 @@ brew install git make
 
 ```bash
 # Clone depuis GitHub
-git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git
+git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git>
 
 # Entrer dans le dossier
 cd oceanphenix-IA-souveraine-v8
@@ -196,7 +196,7 @@ docker exec v8-ollama ollama list
 
 ```bash
 # Accéder à Open WebUI
-# URL : http://localhost:3000
+# URL : <http://localhost:3000>
 
 # 1. Créer compte admin (premier utilisateur)
 # 2. Aller dans Settings > Account > API Keys
@@ -231,7 +231,7 @@ docker compose ps
 
 ```bash
 # Ouvrir navigateur
-# URL : http://localhost:8080
+# URL : <http://localhost:8080>
 
 # Vérifier :
 # - Dashboard s'affiche
@@ -242,7 +242,7 @@ docker compose ps
 #### Test Open WebUI RAG
 
 ```bash
-# URL : http://localhost:3000
+# URL : <http://localhost:3000>
 # 1. Login avec compte créé
 # 2. Sélectionner modèle (Mistral)
 # 3. Envoyer un message de test
@@ -252,7 +252,7 @@ docker compose ps
 #### Test MinIO Upload
 
 ```bash
-# URL : http://localhost:9001
+# URL : <http://localhost:9001>
 # Login : admin / [votre_password]
 # 1. Vérifier bucket "rag-documents" existe
 # 2. Upload un fichier PDF test
@@ -280,8 +280,8 @@ Si vous avez une carte NVIDIA :
 # Installer NVIDIA Container Toolkit
 # Ubuntu/Debian
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
-curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+curl -s -L <https://nvidia.github.io/nvidia-docker/gpgkey> | sudo apt-key add -
+curl -s -L <https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list> | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 sudo apt-get update && sudo apt-get install -y nvidia-docker2
 sudo systemctl restart docker
 ```
@@ -447,7 +447,7 @@ services=("openwebui:3000" "ollama:11434" "minio:9001" "qdrant:6333" "grafana:30
 
 for service in "${services[@]}"; do
   IFS=':' read -r name port <<< "$service"
-  if curl -s "http://localhost:$port" > /dev/null; then
+  if curl -s "<http://localhost:$port"> > /dev/null; then
     echo "✅ $name (port $port) - OK"
   else
     echo "❌ $name (port $port) - DOWN"
@@ -459,9 +459,11 @@ done
 
 Une fois stack démarrée :
 
-1. Accéder à http://localhost:3001
+1. Accéder à <http://localhost:3001>
 2. Login : admin / [password]
+
 3. Dashboards disponibles :
+
    - **Platform Health** : Vue globale
    - **Docker Stats** : Métriques containers
    - **Ollama Performance** : Stats LLM
@@ -477,6 +479,6 @@ Une fois l'installation locale réussie :
 
 ---
 
-**Support** : https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues
+**Support** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>
 
 **Documentation complète** : [README.md](../README.md)

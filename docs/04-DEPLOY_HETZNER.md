@@ -14,7 +14,7 @@ ssh root@VOTRE_IP_HETZNER
 
 ```bash
 # Télécharger le script
-curl -o /tmp/deploy-hetzner.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/deploy-hetzner.sh
+curl -o /tmp/deploy-hetzner.sh <https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/deploy-hetzner.sh>
 
 # Rendre exécutable
 chmod +x /tmp/deploy-hetzner.sh
@@ -36,29 +36,35 @@ docker-compose ps
 docker-compose logs -f backend
 
 # Tester l'API
-curl http://localhost:8000/health
+curl <http://localhost:8000/health>
 ```
 
 ### Services accessibles:
 
-- **Hub Frontend**: http://VOTRE_IP_HETZNER:8000
-- **OpenWebUI**: http://VOTRE_IP_HETZNER:3000
-- **Grafana**: http://VOTRE_IP_HETZNER:3001
-- **Prometheus**: http://VOTRE_IP_HETZNER:9090
-- **Portainer**: https://VOTRE_IP_HETZNER:9443
-- **MinIO**: http://VOTRE_IP_HETZNER:9001
+- **Hub Frontend**: <http://VOTRE_IP_HETZNER:8000>
+- **OpenWebUI**: <http://VOTRE_IP_HETZNER:3000>
+- **Grafana**: <http://VOTRE_IP_HETZNER:3001>
+- **Prometheus**: <http://VOTRE_IP_HETZNER:9090>
+- **Portainer**: <https://VOTRE_IP_HETZNER:9443>
+- **MinIO**: <http://VOTRE_IP_HETZNER:9001>
 
 ### Configuration post-installation
 
-1. **Portainer** (https://VOTRE_IP_HETZNER:9443)
+
+1. **Portainer** (<https://VOTRE_IP_HETZNER:9443>)
+
    - Créer compte admin dans les 5 minutes
    - Password: minimum 12 caractères
 
-2. **Grafana** (http://VOTRE_IP_HETZNER:3001)
+
+2. **Grafana** (<http://VOTRE_IP_HETZNER:3001>)
+
    - Login: `admin`
    - Password: voir `/opt/oceanphenix/.env`
 
-3. **Importer les dashboards Grafana**
+
+3. Importer les dashboards Grafana
+
    ```bash
    cd /opt/oceanphenix/core/monitoring/dashboards
    # Importer via UI Grafana: oceanphenix-platform-health.json
@@ -138,5 +144,5 @@ docker system prune -a  # Nettoyer Docker
 
 ### Support
 
-- GitHub: https://github.com/stepstev/oceanphenix-IA-souveraine-v8
-- Issues: https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues
+- GitHub: <https://github.com/stepstev/oceanphenix-IA-souveraine-v8>
+- Issues: <https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>

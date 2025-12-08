@@ -4,9 +4,10 @@ Bienvenue dans la documentation complète d'OceanPhenix V8 - Plateforme IA Souve
 
 ## 🎯 Point d'Entrée
 
-### Pour commencer rapidement :
+### Pour commencer rapidement
 
 ➡️ **[01-GUIDE_SIMPLE.md](01-GUIDE_SIMPLE.md)** ⭐ **RECOMMANDÉ**
+
 - Frontend O2Switch + Backend Hetzner
 - 30 minutes chrono
 - Le plus simple possible
@@ -16,7 +17,9 @@ Bienvenue dans la documentation complète d'OceanPhenix V8 - Plateforme IA Souve
 ## 📖 Guides d'Installation
 
 ### 1️⃣ Guide Simple (Débutant)
+
 **[01-GUIDE_SIMPLE.md](01-GUIDE_SIMPLE.md)**
+
 - ⏱️ 30 minutes
 - 🎯 Frontend statique O2Switch + Backend Docker Hetzner
 - ✅ Pas de DNS complexe
@@ -24,7 +27,9 @@ Bienvenue dans la documentation complète d'OceanPhenix V8 - Plateforme IA Souve
 - 👥 **Idéal pour : Démarrage rapide, test production**
 
 ### 2️⃣ Installation Locale
+
 **[02-INSTALLATION.md](02-INSTALLATION.md)**
+
 - ⏱️ 15 minutes
 - 💻 Tout en local avec Docker
 - ✅ Windows, Mac, Linux
@@ -32,7 +37,9 @@ Bienvenue dans la documentation complète d'OceanPhenix V8 - Plateforme IA Souve
 - 👥 **Idéal pour : Développeurs, tests locaux**
 
 ### 3️⃣ Configuration Frontend
+
 **[03-FRONTEND_SETUP.md](03-FRONTEND_SETUP.md)**
+
 - ⏱️ 10 minutes
 - 🎨 Hub Frontend détaillé
 - ✅ Personnalisation
@@ -40,7 +47,9 @@ Bienvenue dans la documentation complète d'OceanPhenix V8 - Plateforme IA Souve
 - 👥 **Idéal pour : Personnalisation interface**
 
 ### 4️⃣ Déploiement Hetzner
+
 **[04-DEPLOY_HETZNER.md](04-DEPLOY_HETZNER.md)**
+
 - ⏱️ 20 minutes
 - 🚀 Serveur Hetzner seul
 - ✅ Script automatique
@@ -48,7 +57,9 @@ Bienvenue dans la documentation complète d'OceanPhenix V8 - Plateforme IA Souve
 - 👥 **Idéal pour : Backend uniquement**
 
 ### 5️⃣ Production Complète
+
 **[05-DEPLOY_PRODUCTION.md](05-DEPLOY_PRODUCTION.md)**
+
 - ⏱️ 1 heure
 - 🌐 DNS O2Switch + Serveur Hetzner
 - ✅ SSL Let's Encrypt
@@ -60,7 +71,7 @@ Bienvenue dans la documentation complète d'OceanPhenix V8 - Plateforme IA Souve
 
 ## 🗺️ Quel Guide Choisir ?
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │ Vous voulez...                                  │
 ├─────────────────────────────────────────────────┤
@@ -85,7 +96,7 @@ Bienvenue dans la documentation complète d'OceanPhenix V8 - Plateforme IA Souve
 
 ## 📂 Structure de la Documentation
 
-```
+```text
 docs/
 ├── README.md                      ← Vous êtes ici
 ├── 01-GUIDE_SIMPLE.md            ⭐ Commencer ici
@@ -101,16 +112,19 @@ docs/
 ## 🎓 Parcours d'Apprentissage
 
 ### Débutant
+
 1. **[01-GUIDE_SIMPLE.md](01-GUIDE_SIMPLE.md)** - Déploiement express
 2. **[02-INSTALLATION.md](02-INSTALLATION.md)** - Comprendre les services
-3. Utiliser l'interface : http://votredomaine.fr
+3. Utiliser l'interface : <http://votredomaine.fr>
 
 ### Intermédiaire
+
 1. **[03-FRONTEND_SETUP.md](03-FRONTEND_SETUP.md)** - Personnaliser
 2. **[04-DEPLOY_HETZNER.md](04-DEPLOY_HETZNER.md)** - Backend avancé
 3. Explorer les dashboards Grafana
 
 ### Avancé
+
 1. **[05-DEPLOY_PRODUCTION.md](05-DEPLOY_PRODUCTION.md)** - Production
 2. Configurer DNS et SSL
 3. Backup et haute disponibilité
@@ -120,27 +134,29 @@ docs/
 ## 🚀 Installation en 1 Minute
 
 ### Frontend sur O2Switch
+
 ```bash
 # 1. Uploader hub-frontend/ via cPanel dans /public_html/
 # 2. Modifier config.js avec l'IP Hetzner
-# 3. Accéder à http://votredomaine.fr
+# 3. Accéder à <http://votredomaine.fr>
 ```
 
 ### Backend sur Hetzner
+
 ```bash
 ssh root@VOTRE_IP_HETZNER
 curl -o /tmp/install.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/docs/deploy-hetzner.sh
 bash /tmp/install.sh
 ```
 
-**C'est tout ! ✅**
+C'est tout ! ✅
 
 ---
 
 ## 🔗 Liens Utiles
 
-- **GitHub Repository** : https://github.com/stepstev/oceanphenix-IA-souveraine-v8
-- **Issues** : https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues
+- **GitHub Repository** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8>
+- **Issues** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>
 - **README Principal** : [../README.md](../README.md)
 
 ---
@@ -148,11 +164,13 @@ bash /tmp/install.sh
 ## 🆘 Support
 
 **Problème d'installation ?**
+
 1. Consulter le guide correspondant
 2. Vérifier la section "Troubleshooting"
 3. Ouvrir une issue sur GitHub
 
 **Questions fréquentes :**
+
 - 🔧 Services ne démarrent pas → Voir logs Docker
 - 🌐 Frontend page blanche → Vérifier chemin des fichiers
 - 🔐 CORS error → Ajouter middleware CORS au backend
