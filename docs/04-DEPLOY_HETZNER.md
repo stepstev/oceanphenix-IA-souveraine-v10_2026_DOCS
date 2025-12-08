@@ -1,13 +1,13 @@
 # 🚀 Guide d'installation OceanPhenix V8 sur Hetzner
 
-## Serveur: 46.224.72.83
+## Serveur: VOTRE_IP_HETZNER
 
 ### Étape 1: Connexion SSH
 
 Depuis votre machine Windows:
 
 ```powershell
-ssh root@46.224.72.83
+ssh root@VOTRE_IP_HETZNER
 ```
 
 ### Étape 2: Télécharger et exécuter le script
@@ -41,20 +41,20 @@ curl http://localhost:8000/health
 
 ### Services accessibles:
 
-- **Hub Frontend**: http://46.224.72.83:8000
-- **OpenWebUI**: http://46.224.72.83:3000
-- **Grafana**: http://46.224.72.83:3001
-- **Prometheus**: http://46.224.72.83:9090
-- **Portainer**: https://46.224.72.83:9443
-- **MinIO**: http://46.224.72.83:9001
+- **Hub Frontend**: http://VOTRE_IP_HETZNER:8000
+- **OpenWebUI**: http://VOTRE_IP_HETZNER:3000
+- **Grafana**: http://VOTRE_IP_HETZNER:3001
+- **Prometheus**: http://VOTRE_IP_HETZNER:9090
+- **Portainer**: https://VOTRE_IP_HETZNER:9443
+- **MinIO**: http://VOTRE_IP_HETZNER:9001
 
 ### Configuration post-installation
 
-1. **Portainer** (https://46.224.72.83:9443)
+1. **Portainer** (https://VOTRE_IP_HETZNER:9443)
    - Créer compte admin dans les 5 minutes
    - Password: minimum 12 caractères
 
-2. **Grafana** (http://46.224.72.83:3001)
+2. **Grafana** (http://VOTRE_IP_HETZNER:3001)
    - Login: `admin`
    - Password: voir `/opt/oceanphenix/.env`
 

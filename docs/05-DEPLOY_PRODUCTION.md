@@ -5,7 +5,7 @@
 ```
 [Domaine O2Switch]
     ↓ DNS A Records
-[Serveur Hetzner] 46.224.72.83
+[Serveur Hetzner] VOTRE_IP_HETZNER
     ↓ Caddy Reverse Proxy
 [Services Docker OceanPhenix]
 ```
@@ -36,40 +36,40 @@ Dans **Zone Editor** → **Gérer** votre domaine:
 
 ```dns
 # Frontend principal
-@ (root)                  A    46.224.72.83    TTL: 3600
-hub                       A    46.224.72.83    TTL: 3600
+@ (root)                  A    VOTRE_IP_HETZNER    TTL: 3600
+hub                       A    VOTRE_IP_HETZNER    TTL: 3600
 
 # Services IA
-studio                    A    46.224.72.83    TTL: 3600
-api                       A    46.224.72.83    TTL: 3600
+studio                    A    VOTRE_IP_HETZNER    TTL: 3600
+api                       A    VOTRE_IP_HETZNER    TTL: 3600
 
 # Monitoring
-monitoring                A    46.224.72.83    TTL: 3600
-grafana                   A    46.224.72.83    TTL: 3600
-prometheus                A    46.224.72.83    TTL: 3600
+monitoring                A    VOTRE_IP_HETZNER    TTL: 3600
+grafana                   A    VOTRE_IP_HETZNER    TTL: 3600
+prometheus                A    VOTRE_IP_HETZNER    TTL: 3600
 
 # Administration
-admin                     A    46.224.72.83    TTL: 3600
-portainer                 A    46.224.72.83    TTL: 3600
+admin                     A    VOTRE_IP_HETZNER    TTL: 3600
+portainer                 A    VOTRE_IP_HETZNER    TTL: 3600
 
 # Stockage
-storage                   A    46.224.72.83    TTL: 3600
-minio                     A    46.224.72.83    TTL: 3600
+storage                   A    VOTRE_IP_HETZNER    TTL: 3600
+minio                     A    VOTRE_IP_HETZNER    TTL: 3600
 
 # Wildcard (optionnel)
-*                         A    46.224.72.83    TTL: 3600
+*                         A    VOTRE_IP_HETZNER    TTL: 3600
 ```
 
 **Exemple concret avec le domaine `oceanphenix.fr`:**
 
 | Type | Nom | Valeur | TTL |
 |------|-----|--------|-----|
-| A | @ | 46.224.72.83 | 3600 |
-| A | hub | 46.224.72.83 | 3600 |
-| A | studio | 46.224.72.83 | 3600 |
-| A | api | 46.224.72.83 | 3600 |
-| A | monitoring | 46.224.72.83 | 3600 |
-| A | admin | 46.224.72.83 | 3600 |
+| A | @ | VOTRE_IP_HETZNER | 3600 |
+| A | hub | VOTRE_IP_HETZNER | 3600 |
+| A | studio | VOTRE_IP_HETZNER | 3600 |
+| A | api | VOTRE_IP_HETZNER | 3600 |
+| A | monitoring | VOTRE_IP_HETZNER | 3600 |
+| A | admin | VOTRE_IP_HETZNER | 3600 |
 
 #### Étape 3: Vérifier la propagation DNS
 
@@ -88,7 +88,7 @@ nslookup monitoring.votredomaine.fr
 **Résultat attendu:**
 ```
 Nom :    studio.votredomaine.fr
-Address: 46.224.72.83
+Address: VOTRE_IP_HETZNER
 ```
 
 ---
@@ -98,7 +98,7 @@ Address: 46.224.72.83
 ### Prérequis Hetzner
 
 - ✅ Serveur Hetzner créé (CPX41 ou supérieur)
-- ✅ IP: `46.224.72.83`
+- ✅ IP: `VOTRE_IP_HETZNER`
 - ✅ OS: Ubuntu 24.04 LTS
 - ✅ Accès SSH root configuré
 
@@ -107,7 +107,7 @@ Address: 46.224.72.83
 **Depuis Windows PowerShell:**
 
 ```powershell
-ssh root@46.224.72.83
+ssh root@VOTRE_IP_HETZNER
 ```
 
 Si première connexion, accepter la clé SSH.
@@ -143,7 +143,7 @@ bash /tmp/deploy-hetzner.sh
 
 ```bash
 # Se connecter au serveur (si déconnecté)
-ssh root@46.224.72.83
+ssh root@VOTRE_IP_HETZNER
 
 # Éditer le Caddyfile
 cd /opt/oceanphenix
@@ -204,7 +204,7 @@ storage.votredomaine.fr {
 }
 
 # Fallback - Accès direct par IP
-http://46.224.72.83 {
+http://VOTRE_IP_HETZNER {
     redir https://hub.votredomaine.fr permanent
 }
 ```
@@ -379,7 +379,7 @@ docker exec -it v8-ollama ollama pull mistral
 ### Mise à jour du projet
 
 ```bash
-ssh root@46.224.72.83
+ssh root@VOTRE_IP_HETZNER
 cd /opt/oceanphenix
 
 # Sauvegarder avant

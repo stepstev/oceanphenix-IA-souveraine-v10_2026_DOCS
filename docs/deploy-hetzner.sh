@@ -1,7 +1,7 @@
 #!/bin/bash
 ################################################################################
 # OceanPhenix V8 - Installation automatique sur Hetzner
-# Server: 46.224.72.83
+# Server: VOTRE_IP_HETZNER
 # Date: Décembre 2025
 ################################################################################
 
@@ -11,7 +11,7 @@ echo "🌊 Installation OceanPhenix V8 sur Hetzner"
 echo "=========================================="
 
 # Variables
-DOMAIN="46.224.72.83"  # Remplacer par votre domaine si disponible
+DOMAIN="VOTRE_IP_HETZNER"  # Remplacer par votre domaine si disponible
 GITHUB_REPO="https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git"
 INSTALL_DIR="/opt/oceanphenix"
 USER="oceanphenix"
@@ -86,7 +86,7 @@ if [ ! -f .env ]; then
 COMPOSE_PROJECT_NAME=oceanphenix-ia-souveraine-v8
 
 # Server
-SERVER_IP=46.224.72.83
+SERVER_IP=\$(curl -s ifconfig.me || echo "VOTRE_IP_HETZNER")
 DOMAIN=$DOMAIN
 
 # Security

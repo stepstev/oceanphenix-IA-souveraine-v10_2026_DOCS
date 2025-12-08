@@ -13,7 +13,7 @@
 ┌─────────────────────┐
 │   Hetzner           │
 │   Backend Docker    │
-│   46.224.72.83      │
+│   VOTRE_IP_HETZNER      │
 └─────────────────────┘
 ```
 
@@ -73,7 +73,7 @@ Dans le gestionnaire de fichiers O2Switch :
    
    Par :
    
-   API_URL: localStorage.getItem('oceanphenix_api_url') || 'http://46.224.72.83:8000',
+   API_URL: localStorage.getItem('oceanphenix_api_url') || 'http://VOTRE_IP_HETZNER:8000',
 
 3. Sauvegarder
 ```
@@ -95,7 +95,7 @@ Ouvrir : http://votredomaine.fr
 **Depuis Windows PowerShell :**
 
 ```powershell
-ssh root@46.224.72.83
+ssh root@VOTRE_IP_HETZNER
 ```
 
 ### Étape 2 : Installation automatique
@@ -159,7 +159,7 @@ curl http://localhost:8000/health
 **Sur le serveur Hetzner :**
 
 ```bash
-ssh root@46.224.72.83
+ssh root@VOTRE_IP_HETZNER
 cd /opt/oceanphenix
 
 # Éditer la config backend
@@ -202,7 +202,7 @@ O2Switch active automatiquement Let's Encrypt :
 ### Modifier config.js pour HTTPS
 
 ```javascript
-API_URL: 'http://46.224.72.83:8000',  // Garder HTTP pour le backend
+API_URL: 'http://VOTRE_IP_HETZNER:8000',  // Garder HTTP pour le backend
 ```
 
 ---
@@ -225,8 +225,8 @@ API_URL: 'http://46.224.72.83:8000',  // Garder HTTP pour le backend
 ✓ Script install.sh exécuté
 ✓ docker ps montre ~15 conteneurs
 ✓ curl http://localhost:8000/health → {"status":"ok"}
-✓ Grafana accessible : http://46.224.72.83:3001
-✓ Portainer accessible : https://46.224.72.83:9443
+✓ Grafana accessible : http://VOTRE_IP_HETZNER:3001
+✓ Portainer accessible : https://VOTRE_IP_HETZNER:9443
 ```
 
 ### Test de bout en bout
@@ -234,7 +234,7 @@ API_URL: 'http://46.224.72.83:8000',  // Garder HTTP pour le backend
 ```
 1. Ouvrir http://votredomaine.fr
 2. Cliquer "AI Studio"
-3. Doit ouvrir http://46.224.72.83:3000
+3. Doit ouvrir http://VOTRE_IP_HETZNER:3000
 4. Pas d'erreur dans la console (F12)
 ```
 
@@ -253,7 +253,7 @@ API_URL: 'http://46.224.72.83:8000',  // Garder HTTP pour le backend
 ### Mettre à jour le Backend
 
 ```bash
-ssh root@46.224.72.83
+ssh root@VOTRE_IP_HETZNER
 cd /opt/oceanphenix
 git pull
 docker-compose restart
@@ -299,8 +299,8 @@ docker restart v8-api
 ```javascript
 // Les URLs doivent pointer vers Hetzner
 const serviceUrls = {
-    'studio': 'http://46.224.72.83:3000',
-    'grafana': 'http://46.224.72.83:3001',
+    'studio': 'http://VOTRE_IP_HETZNER:3000',
+    'grafana': 'http://VOTRE_IP_HETZNER:3001',
     // ...
 };
 ```
@@ -318,12 +318,12 @@ const serviceUrls = {
 - **Avec HTTPS** : https://votredomaine.fr
 
 ### Backend & Services (Hetzner)
-- **API Backend** : http://46.224.72.83:8000
-- **OpenWebUI** : http://46.224.72.83:3000
-- **Grafana** : http://46.224.72.83:3001
-- **Prometheus** : http://46.224.72.83:9090
-- **Portainer** : https://46.224.72.83:9443
-- **MinIO** : http://46.224.72.83:9001
+- **API Backend** : http://VOTRE_IP_HETZNER:8000
+- **OpenWebUI** : http://VOTRE_IP_HETZNER:3000
+- **Grafana** : http://VOTRE_IP_HETZNER:3001
+- **Prometheus** : http://VOTRE_IP_HETZNER:9090
+- **Portainer** : https://VOTRE_IP_HETZNER:9443
+- **MinIO** : http://VOTRE_IP_HETZNER:9001
 
 ---
 
@@ -366,7 +366,7 @@ Visiteurs
     ↓
 [O2Switch] votredomaine.fr
     ↓ Appels API
-[Hetzner] 46.224.72.83
+[Hetzner] VOTRE_IP_HETZNER
     ├─ Backend Python
     ├─ Ollama (LLM)
     ├─ Qdrant (Vectoriel)

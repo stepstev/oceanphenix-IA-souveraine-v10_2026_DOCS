@@ -249,7 +249,7 @@ docker-compose up -d dashboard
 ### Mise à jour production (Hetzner)
 
 ```bash
-ssh root@46.224.72.83
+ssh root@VOTRE_IP_HETZNER
 cd /opt/oceanphenix
 
 # Pull depuis GitHub

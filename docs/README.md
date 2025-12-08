@@ -128,7 +128,7 @@ docs/
 
 ### Backend sur Hetzner
 ```bash
-ssh root@46.224.72.83
+ssh root@VOTRE_IP_HETZNER
 curl -o /tmp/install.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/docs/deploy-hetzner.sh
 bash /tmp/install.sh
 ```
