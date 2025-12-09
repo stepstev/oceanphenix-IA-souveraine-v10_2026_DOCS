@@ -47,13 +47,13 @@
             <header class="dashboard-header" id="header-container"></header>
 
             <!-- RAG Content -->
-            <div id="rag-view" class="view active" style="padding-top: 6rem;">
-                <div style="margin-bottom: 2rem;">
-                    <h2 style="font-size: 1.75rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem;">
-                        <i class="fas fa-database" style="color: var(--accent-violet);"></i>
+            <div id="rag-view" class="view active rag-view-container">
+                <div class="rag-header">
+                    <h2 class="rag-title">
+                        <i class="fas fa-database rag-icon"></i>
                         Gestion RAG
                     </h2>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">
+                    <p class="rag-description">
                         Indexation, vectorisation et recherche sémantique de documents
                     </p>
                 </div>
@@ -67,7 +67,8 @@
                         <div class="upload-zone" id="document-upload-zone">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <p>Glissez-déposez vos documents ici ou cliquez pour parcourir</p>
-                            <input type="file" id="document-file-input" multiple accept=".pdf,.docx,.txt,.md">
+                            <label for="document-file-input" class="visually-hidden">Sélectionner des documents</label>
+                            <input type="file" id="document-file-input" multiple accept=".pdf,.docx,.txt,.md" aria-label="Sélectionner des documents à uploader">
                         </div>
                         <div id="documents-list" class="documents-grid">
                             <!-- Documents injectés via JS -->

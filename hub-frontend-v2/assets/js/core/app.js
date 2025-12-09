@@ -1156,7 +1156,7 @@ function populateQuickUrls() {
                 </div>
                 <div class="url-item-right">
                     ${badge}
-                    ${isClickable ? '<i class="fas fa-external-link-alt" style="margin-left: 8px; font-size: 12px; color: var(--accent-cyan);"></i>' : ''}
+                    ${isClickable ? '<i class="fas fa-external-link-alt" style="margin-left: 8px; font-size: 12px; color: #0c4a6e; opacity: 0.8;"></i>' : ''}
                 </div>
             </div>
         `;
