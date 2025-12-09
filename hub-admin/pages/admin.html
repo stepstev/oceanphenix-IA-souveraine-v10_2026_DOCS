@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console Admin - OceanPhenix Admin</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/img/logo-oceanphenix.svg">
+    
+    <!-- Tabler CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Theme -->
+    <link rel="stylesheet" href="../assets/css/oceanphenix-theme.css">
+    
+    <style>
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .admin-card {
+            background: var(--tblr-card-bg);
+            border: 1px solid var(--tblr-border-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-color: var(--opx-blue);
+        }
+        
+        .admin-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .admin-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: white;
+        }
+        
+        .minio-bg { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .n8n-bg { background: linear-gradient(135deg, #ec4899, #db2777); }
+        .grafana-bg { background: linear-gradient(135deg, #f97316, #ea580c); }
+        .portainer-bg { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+        .strapi-bg { background: linear-gradient(135deg, #4945ff, #3730ee); }
+        .superset-bg { background: linear-gradient(135deg, #20a7c9, #1a8aa8); }
+        .qdrant-bg { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .studio-bg { background: linear-gradient(135deg, #00d9ff, #0095d9); }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        
+        .status-inactive {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+        
+        .admin-card-content h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .admin-subtitle {
+            font-size: 0.875rem;
+            color: var(--opx-blue);
+            margin: 0.25rem 0 0.5rem 0;
+            font-weight: 600;
+        }
+        
+        .admin-desc {
+            font-size: 0.875rem;
+            color: var(--tblr-secondary);
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Header -->
+        <header class="navbar navbar-expand-md navbar-light d-print-none">
+            <div class="container-xl">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+                    <a href="../index.html">
+                        <i class="fas fa-water navbar-logo-icon"></i>
+                        OceanPhenix Admin
+                    </a>
+                </h1>
+                <div class="navbar-nav flex-row order-md-last">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge badge-outline text-blue" id="api-status">
+                            <i class="fas fa-circle-notch fa-spin"></i> Connexion...
+                        </span>
+                        <button class="btn btn-icon" id="theme-toggle" title="Basculer thème">
+                            <i class="ti ti-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-wrapper">
+            <!-- Page header -->
+            <div class="page-header d-print-none">
+                <div class="container-xl">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <div class="page-pretitle">
+                                <i class="ti ti-settings me-1"></i>
+                                Accès Direct Services
+                            </div>
+                            <h2 class="page-title">Console d'Administration</h2>
+                        </div>
+                        <div class="col-auto ms-auto d-print-none">
+                            <div class="btn-list">
+                                <a href="dashboard.html" class="btn btn-primary">
+                                    <i class="ti ti-arrow-left me-1"></i>
+                                    Retour au Dashboard
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page body -->
+            <div class="page-body">
+                <div class="container-xl">
+                    <!-- Description -->
+                    <div class="alert alert-info mb-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Info :</strong> Accès direct aux interfaces d'administration de tous les services OceanPhenix. Vérifiez que les services sont actifs avant de cliquer.
+                    </div>
+
+                    <!-- Admin Grid -->
+                    <div class="admin-grid">
+                        <!-- Open WebUI -->
+                        <a href="#" id="link-studio" class="admin-card">
+                            <div class="admin-card-header">
+                                <div class="admin-icon-wrapper studio-bg">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <span class="status-badge status-active" data-service="studio">✓ Actif</span>
+                            </div>
+                            <div class="admin-card-content">
+                                <h3>Open WebUI</h3>
+                                <p class="admin-subtitle">💬 Chat & RAG</p>
+                                <p class="admin-desc">Interface de chat IA avec RAG, gestion des modèles, historique des conversations et personnalisation.</p>
+                            </div>
+                        </a>
+                        
+                        <!-- MinIO S3 Storage -->
+                        <a href="#" id="link-minio" class="admin-card">
+                            <div class="admin-card-header">
+                                <div class="admin-icon-wrapper minio-bg">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <span class="status-badge status-active" data-service="minio">✓ Actif</span>
+                            </div>
+                            <div class="admin-card-content">
+                                <h3>MinIO Console</h3>
+                                <p class="admin-subtitle">🗄️ Stockage S3</p>
+                                <p class="admin-desc">Gestion buckets, objets et politiques. Stockage haute performance pour documents RAG et embeddings.</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Qdrant Vector DB -->
+                        <a href="#" id="link-qdrant" class="admin-card">
+                            <div class="admin-card-header">
+                                <div class="admin-icon-wrapper qdrant-bg">
+                                    <i class="fas fa-vector-square"></i>
+                                </div>
+                                <span class="status-badge status-active" data-service="qdrant">✓ Actif</span>
+                            </div>
+                            <div class="admin-card-content">
+                                <h3>Qdrant Dashboard</h3>
+                                <p class="admin-subtitle">🔍 Vector Database</p>
+                                <p class="admin-desc">Dashboard pour collections vectorielles, recherche sémantique et gestion des embeddings RAG.</p>
+                            </div>
+                        </a>
+                        
+                        <!-- n8n Automation -->
+                        <a href="#" id="link-n8n" class="admin-card">
+                            <div class="admin-card-header">
+                                <div class="admin-icon-wrapper n8n-bg">
+                                    <i class="fas fa-project-diagram"></i>
+                                </div>
+                                <span class="status-badge status-active" data-service="n8n">✓ Actif</span>
+                            </div>
+                            <div class="admin-card-content">
+                                <h3>n8n Automation</h3>
+                                <p class="admin-subtitle">⚡ Workflows</p>
+                                <p class="admin-desc">Automatisation no-code pour intégrations API, ETL et webhooks. 300+ applications connectables.</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Grafana Monitoring -->
+                        <a href="#" id="link-grafana" class="admin-card">
+                            <div class="admin-card-header">
+                                <div class="admin-icon-wrapper grafana-bg">
+                                    <i class="fas fa-chart-area"></i>
+                                </div>
+                                <span class="status-badge status-active" data-service="grafana">✓ Actif</span>
+                            </div>
+                            <div class="admin-card-content">
+                                <h3>Grafana</h3>
+                                <p class="admin-subtitle">📊 Monitoring</p>
+                                <p class="admin-desc">Dashboards temps réel, métriques Prometheus, logs Loki et alerting 24/7.</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Portainer Docker -->
+                        <a href="#" id="link-portainer" class="admin-card">
+                            <div class="admin-card-header">
+                                <div class="admin-icon-wrapper portainer-bg">
+                                    <i class="fab fa-docker"></i>
+                                </div>
+                                <span class="status-badge status-active" data-service="portainer">✓ Actif</span>
+                            </div>
+                            <div class="admin-card-content">
+                                <h3>Portainer CE</h3>
+                                <p class="admin-subtitle">🐳 Docker</p>
+                                <p class="admin-desc">Management complet stacks, images, volumes, réseaux et monitoring ressources.</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Strapi CMS -->
+                        <a href="#" id="link-strapi" class="admin-card">
+                            <div class="admin-card-header">
+                                <div class="admin-icon-wrapper strapi-bg">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <span class="status-badge status-active" data-service="strapi">✓ Actif</span>
+                            </div>
+                            <div class="admin-card-content">
+                                <h3>Strapi CMS</h3>
+                                <p class="admin-subtitle">📝 Headless CMS</p>
+                                <p class="admin-desc">Gestion de contenu, API REST/GraphQL, collections personnalisées et gestion médias.</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Superset BI -->
+                        <a href="#" id="link-superset" class="admin-card">
+                            <div class="admin-card-header">
+                                <div class="admin-icon-wrapper superset-bg">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <span class="status-badge status-active" data-service="superset">✓ Actif</span>
+                            </div>
+                            <div class="admin-card-content">
+                                <h3>Apache Superset</h3>
+                                <p class="admin-subtitle">📈 Analytics BI</p>
+                                <p class="admin-desc">Visualisation de données, dashboards interactifs, requêtes SQL et exploration de datasets.</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Additional Services Section -->
+                    <div class="mt-5">
+                        <h3 class="mb-4">
+                            <i class="ti ti-link me-2"></i>
+                            Liens Rapides API & Documentation
+                        </h3>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <a href="#" id="link-swagger" class="card card-link" style="text-decoration: none;">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-3">
+                                                <i class="fas fa-code fa-2x text-blue"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="card-title mb-1">Swagger UI</h4>
+                                                <p class="text-secondary mb-0">Documentation API interactive</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="#" id="link-openapi" class="card card-link" style="text-decoration: none;">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-3">
+                                                <i class="fas fa-file-code fa-2x text-purple"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="card-title mb-1">OpenAPI Spec</h4>
+                                                <p class="text-secondary mb-0">Spécification OpenAPI JSON</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="#" id="link-prometheus" class="card card-link" style="text-decoration: none;">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-3">
+                                                <i class="fas fa-chart-line fa-2x text-orange"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="card-title mb-1">Prometheus</h4>
+                                                <p class="text-secondary mb-0">Collecteur de métriques</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer footer-transparent d-print-none">
+                <div class="container-xl">
+                    <div class="row text-center align-items-center">
+                        <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                            <ul class="list-inline list-inline-dots mb-0">
+                                <li class="list-inline-item">
+                                    OceanPhenix IA Souveraine © 2025
+                                </li>
+                                <li class="list-inline-item">
+                                    V10.0 - Admin Pro
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Tabler JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
+    
+    <!-- Config & Dependencies -->
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/api-client.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    
+    <script>
+        // Initialize app
+        App.init();
+        
+        // Configure service links with dynamic URLs
+        document.addEventListener('DOMContentLoaded', async () => {
+            const config = CONFIG.getActive();
+            const services = config.services;
+            
+            // Main services
+            const serviceLinks = {
+                'link-studio': services.studio,
+                'link-minio': services.minio,
+                'link-qdrant': services.qdrant,
+                'link-n8n': services.n8n,
+                'link-grafana': services.grafana,
+                'link-portainer': services.portainer,
+                'link-strapi': services.strapi,
+                'link-superset': services.superset,
+                'link-swagger': config.apiUrl + '/docs',
+                'link-openapi': config.apiUrl + '/openapi.json',
+                'link-prometheus': services.prometheus
+            };
+            
+            // Set hrefs
+            for (const [id, url] of Object.entries(serviceLinks)) {
+                const link = document.getElementById(id);
+                if (link && url) {
+                    link.href = url;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                }
+            }
+            
+            // Update service status badges
+            try {
+                const api = new OceanPhenixAPI();
+                const health = await api.getHealth();
+                
+                if (health && health.services) {
+                    document.querySelectorAll('.status-badge[data-service]').forEach(badge => {
+                        const service = badge.getAttribute('data-service');
+                        const status = health.services[service];
+                        
+                        if (status === 'healthy' || status === 'ok') {
+                            badge.className = 'status-badge status-active';
+                            badge.innerHTML = '✓ Actif';
+                        } else if (status === 'unhealthy' || status === 'error') {
+                            badge.className = 'status-badge status-inactive';
+                            badge.innerHTML = '✗ Inactif';
+                        } else {
+                            badge.className = 'status-badge';
+                            badge.style.background = 'rgba(107, 114, 128, 0.1)';
+                            badge.style.color = '#6b7280';
+                            badge.innerHTML = '◯ Inconnu';
+                        }
+                    });
+                }
+            } catch (error) {
+                console.warn('Could not fetch service status:', error);
+            }
+        });
+    </script>
+</body>
+</html>

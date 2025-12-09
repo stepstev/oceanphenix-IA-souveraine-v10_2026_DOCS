@@ -1,0 +1,721 @@
+/**
+ * 🌊 OceanPhenix V8 - Thème Sombre Professionnel
+ * ==============================================
+ * Mode Dark OceanPhenix avec effets glassmorphism
+ */
+
+:root {
+    /* Couleurs OceanPhenix Dark Theme */
+    --opx-dark-bg: #0f1419;
+    --opx-dark-surface: #1a2332;
+    --opx-dark-surface-light: #212d3f;
+    --opx-dark-border: #2a3b52;
+    
+    --opx-cyan: #00d9ff;
+    --opx-cyan-glow: rgba(0, 217, 255, 0.3);
+    --opx-blue: #0095d9;
+    --opx-blue-dark: #006994;
+    --opx-purple: #8b5cf6;
+    --opx-purple-light: #a78bfa;
+    --opx-pink: #ec4899;
+    --opx-violet: #7c3aed;
+    
+    /* Gradients OceanPhenix */
+    --opx-gradient-primary: linear-gradient(135deg, #00d9ff 0%, #0095d9 100%);
+    --opx-gradient-secondary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    --opx-gradient-surface: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+    
+    /* Glassmorphism */
+    --opx-glass-bg: rgba(26, 35, 50, 0.6);
+    --opx-glass-border: rgba(0, 217, 255, 0.1);
+    --opx-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    
+    /* Ombres avec glow */
+    --opx-shadow-cyan: 0 4px 24px rgba(0, 217, 255, 0.15);
+    --opx-shadow-purple: 0 4px 24px rgba(139, 92, 246, 0.15);
+    --opx-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+    
+    /* Animations */
+    --opx-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Force Dark Mode Global */
+body {
+    background: var(--opx-dark-bg) !important;
+    color: #e2e8f0 !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+/* Override Tabler defaults pour dark mode */
+.page {
+    background: var(--opx-dark-bg) !important;
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    background: var(--opx-dark-bg) !important;
+}
+
+
+/* ==============================================
+   NAVBAR DARK OCEANPHENIX
+   ============================================== */
+
+.navbar {
+    background: var(--opx-dark-surface) !important;
+    border-bottom: 1px solid var(--opx-dark-border);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--opx-shadow-lg);
+}
+
+.navbar-brand {
+    color: var(--opx-cyan) !important;
+    font-weight: 700;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.navbar-brand:hover {
+    color: var(--opx-cyan) !important;
+    filter: brightness(1.2);
+}
+
+.navbar-logo-icon {
+    font-size: 2rem;
+    color: var(--opx-cyan);
+    text-shadow: 0 0 20px var(--opx-cyan-glow);
+}
+
+.navbar-nav .nav-link {
+    color: #94a3b8 !important;
+    transition: var(--opx-transition);
+    border-radius: 0.5rem;
+    margin: 0 0.25rem;
+    padding: 0.5rem 1rem;
+    position: relative;
+}
+
+.navbar-nav .nav-link:hover {
+    background: var(--opx-glass-bg);
+    color: var(--opx-cyan) !important;
+    box-shadow: 0 0 20px var(--opx-cyan-glow);
+    border: 1px solid var(--opx-glass-border);
+}
+
+.navbar-nav .nav-link.active {
+    background: var(--opx-gradient-primary);
+    color: white !important;
+    font-weight: 600;
+    box-shadow: var(--opx-shadow-cyan);
+}
+
+.navbar-nav .nav-link.active::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--opx-cyan);
+    box-shadow: 0 0 10px var(--opx-cyan);
+}
+
+/* Badge status */
+.badge {
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: 0.375rem;
+}
+
+.badge-outline {
+    border: 1px solid currentColor;
+    background: transparent;
+}
+
+.text-blue {
+    color: var(--opx-cyan) !important;
+}
+
+.text-purple {
+    color: var(--opx-purple) !important;
+}
+
+/* Button theme toggle */
+.btn-icon {
+    background: var(--opx-glass-bg);
+    border: 1px solid var(--opx-glass-border);
+    color: var(--opx-cyan);
+    transition: var(--opx-transition);
+}
+
+.btn-icon:hover {
+    background: var(--opx-gradient-primary);
+    border-color: var(--opx-cyan);
+    color: white;
+    box-shadow: var(--opx-shadow-cyan);
+    transform: rotate(180deg);
+}
+
+/* ==============================================
+   PAGE HEADER DARK
+   ============================================== */
+
+.page-header {
+    background: var(--opx-dark-surface) !important;
+    border-bottom: 1px solid var(--opx-dark-border);
+    padding: 1.5rem 0;
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--opx-cyan) !important;
+    text-shadow: 0 0 20px var(--opx-cyan-glow);
+}
+
+.page-pretitle {
+    color: #94a3b8 !important;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.text-muted {
+    color: #64748b !important;
+}
+
+/* ==============================================
+   CARDS GLASSMORPHISM
+   ============================================== */
+
+.card {
+    background: var(--opx-glass-bg) !important;
+    border: 1px solid var(--opx-glass-border) !important;
+    border-radius: 1rem;
+    box-shadow: var(--opx-glass-shadow);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: var(--opx-transition);
+    color: #e2e8f0 !important;
+}
+
+.card:hover {
+    border-color: rgba(0, 217, 255, 0.3) !important;
+    box-shadow: var(--opx-shadow-cyan);
+    transform: translateY(-4px);
+}
+
+.card-header {
+    background: rgba(0, 217, 255, 0.05) !important;
+    border-bottom: 1px solid var(--opx-glass-border) !important;
+    font-weight: 600;
+    color: var(--opx-cyan) !important;
+}
+
+.card-title {
+    color: var(--opx-cyan) !important;
+    font-weight: 600;
+}
+
+.card-body {
+    color: #e2e8f0 !important;
+}
+
+/* Cards avec gradient OceanPhenix */
+.card-gradient {
+    background: var(--opx-gradient-primary) !important;
+    border: none !important;
+    box-shadow: var(--opx-shadow-cyan);
+    color: white !important;
+}
+
+.card-gradient .card-title,
+.card-gradient .card-text,
+.card-gradient .card-body {
+    color: white !important;
+}
+
+/* Stats cards OceanPhenix */
+.card-stats {
+    padding: 1.5rem;
+    background: var(--opx-dark-surface-light) !important;
+}
+
+.card-stats .stats-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    font-size: 1.75rem;
+    background: var(--opx-gradient-primary);
+    box-shadow: var(--opx-shadow-cyan);
+}
+
+.card-stats .stats-value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: 0.75rem;
+    background: var(--opx-gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.card-stats .stats-label {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* ==============================================
+   BOUTONS OCEANPHENIX
+   ============================================== */
+
+.btn {
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: var(--opx-transition);
+    border: none;
+}
+
+.btn-primary {
+    background: var(--opx-gradient-primary) !important;
+    color: white !important;
+    box-shadow: var(--opx-shadow-cyan);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #00b8e6 0%, #007ab8 100%) !important;
+    box-shadow: 0 6px 32px rgba(0, 217, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    background: transparent !important;
+    border: 2px solid var(--opx-cyan) !important;
+    color: var(--opx-cyan) !important;
+}
+
+.btn-outline-primary:hover {
+    background: var(--opx-gradient-primary) !important;
+    border-color: var(--opx-cyan) !important;
+    color: white !important;
+    box-shadow: var(--opx-shadow-cyan);
+}
+
+.btn-outline-warning {
+    border: 2px solid var(--opx-purple) !important;
+    color: var(--opx-purple) !important;
+}
+
+.btn-outline-warning:hover {
+    background: var(--opx-gradient-secondary) !important;
+    color: white !important;
+}
+
+.btn-outline-success {
+    border: 2px solid #10b981 !important;
+    color: #10b981 !important;
+}
+
+.btn-outline-info {
+    border: 2px solid var(--opx-cyan) !important;
+    color: var(--opx-cyan) !important;
+}
+
+.btn-outline-secondary {
+    border: 2px solid #64748b !important;
+    color: #94a3b8 !important;
+}
+
+/* ==============================================
+   BADGES & STATUS OCEANPHENIX
+   ============================================== */
+
+.badge {
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.badge-sovereign {
+    background: linear-gradient(135deg, #002395 0%, #ed2939 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(237, 41, 57, 0.3);
+}
+
+.status-dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.status-dot-animated {
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+/* ==============================================
+   TABLEAUX DARK
+   ============================================== */
+
+.table {
+    font-size: 0.875rem;
+    color: #e2e8f0 !important;
+}
+
+.table thead th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: var(--opx-cyan) !important;
+    background: var(--opx-dark-surface-light) !important;
+    border-bottom: 2px solid var(--opx-dark-border) !important;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--opx-dark-border) !important;
+    transition: var(--opx-transition);
+}
+
+.table tbody tr:hover {
+    background: rgba(0, 217, 255, 0.05) !important;
+}
+
+/* ==============================================
+   PROGRESS & GAUGES OCEANPHENIX
+   ============================================== */
+
+.progress {
+    height: 0.625rem;
+    border-radius: 1rem;
+    background: var(--opx-dark-surface-light) !important;
+}
+
+.progress-bar {
+    background: var(--opx-gradient-primary) !important;
+    box-shadow: 0 0 10px var(--opx-cyan-glow);
+}
+
+/* ==============================================
+   ALERTES DARK
+   ============================================== */
+
+.alert {
+    border-radius: 0.75rem;
+    border-left: 4px solid;
+    background: var(--opx-glass-bg) !important;
+    border: 1px solid var(--opx-glass-border) !important;
+    color: #e2e8f0 !important;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.alert-info {
+    border-left-color: var(--opx-cyan) !important;
+    background: rgba(0, 217, 255, 0.1) !important;
+}
+
+.alert-success {
+    border-left-color: #10b981 !important;
+    background: rgba(16, 185, 129, 0.1) !important;
+}
+
+.alert-warning {
+    border-left-color: var(--opx-purple) !important;
+    background: rgba(139, 92, 246, 0.1) !important;
+}
+
+/* ==============================================
+   FOOTER DARK
+   ============================================== */
+
+.footer {
+    background: var(--opx-dark-surface) !important;
+    border-top: 1px solid var(--opx-dark-border);
+    color: #94a3b8 !important;
+}
+
+.footer a {
+    color: var(--opx-cyan) !important;
+    transition: var(--opx-transition);
+}
+
+.footer a:hover {
+    color: var(--opx-purple) !important;
+}
+
+/* ==============================================
+   INPUTS & FORMS DARK
+   ============================================== */
+
+.form-control,
+.form-select {
+    background: var(--opx-dark-surface-light) !important;
+    border: 1px solid var(--opx-dark-border) !important;
+    color: #e2e8f0 !important;
+    transition: var(--opx-transition);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: var(--opx-dark-surface) !important;
+    border-color: var(--opx-cyan) !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 217, 255, 0.15) !important;
+    color: #e2e8f0 !important;
+}
+
+.form-control::placeholder {
+    color: #64748b !important;
+}
+
+.form-label {
+    color: #94a3b8 !important;
+    font-weight: 600;
+}
+
+/* ==============================================
+   LOADER OCEANPHENIX
+   ============================================== */
+
+.spinner-oceanphenix,
+.spinner-border {
+    border: 3px solid rgba(0, 217, 255, 0.2);
+    border-left-color: var(--opx-cyan);
+    animation: spin-glow 1s linear infinite;
+}
+
+@keyframes spin-glow {
+    to { 
+        transform: rotate(360deg);
+    }
+}
+
+/* Loading overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 20, 25, 0.8);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+/* ==============================================
+   UTILITIES DARK
+   ============================================== */
+
+/* Text utilities */
+.text-muted {
+    color: #64748b !important;
+}
+
+.text-cyan {
+    color: var(--opx-cyan) !important;
+}
+
+.text-purple {
+    color: var(--opx-purple) !important;
+}
+
+.text-gradient {
+    background: var(--opx-gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Background utilities */
+.bg-dark-surface {
+    background: var(--opx-dark-surface) !important;
+}
+
+.bg-glass {
+    background: var(--opx-glass-bg) !important;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+/* Border utilities */
+.border-cyan {
+    border-color: var(--opx-cyan) !important;
+}
+
+.border-glass {
+    border: 1px solid var(--opx-glass-border) !important;
+}
+
+/* Glow utilities */
+.glow-cyan {
+    box-shadow: 0 0 20px var(--opx-cyan-glow);
+}
+
+.glow-purple {
+    box-shadow: 0 0 20px var(--opx-purple-glow);
+}
+
+/* ==============================================
+   TIMELINE DARK
+   ============================================== */
+
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--opx-cyan), var(--opx-purple));
+    box-shadow: 0 0 10px var(--opx-cyan-glow);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.625rem;
+    top: 0.375rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: var(--opx-cyan);
+    border: 2px solid var(--opx-dark-bg);
+    box-shadow: 0 0 10px var(--opx-cyan-glow);
+}
+
+/* ==============================================
+   RESPONSIVE DARK
+   ============================================== */
+
+@media (max-width: 991.98px) {
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .card-stats .stats-value {
+        font-size: 1.5rem;
+    }
+    
+    .navbar-collapse {
+        background: var(--opx-dark-surface) !important;
+        border-radius: 0.75rem;
+        margin-top: 1rem;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .page-title {
+        font-size: 1.25rem;
+    }
+    
+    .card-stats {
+        padding: 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* ==============================================
+   SCROLLBAR DARK
+   ============================================== */
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--opx-dark-surface);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 217, 255, 0.3);
+    border-radius: 6px;
+    border: 2px solid var(--opx-dark-surface);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 217, 255, 0.5);
+}
+
+/* ==============================================
+   ANIMATIONS
+   ============================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+}
+
+/* ==============================================
+   FIN DU THEME OCEANPHENIX DARK
+   ============================================== */
