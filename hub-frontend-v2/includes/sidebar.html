@@ -1,0 +1,57 @@
+<!-- Mobile Menu Toggle -->
+<button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+</button>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="brand">
+        <img src="assets/img/logo-oceanphenix.svg" alt="OceanPhenix V8 Logo" class="logo">
+        <div class="brand-text">
+            <h1>OceanPhenix V8</h1>
+            <span class="badge-sovereign">🇫🇷 100% Souverain</span>
+        </div>
+    </div>
+    
+    <nav class="nav-menu">
+        <a href="dashboard.html" class="nav-item" data-page="dashboard">
+            <i class="fas fa-chart-line"></i> Tableau de bord
+        </a>
+        <a href="rag.html" class="nav-item" data-page="rag">
+            <i class="fas fa-brain"></i> RAG & IA
+        </a>
+        <a href="automations.html" class="nav-item" data-page="automations">
+            <i class="fas fa-robot"></i> Automations
+        </a>
+        <div class="nav-divider"></div>
+        <span class="nav-label">Monitoring</span>
+        <a href="monitoring.html" class="nav-item" data-page="monitoring">
+            <i class="fas fa-heartbeat"></i> Santé Plateforme
+        </a>
+        <a href="#" class="nav-item" id="monitoring-containers">
+            <i class="fas fa-docker"></i> Conteneurs
+        </a>
+        <div class="nav-divider"></div>
+        <span class="nav-label">Documentation API</span>
+        <a href="http://localhost:8000/docs" class="nav-item api-doc-link" data-api-url="http://localhost:8000/docs" data-api-name="Swagger UI" target="_blank" rel="noopener">
+            <i class="fas fa-code"></i> Swagger UI
+        </a>
+        <a href="http://localhost:8000/openapi.json" class="nav-item api-doc-link" data-api-url="http://localhost:8000/openapi.json" data-api-name="OpenAPI Spec" target="_blank" rel="noopener">
+            <i class="fas fa-file-code"></i> OpenAPI Spec
+        </a>
+        <div class="nav-divider"></div>
+        <span class="nav-label">Administration</span>
+        <a href="settings.html" class="nav-item" data-page="settings">
+            <i class="fas fa-cogs"></i> Paramètres
+        </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+        <p class="version">V8.0.0 - Décembre 2025</p>
+    </div>
+</aside>
+
+<!-- Mobile Overlay -->
+<div class="mobile-overlay" id="mobile-overlay"></div>
