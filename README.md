@@ -310,6 +310,7 @@ openssl rand -base64 32
 | Guide | Description | Durée | Public |
 |-------|-------------|-------|--------|
 | **[QUICK_START.md](QUICK_START.md)** | Démarrage ultra-rapide 5 minutes | ⚡ 5 min | Tous |
+| **[docs/INSTALL_LOCAL_RAPIDE.md](docs/INSTALL_LOCAL_RAPIDE.md)** | Installation locale automatisée | ⚡ 10 min | Débutant |
 | **[docs/INSTALL_LOCAL.md](docs/INSTALL_LOCAL.md)** | Installation locale complète Docker Desktop | 🕐 30 min | Intermédiaire |
 | **[docs/INSTALL_HETZNER.md](docs/INSTALL_HETZNER.md)** | Déploiement production serveur Hetzner + SSL | 🕑 1h | Avancé |
 | **[docs/01-GUIDE_SIMPLE.md](docs/01-GUIDE_SIMPLE.md)** | Frontend O2Switch + Backend Hetzner séparés | 🕐 20 min | Intermédiaire |
