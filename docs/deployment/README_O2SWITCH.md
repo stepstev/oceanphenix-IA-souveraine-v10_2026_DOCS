@@ -1,10 +1,10 @@
-# ✅ OceanPhenix V8 - Frontend O2switch Ready
+# ✅ OceanPhenix V10 - Frontend O2switch Ready
 
 ## 🎯 Résumé des Modifications
 
 ### ✅ **Frontend 100% Statique - Sans PHP**
 
-Le frontend OceanPhenix V8 est maintenant **entièrement statique** et compatible avec n'importe quel hébergement web (O2switch, OVH, Netlify, Vercel, GitHub Pages, etc.).
+Le frontend OceanPhenix V10 est maintenant **entièrement statique** et compatible avec n'importe quel hébergement web (O2switch, OVH, Netlify, Vercel, GitHub Pages, etc.).
 
 ### ✅ **Modal Open WebUI Adaptative**
 
@@ -114,7 +114,7 @@ Le frontend OceanPhenix V8 est maintenant **entièrement statique** et compatibl
 
 ```bash
 # Sur votre VPS Hetzner
-cd /chemin/vers/oceanphenix-v8
+cd /chemin/vers/oceanphenix-v10
 
 # Copier le fichier exemple
 cp core/proxy/Caddyfile.o2switch-example core/proxy/Caddyfile
@@ -367,6 +367,6 @@ vs OpenAI/Azure     : 450€/mois 💸
 
 ---
 
-**🎉 Frontend OceanPhenix V8 - 100% Statique - O2switch Ready !**
+**🎉 Frontend OceanPhenix V10 - 100% Statique - O2switch Ready !**
 
 **Pas de PHP** ✅ | **CORS Backend** ✅ | **Performance Optimale** ✅

@@ -1,4 +1,4 @@
-# 🌐 Guide de Déploiement O2Switch (Frontend) - OceanPhenix V8
+# 🌐 Guide de Déploiement O2Switch (Frontend) - OceanPhenix V10
 
 Guide **complet** pour déployer le Hub Frontend d'OceanPhenix sur hébergement mutualisé O2Switch.
 
@@ -50,8 +50,8 @@ Cette configuration permet de :
 
 ```bash
 # Clone projet
-git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git>
-cd oceanphenix-IA-souveraine-v8/hub-frontend
+git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026.git>
+cd oceanphenix-IA-souveraine-v10_2026/hub-frontend
 ```
 
 ### Configuration API Endpoints
@@ -334,7 +334,7 @@ api.votredomaine.com {
 Reload Caddy :
 
 ```bash
-docker exec v8-caddy caddy reload --config /etc/caddy/Caddyfile
+docker exec v10-caddy caddy reload --config /etc/caddy/Caddyfile
 ```
 
 ## ✅ Étape 6 : Tests & Validation
@@ -577,8 +577,8 @@ if ('serviceWorker' in navigator) {
 
 - **O2Switch cPanel** : <https://cpanel.o2switch.net>
 - **Documentation O2Switch** : <https://faq.o2switch.fr>
-- **Repository GitHub** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8>
+- **Repository GitHub** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026>
 
 ---
 
-**Support** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>
+**Support** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/issues>

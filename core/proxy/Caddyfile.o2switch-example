@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════════════════
-# 🌊 OceanPhenix V8 - Configuration Caddy avec CORS
+# 🌊 OceanPhenix V10 - Configuration Caddy avec CORS
 # ═══════════════════════════════════════════════════════════════════════════
 # Compatible Frontend Statique (O2switch, Netlify, Vercel, etc.)
 # ═══════════════════════════════════════════════════════════════════════════
@@ -66,7 +66,7 @@ api.oceanphenix.fr {
     }
     
     # Proxy vers l'API FastAPI
-    reverse_proxy v8-api:8000 {
+    reverse_proxy v10-api:8000 {
         # Timeout
         transport http {
             dial_timeout 5s
@@ -101,7 +101,7 @@ studio.oceanphenix.fr {
     @options method OPTIONS
     respond @options 204
     
-    reverse_proxy v8-studio:8080 {
+    reverse_proxy v10-studio:8080 {
         health_uri /health
     }
 }
@@ -116,7 +116,7 @@ grafana.oceanphenix.fr {
         {$ADMIN_USER} {$ADMIN_PASSWORD_HASH}
     }
     
-    reverse_proxy v8-grafana:3000
+    reverse_proxy v10-grafana:3000
 }
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -130,7 +130,7 @@ prometheus.oceanphenix.fr {
     }
     
     handle @allowed {
-        reverse_proxy v8-prometheus:9090
+        reverse_proxy v10-prometheus:9090
     }
     
     # Bloquer le reste
@@ -149,12 +149,12 @@ minio.oceanphenix.fr {
         Access-Control-Allow-Headers "Range, Content-Type"
     }
     
-    reverse_proxy v8-minio:9001
+    reverse_proxy v10-minio:9001
 }
 
 # Alias S3 (API MinIO)
 s3.oceanphenix.fr {
-    reverse_proxy v8-minio:9000
+    reverse_proxy v10-minio:9000
 }
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -163,7 +163,7 @@ s3.oceanphenix.fr {
 
 n8n.oceanphenix.fr {
     # Authentification via n8n
-    reverse_proxy v8-n8n:5678 {
+    reverse_proxy v10-n8n:5678 {
         # Timeout prolongé pour workflows longs
         transport http {
             response_header_timeout 300s
@@ -186,7 +186,7 @@ cms.oceanphenix.fr {
     @options method OPTIONS
     respond @options 204
     
-    reverse_proxy v8-cms:1337
+    reverse_proxy v10-cms:1337
 }
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -194,7 +194,7 @@ cms.oceanphenix.fr {
 # ─────────────────────────────────────────────────────────────────────────
 
 bi.oceanphenix.fr {
-    reverse_proxy v8-bi:8088 {
+    reverse_proxy v10-bi:8088 {
         # Timeout pour requêtes lourdes
         transport http {
             response_header_timeout 120s
@@ -207,7 +207,7 @@ bi.oceanphenix.fr {
 # ─────────────────────────────────────────────────────────────────────────
 
 portainer.oceanphenix.fr {
-    reverse_proxy v8-portainer:9000
+    reverse_proxy v10-portainer:9000
 }
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -219,7 +219,7 @@ qdrant.oceanphenix.fr {
     @allowed remote_ip 10.0.0.0/8
     
     handle @allowed {
-        reverse_proxy v8-qdrant:6333
+        reverse_proxy v10-qdrant:6333
     }
     
     respond "Forbidden" 403
@@ -234,7 +234,7 @@ ollama.oceanphenix.fr {
     @allowed remote_ip 10.0.0.0/8 172.16.0.0/12
     
     handle @allowed {
-        reverse_proxy v8-ollama:11434 {
+        reverse_proxy v10-ollama:11434 {
             # Timeout prolongé pour inférence
             transport http {
                 response_header_timeout 600s

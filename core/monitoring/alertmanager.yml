@@ -102,7 +102,7 @@ receivers:
             {{ end }}
             <hr>
             <p style="color: #666; font-size: 12px;">
-              Envoyé par Alertmanager - OceanPhenix V8<br>
+              Envoyé par Alertmanager - OceanPhenix V10<br>
               {{ .ExternalURL }}
             </p>
           </body>

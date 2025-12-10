@@ -144,7 +144,7 @@ docs/
 
 ```bash
 ssh root@VOTRE_IP_HETZNER
-curl -o /tmp/install.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/docs/deploy-hetzner.sh
+curl -o /tmp/install.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/docs/deploy-hetzner.sh
 bash /tmp/install.sh
 ```
 
@@ -154,8 +154,8 @@ C'est tout ! ✅
 
 ## 🔗 Liens Utiles
 
-- **GitHub Repository** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8>
-- **Issues** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>
+- **GitHub Repository** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026>
+- **Issues** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/issues>
 - **README Principal** : [../README.md](../README.md)
 
 ---
@@ -195,5 +195,5 @@ C'est tout ! ✅
 
 ---
 
-**🌊 OceanPhenix V8 - Plateforme IA Souveraine**
+**🌊 OceanPhenix V10 - Plateforme IA Souveraine**
 **Documentation organisée et accessible**

@@ -99,7 +99,7 @@ nano .env
 docker compose --profile all up -d
 
 # 6. Installer modèle
-docker exec v8-ollama ollama pull mistral:latest
+docker exec v10-ollama ollama pull mistral:latest
 ```
 
 ### 🌍 Configuration DNS
@@ -142,8 +142,8 @@ curl https://api.votredomaine.com/health
 
 ```bash
 # 1. Cloner en local
-git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git
-cd oceanphenix-IA-souveraine-v8/hub-frontend
+git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026.git
+cd oceanphenix-IA-souveraine-v10_2026/hub-frontend
 
 # 2. Configurer API
 cp config.prod.js config.js
@@ -171,7 +171,7 @@ nano config.js
 
 ```bash
 ssh root@serveur-hetzner
-cd /root/oceanphenix-IA-souveraine-v8
+cd /root/oceanphenix-IA-souveraine-v10_2026
 nano backend/main.py
 ```
 
@@ -254,13 +254,13 @@ docker compose up -d
 
 ```bash
 # Lister modèles installés
-docker exec v8-ollama ollama list
+docker exec v10-ollama ollama list
 
 # Installer modèle
-docker exec v8-ollama ollama pull llama3.2
+docker exec v10-ollama ollama pull llama3.2
 
 # Tester modèle
-docker exec -it v8-ollama ollama run mistral "Bonjour"
+docker exec -it v10-ollama ollama run mistral "Bonjour"
 ```
 
 ### Santé du Système
@@ -311,13 +311,13 @@ docker compose restart backend
 
 ```bash
 # Vérifier modèles installés
-docker exec v8-ollama ollama list
+docker exec v10-ollama ollama list
 
 # Réinstaller modèle
-docker exec v8-ollama ollama pull mistral:latest
+docker exec v10-ollama ollama pull mistral:latest
 
 # Vérifier logs
-docker logs v8-ollama -f
+docker logs v10-ollama -f
 ```
 
 ### Mémoire insuffisante
@@ -381,9 +381,9 @@ docker compose restart backend ollama qdrant
 
 ## 🆘 Support
 
-- **Issues** : https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues
-- **Documentation** : https://github.com/stepstev/oceanphenix-IA-souveraine-v8
-- **Discussions** : https://github.com/stepstev/oceanphenix-IA-souveraine-v8/discussions
+- **Issues** : https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/issues
+- **Documentation** : https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026
+- **Discussions** : https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/discussions
 
 ---
 
@@ -392,7 +392,7 @@ docker compose restart backend ollama qdrant
 ### Installation Locale
 - [ ] Docker Desktop lancé
 - [ ] Services UP : `docker compose ps`
-- [ ] Modèle LLM installé : `docker exec v8-ollama ollama list`
+- [ ] Modèle LLM installé : `docker exec v10-ollama ollama list`
 - [ ] Hub accessible : http://localhost:8080
 - [ ] API santé OK : http://localhost:8000/health
 
@@ -412,7 +412,7 @@ docker compose restart backend ollama qdrant
 
 ---
 
-**🌊 OceanPhenix V8** - Plateforme IA Souveraine Open Source
+**🌊 OceanPhenix V10** - Plateforme IA Souveraine Open Source
 
 *Développé avec ❤️ par l'équipe OceanPhenix*
 

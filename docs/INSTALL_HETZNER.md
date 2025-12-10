@@ -1,6 +1,6 @@
-# 🚀 Guide de Déploiement Hetzner - OceanPhenix V8
+# 🚀 Guide de Déploiement Hetzner - OceanPhenix V10
 
-Guide complet pour déployer OceanPhenix IA Souveraine V8 sur serveur dédié Hetzner avec domaine et SSL.
+Guide complet pour déployer OceanPhenix IA Souveraine V10 sur serveur dédié Hetzner avec domaine et SSL.
 
 ## 🎯 Vue d'Ensemble
 
@@ -56,7 +56,7 @@ Ce déploiement configure :
    - Type : CCX33 (8 vCPU, 32 GB)
    - Volumes : Optionnel (backup externe)
    - SSH Key : Ajouter votre clé publique
-   - Name : `oceanphenix-v8`
+   - Name : `oceanphenix-v10`
 
 4. **Attendre création** (30 secondes)
 5. **Noter l'IP** : `<SERVER_IP>`
@@ -74,14 +74,14 @@ hcloud context create oceanphenix
 
 # Créer serveur
 hcloud server create \
-  --name oceanphenix-v8 \
+  --name oceanphenix-v10 \
   --type ccx33 \
   --image ubuntu-22.04 \
   --ssh-key <your-key-id> \
   --location nbg1
 
 # Noter IP publique
-hcloud server describe oceanphenix-v8 | grep "Public:"
+hcloud server describe oceanphenix-v10 | grep "Public:"
 ```
 
 ## 🌐 Étape 2 : Configuration DNS
@@ -222,8 +222,8 @@ sudo systemctl restart docker
 cd /home/oceanphenix
 
 # Cloner projet
-git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git>
-cd oceanphenix-IA-souveraine-v8
+git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026.git>
+cd oceanphenix-IA-souveraine-v10_2026
 ```
 
 ### Configuration Environnement
@@ -368,16 +368,16 @@ docker compose ps
 
 ```bash
 # Mistral 7B (Français)
-docker exec v8-ollama ollama pull mistral:latest
+docker exec v10-ollama ollama pull mistral:latest
 
 # Llama 3.2 3B (Léger)
-docker exec v8-ollama ollama pull llama3.2:3b
+docker exec v10-ollama ollama pull llama3.2:3b
 
 # Embeddings pour RAG
-docker exec v8-ollama ollama pull nomic-embed-text
+docker exec v10-ollama ollama pull nomic-embed-text
 
 # Vérifier
-docker exec v8-ollama ollama list
+docker exec v10-ollama ollama list
 ```
 
 ## 🔒 Étape 6 : SSL Automatique
@@ -386,10 +386,10 @@ Caddy gère automatiquement SSL avec Let's Encrypt !
 
 ```bash
 # Vérifier certificats
-docker exec v8-caddy caddy list-certificates
+docker exec v10-caddy caddy list-certificates
 
 # Logs SSL
-docker logs v8-caddy | grep -i certificate
+docker logs v10-caddy | grep -i certificate
 ```
 
 **Test HTTPS** :
@@ -451,19 +451,19 @@ echo "🔄 Starting backup..."
 
 # Backup MinIO data
 docker run --rm \
-  -v oceanphenix-v8_minio_data:/data:ro \
+  -v oceanphenix-v10_minio_data:/data:ro \
   -v /backup:/backup \
   alpine tar czf $BACKUP_DIR/minio.tar.gz /data
 
 # Backup Qdrant
-docker exec v8-qdrant tar czf /tmp/qdrant-backup.tar.gz /qdrant/storage
-docker cp v8-qdrant:/tmp/qdrant-backup.tar.gz $BACKUP_DIR/
-docker exec v8-qdrant rm /tmp/qdrant-backup.tar.gz
+docker exec v10-qdrant tar czf /tmp/qdrant-backup.tar.gz /qdrant/storage
+docker cp v10-qdrant:/tmp/qdrant-backup.tar.gz $BACKUP_DIR/
+docker exec v10-qdrant rm /tmp/qdrant-backup.tar.gz
 
 # Backup configuration
 tar czf $BACKUP_DIR/config.tar.gz \
-  /home/oceanphenix/oceanphenix-IA-souveraine-v8/.env \
-  /home/oceanphenix/oceanphenix-IA-souveraine-v8/docker-compose.yml
+  /home/oceanphenix/oceanphenix-IA-souveraine-v10_2026/.env \
+  /home/oceanphenix/oceanphenix-IA-souveraine-v10_2026/docker-compose.yml
 
 # Clean old backups
 find /backup/oceanphenix -type d -mtime +$RETENTION_DAYS -exec rm -rf {} +
@@ -519,16 +519,16 @@ done
 docker compose logs -f
 
 # Logs spécifiques
-docker logs v8-studio -f --tail 100
-docker logs v8-ollama -f
-docker logs v8-caddy -f
+docker logs v10-studio -f --tail 100
+docker logs v10-ollama -f
+docker logs v10-caddy -f
 ```
 
 ### Mises à Jour
 
 ```bash
 # Pull dernières images
-cd /home/oceanphenix/oceanphenix-IA-souveraine-v8
+cd /home/oceanphenix/oceanphenix-IA-souveraine-v10_2026
 git pull origin main
 docker compose pull
 
@@ -548,10 +548,10 @@ docker compose ps
 dig ia.votredomaine.com +short
 
 # Logs Caddy
-docker logs v8-caddy | grep -i "certificate"
+docker logs v10-caddy | grep -i "certificate"
 
 # Forcer renouvellement
-docker exec v8-caddy caddy reload --config /etc/caddy/Caddyfile
+docker exec v10-caddy caddy reload --config /etc/caddy/Caddyfile
 ```
 
 ### Service inaccessible
@@ -656,8 +656,8 @@ api.votredomaine.com {
 
 - **Hetzner Cloud** : <https://console.hetzner.cloud>
 - **Documentation Caddy** : <https://caddyserver.com/docs>
-- **Repository GitHub** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8>
+- **Repository GitHub** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026>
 
 ---
 
-**Support** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>
+**Support** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/issues>

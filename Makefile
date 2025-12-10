@@ -1,12 +1,12 @@
 # ═══════════════════════════════════════════════════════════════════════════
-# 🌊 OceanPhenix V8 - Makefile Administration
+# 🌊 OceanPhenix V10 - Makefile Administration
 # ═══════════════════════════════════════════════════════════════════════════
 
 .PHONY: help install start stop restart logs clean v7-migrate
 
 # 🛠️ Commandes par défaut
 help:
-	@echo "🌊 OceanPhenix V8 Manager"
+	@echo "🌊 OceanPhenix V10 Manager"
 	@echo "----------------------------------------------------------------"
 	@echo "make install    : Prépare l'environnement (fichiers, réseaux)"
 	@echo "make start      : Démarre tous les services (Profile 'all')"

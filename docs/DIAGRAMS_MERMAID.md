@@ -461,11 +461,11 @@ graph LR
 
 ## 📚 Ressources
 
-- **GitHub Repository** : [stepstev/oceanphenix-IA-souveraine-v8](<https://github.com/stepstev/oceanphenix-IA-souveraine-v8>)
+- **GitHub Repository** : [stepstev/oceanphenix-IA-souveraine-v10_2026](<https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026>)
 - **Documentation Installation** : [INSTALL_LOCAL.md](INSTALL_LOCAL.md) | [INSTALL_HETZNER.md](INSTALL_HETZNER.md)
 - **Mermaid Live Editor** : <https://mermaid.live>
 - **Mermaid Documentation** : <https://mermaid.js.org>
 
 ---
 
-**© 2025 OceanPhenix IA Souveraine v8** | Made with ❤️ in France 🇫🇷
+**© 2025 OceanPhenix IA Souveraine V10** | Made with ❤️ in France 🇫🇷

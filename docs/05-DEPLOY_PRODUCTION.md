@@ -1,4 +1,4 @@
-# 🌊 OceanPhenix V8 - Déploiement Production O2Switch + Hetzner
+# 🌊 OceanPhenix V10 - Déploiement Production O2Switch + Hetzner
 
 ## 📋 Architecture de déploiement
 
@@ -118,7 +118,7 @@ Si première connexion, accepter la clé SSH.
 
 ```bash
 # Télécharger le script d'installation
-curl -o /tmp/deploy-hetzner.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/deploy-hetzner.sh
+curl -o /tmp/deploy-hetzner.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/deploy-hetzner.sh
 
 # Rendre exécutable
 chmod +x /tmp/deploy-hetzner.sh
@@ -368,8 +368,8 @@ docker-compose restart grafana portainer
 # Créer un compte utilisateur
 # Télécharger un modèle Ollama:
 
-docker exec -it v8-ollama ollama pull llama2
-docker exec -it v8-ollama ollama pull mistral
+docker exec -it v10-ollama ollama pull llama2
+docker exec -it v10-ollama ollama pull mistral
 ```
 
 ---
@@ -412,8 +412,8 @@ cd /opt/oceanphenix
 tar -czf $BACKUP_DIR/oceanphenix-data-$DATE.tar.gz data/
 
 # Backup base Qdrant
-docker exec v8-qdrant tar -czf /tmp/qdrant-backup.tar.gz /qdrant/storage
-docker cp v8-qdrant:/tmp/qdrant-backup.tar.gz $BACKUP_DIR/qdrant-$DATE.tar.gz
+docker exec v10-qdrant tar -czf /tmp/qdrant-backup.tar.gz /qdrant/storage
+docker cp v10-qdrant:/tmp/qdrant-backup.tar.gz $BACKUP_DIR/qdrant-$DATE.tar.gz
 
 # Garder 7 jours
 find $BACKUP_DIR -name "*.tar.gz" -mtime +7 -delete
@@ -556,9 +556,9 @@ journalctl --vacuum-time=7d
 
 ## 📞 Support
 
-**GitHub:** https://github.com/stepstev/oceanphenix-IA-souveraine-v8
+**GitHub:** https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026
 
-**Issues:** https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues
+**Issues:** https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/issues
 
 **Documentation:**
 - INSTALLATION.md - Guide complet
@@ -567,5 +567,5 @@ journalctl --vacuum-time=7d
 
 ---
 
-**🌊 OceanPhenix V8 - Plateforme IA Souveraine**
+**🌊 OceanPhenix V10 - Plateforme IA Souveraine**
 **O2Switch (DNS) + Hetzner (Hosting) = Production Ready!**

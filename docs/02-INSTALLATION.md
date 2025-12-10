@@ -1,4 +1,4 @@
-# 🌊 OceanPhenix V8 - Guide d'Installation
+# 🌊 OceanPhenix V10 - Guide d'Installation
 
 ## 📋 Table des matières
 
@@ -25,8 +25,8 @@
 
 ```bash
 # 1. Cloner le repository
-git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git
-cd oceanphenix-IA-souveraine-v8
+git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026.git
+cd oceanphenix-IA-souveraine-v10_2026
 
 # 2. Lancer la stack
 docker-compose up -d
@@ -58,7 +58,7 @@ docker-compose logs -f
 
 ```bash
 # Redémarrer si timeout
-docker restart v8-portainer
+docker restart v10-portainer
 
 # Puis dans le navigateur: https://localhost:9443
 # - Créer compte admin (password 12+ caractères)
@@ -104,7 +104,7 @@ docker restart v8-portainer
 ssh root@VOTRE_IP
 
 # 2. Télécharger et exécuter le script
-curl -o /tmp/deploy.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/deploy-hetzner.sh
+curl -o /tmp/deploy.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/deploy-hetzner.sh
 chmod +x /tmp/deploy.sh
 bash /tmp/deploy.sh
 ```
@@ -153,7 +153,7 @@ Créer/modifier `.env` à la racine:
 
 ```bash
 # Projet
-COMPOSE_PROJECT_NAME=oceanphenix-ia-souveraine-v8
+COMPOSE_PROJECT_NAME=oceanphenix-IA-souveraine-v10_2026
 
 # Sécurité
 GRAFANA_ADMIN_PASSWORD=VotreMotDePasse
@@ -171,13 +171,13 @@ SMTP_FROM=noreply@oceanphenix.fr
 
 ```bash
 # Télécharger un modèle LLM
-docker exec -it v8-ollama ollama pull llama2
+docker exec -it v10-ollama ollama pull llama2
 
 # Lister les modèles disponibles
-docker exec -it v8-ollama ollama list
+docker exec -it v10-ollama ollama list
 
 # Tester le modèle
-docker exec -it v8-ollama ollama run llama2 "Bonjour"
+docker exec -it v10-ollama ollama run llama2 "Bonjour"
 ```
 
 ### 3. Importer les dashboards Grafana
@@ -282,7 +282,7 @@ curl -X POST http://localhost:8000/api/documents/upload \
 
 ```bash
 # Local
-cd oceanphenix-IA-souveraine-v8
+cd oceanphenix-IA-souveraine-v10_2026
 git pull
 docker-compose pull
 docker-compose up -d
@@ -304,8 +304,8 @@ docker run --rm \
   alpine tar czf /backup/qdrant-$(date +%Y%m%d).tar.gz /data
 
 # Backup MinIO
-docker exec v8-minio mc alias set local http://localhost:9000 minioadmin minioadmin
-docker exec v8-minio mc mirror local/documents /backup/minio/
+docker exec v10-minio mc alias set local http://localhost:9000 minioadmin minioadmin
+docker exec v10-minio mc mirror local/documents /backup/minio/
 ```
 
 ### Nettoyage
@@ -399,7 +399,7 @@ docker-compose restart prometheus grafana cadvisor
 
 ```bash
 # Redémarrer Portainer
-docker restart v8-portainer
+docker restart v10-portainer
 
 # Accéder rapidement (5 min)
 # https://localhost:9443
@@ -424,13 +424,13 @@ docker-compose up -d backend
 
 ```bash
 # Lister les modèles
-docker exec -it v8-ollama ollama list
+docker exec -it v10-ollama ollama list
 
 # Télécharger un modèle
-docker exec -it v8-ollama ollama pull llama2
+docker exec -it v10-ollama ollama pull llama2
 
 # Vérifier le stockage
-docker exec -it v8-ollama df -h
+docker exec -it v10-ollama df -h
 ```
 
 ---
@@ -444,7 +444,7 @@ docker exec -it v8-ollama df -h
 
 ## 🆘 Support
 
-- **GitHub Issues**: https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues
+- **GitHub Issues**: https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/issues
 - **Documentation**: Ce README
 - **Logs**: `docker-compose logs -f`
 
@@ -454,4 +454,4 @@ Voir `hub-frontend/legal/licence.html` pour les détails de la licence Ocean Phe
 
 ---
 
-**🌊 OceanPhenix V8 - Plateforme IA Souveraine 100% RGPD**
+**🌊 OceanPhenix V10 - Plateforme IA Souveraine 100% RGPD**

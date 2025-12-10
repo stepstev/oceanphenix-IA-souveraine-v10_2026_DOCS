@@ -2,7 +2,7 @@
 
 ## 🎯 Objectif
 
-Ce dashboard fournit une vue complète de la santé de la plateforme OceanPhenix V8, utilisant :
+Ce dashboard fournit une vue complète de la santé de la plateforme OceanPhenix V10, utilisant :
 - **Prometheus** : Collecte des métriques
 - **Node Exporter** : Métriques système (CPU, RAM, Disk, Network)
 - **cAdvisor** : Métriques des conteneurs Docker
@@ -140,7 +140,7 @@ Dans le JSON, recherchez `thresholds` et ajustez :
 2. Sélectionner la datasource **Prometheus**
 3. Entrer une requête PromQL, exemple :
    ```promql
-   rate(container_network_receive_bytes_total{name="v8-ollama"}[5m])
+   rate(container_network_receive_bytes_total{name="v10-ollama"}[5m])
    ```
 
 ## 📊 Requêtes PromQL Utiles

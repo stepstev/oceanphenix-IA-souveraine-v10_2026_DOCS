@@ -29,7 +29,7 @@
 
 ```powershell
 # Aller dans le projet
-cd D:\Projets_oceanphenix_stacks_2026_V_Finales\oceanphenix-IA-souveraine-v8
+cd D:\Projets_oceanphenix_stacks_2026_V_Finales\oceanphenix-IA-souveraine-v10_2026
 
 # Le dossier à uploader est : hub-frontend/
 ```
@@ -104,7 +104,7 @@ ssh root@VOTRE_IP_HETZNER
 
 ```bash
 # 1. Télécharger le script
-curl -o /tmp/install.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/deploy-hetzner.sh
+curl -o /tmp/install.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/deploy-hetzner.sh
 
 # 2. Rendre exécutable
 chmod +x /tmp/install.sh
@@ -122,10 +122,10 @@ bash /tmp/install.sh
 docker ps
 
 # Vous devez voir environ 15 conteneurs dont :
-# ✓ v8-api (backend)
-# ✓ v8-ollama
-# ✓ v8-qdrant
-# ✓ v8-grafana
+# ✓ v10-api (backend)
+# ✓ v10-ollama
+# ✓ v10-qdrant
+# ✓ v10-grafana
 # etc...
 ```
 
@@ -287,10 +287,10 @@ docker-compose logs -f
 **Solution :**
 ```bash
 # Sur Hetzner, vérifier que l'API tourne
-docker ps | grep v8-api
+docker ps | grep v10-api
 
 # Redémarrer si besoin
-docker restart v8-api
+docker restart v10-api
 ```
 
 ### 3. Services ne s'ouvrent pas
@@ -376,5 +376,5 @@ Visiteurs
 
 ---
 
-**🌊 OceanPhenix V8 - Simple & Efficace**
+**🌊 OceanPhenix V10 - Simple & Efficace**
 **Frontend statique O2Switch + Backend Docker Hetzner**

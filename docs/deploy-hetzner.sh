@@ -1,13 +1,13 @@
 #!/bin/bash
 ################################################################################
-# OceanPhenix V8 - Installation automatique sur Hetzner
+# OceanPhenix V10 - Installation automatique sur Hetzner
 # Server: VOTRE_IP_HETZNER
 # Date: Décembre 2025
 ################################################################################
 
 set -e  # Arrêt en cas d'erreur
 
-echo "🌊 Installation OceanPhenix V8 sur Hetzner"
+echo "🌊 Installation OceanPhenix V10 sur Hetzner"
 echo "=========================================="
 
 # Variables
@@ -82,7 +82,7 @@ cd $INSTALL_DIR
 # Création du fichier .env si nécessaire
 if [ ! -f .env ]; then
     cat > .env << EOF
-# Configuration OceanPhenix V8 - Hetzner
+# Configuration OceanPhenix V10 - Hetzner
 COMPOSE_PROJECT_NAME=oceanphenix-ia-souveraine-v8
 
 # Server

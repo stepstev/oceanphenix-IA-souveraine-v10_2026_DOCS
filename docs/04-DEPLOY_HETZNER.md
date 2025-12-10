@@ -1,4 +1,4 @@
-# 🚀 Guide d'installation OceanPhenix V8 sur Hetzner
+# 🚀 Guide d'installation OceanPhenix V10 sur Hetzner
 
 ## Serveur: VOTRE_IP_HETZNER
 
@@ -14,7 +14,7 @@ ssh root@VOTRE_IP_HETZNER
 
 ```bash
 # Télécharger le script
-curl -o /tmp/deploy-hetzner.sh <https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/deploy-hetzner.sh>
+curl -o /tmp/deploy-hetzner.sh <https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/deploy-hetzner.sh>
 
 # Rendre exécutable
 chmod +x /tmp/deploy-hetzner.sh
@@ -144,5 +144,5 @@ docker system prune -a  # Nettoyer Docker
 
 ### Support
 
-- GitHub: <https://github.com/stepstev/oceanphenix-IA-souveraine-v8>
-- Issues: <https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>
+- GitHub: <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026>
+- Issues: <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/issues>

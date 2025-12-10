@@ -2,7 +2,7 @@
 
 ## 📋 Vue d'ensemble
 
-Le **Hub Frontend** est l'interface web principale d'OceanPhenix V8, déployée via **Nginx Alpine** dans Docker.
+Le **Hub Frontend** est l'interface web principale d'OceanPhenix V10, déployée via **Nginx Alpine** dans Docker.
 
 ```
 hub-frontend/
@@ -33,7 +33,7 @@ hub-frontend/
 ```yaml
 dashboard:
   image: nginx:alpine
-  container_name: v8-frontend
+  container_name: v10-frontend
   restart: unless-stopped
   volumes:
     - ./hub-frontend:/usr/share/nginx/html:ro
@@ -142,7 +142,7 @@ Modifier docker-compose.yml:
 ```yaml
 dashboard:
   image: nginx:alpine
-  container_name: v8-frontend
+  container_name: v10-frontend
   restart: unless-stopped
   volumes:
     - ./hub-frontend:/usr/share/nginx/html:ro
@@ -268,7 +268,7 @@ Si les modifications ne s'affichent pas:
 
 ```bash
 # Vider le cache du conteneur
-docker exec v8-frontend rm -rf /tmp/nginx-cache
+docker exec v10-frontend rm -rf /tmp/nginx-cache
 
 # Ou redémarrer
 docker-compose restart dashboard
@@ -299,7 +299,7 @@ docker-compose logs dashboard | grep error
 
 ```bash
 # Shell dans le conteneur
-docker exec -it v8-frontend sh
+docker exec -it v10-frontend sh
 
 # Vérifier les fichiers
 ls -la /usr/share/nginx/html/
@@ -317,10 +317,10 @@ nginx -s reload
 
 ```bash
 # Vérifier les fichiers
-docker exec v8-frontend ls -la /usr/share/nginx/html/
+docker exec v10-frontend ls -la /usr/share/nginx/html/
 
 # Vérifier les permissions
-docker exec v8-frontend cat /usr/share/nginx/html/index.html
+docker exec v10-frontend cat /usr/share/nginx/html/index.html
 ```
 
 2. CSS ne charge pas
@@ -447,7 +447,7 @@ Modifier docker-compose.yml:
 dashboard:
   image: oceanphenix-frontend:latest
   # Plus besoin de volumes si tout est dans l'image
-  container_name: v8-frontend
+  container_name: v10-frontend
   restart: unless-stopped
   profiles: [ core, all ]
   networks: [ proxy ]
@@ -461,10 +461,10 @@ dashboard:
 
 ```bash
 # Voir les logs d'accès
-docker exec v8-frontend tail -f /var/log/nginx/access.log
+docker exec v10-frontend tail -f /var/log/nginx/access.log
 
 # Statistiques
-docker exec v8-frontend sh -c "cat /var/log/nginx/access.log | wc -l"
+docker exec v10-frontend sh -c "cat /var/log/nginx/access.log | wc -l"
 ```
 
 ### 2. Intégration Prometheus
@@ -475,9 +475,9 @@ Ajouter nginx-exporter (optionnel):
 # Dans docker-compose.yml
 nginx-exporter:
   image: nginx/nginx-prometheus-exporter:latest
-  container_name: v8-nginx-exporter
+  container_name: v10-nginx-exporter
   command:
-    - '-nginx.scrape-uri=<http://v8-frontend:80/stub_status'>
+    - '-nginx.scrape-uri=<http://v10-frontend:80/stub_status'>
   networks: [ internal ]
 ```
 
@@ -506,5 +506,5 @@ nginx-exporter:
 
 ---
 
-**🌊 Hub Frontend OceanPhenix V8**
+**🌊 Hub Frontend OceanPhenix V10**
 **Interface moderne glassmorphism - 100% RGPD - Monitoring intégré**

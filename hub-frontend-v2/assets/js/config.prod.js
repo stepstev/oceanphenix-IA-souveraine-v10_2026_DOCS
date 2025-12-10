@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════════
-// 🌊 OceanPhenix V8 - Configuration Production (O2Switch)
+// 🌊 OceanPhenix V10 - Configuration Production (O2Switch)
 // ═══════════════════════════════════════════════════════════════════════════
 // 📌 Ce fichier doit être renommé en config.js lors du déploiement sur O2Switch
 // 🔧 Remplacer votredomaine.com par votre domaine réel

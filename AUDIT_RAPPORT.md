@@ -29,12 +29,12 @@
 #### 🔴 Critique - Références V8 dans le code
 
 **Fichiers affectés:**
-- `README.md` (ligne 1): "OceanPhenix IA Souveraine V8"
-- `QUICK_START.md` (ligne 1): "OceanPhenix V8"
-- `docker-compose.yml` (ligne 9): `name: oceanphenix-v8`
+- `README.md` (ligne 1): "OceanPhenix IA Souveraine V10"
+- `QUICK_START.md` (ligne 1): "OceanPhenix V10"
+- `docker-compose.yml` (ligne 9): `name: oceanphenix-v10`
 - `docker-compose.yml` (commentaires): Multiples "V8"
-- `docs/INSTALL_LOCAL.md`: Titre "OceanPhenix V8"
-- `docs/INSTALL_HETZNER.md`: Titre "OceanPhenix V8"
+- `docs/INSTALL_LOCAL.md`: Titre "OceanPhenix V10"
+- `docs/INSTALL_HETZNER.md`: Titre "OceanPhenix V10"
 - Tous les fichiers docs/*.md
 
 **Impact:**
@@ -94,9 +94,9 @@ docker compose logs -f
 **URLs incorrectes trouvées:**
 ```markdown
 # ❌ Mauvaises URLs (pointent vers v8)
-https://github.com/stepstev/oceanphenix-IA-souveraine-v8
-https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues
-https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/...
+https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026
+https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/issues
+https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/...
 
 # ✅ URLs correctes (v10_2026)
 https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026
@@ -171,7 +171,7 @@ SUPPRIMER:
 
 ```yaml
 # ❌ Ligne 9 - Nom du projet V8
-name: oceanphenix-v8
+name: oceanphenix-v10
 
 # ❌ Tous les volumes préfixés v8
 volumes:
@@ -184,7 +184,7 @@ services:
   caddy:
     container_name: v8-proxy
   portainer:
-    container_name: v8-portainer
+    container_name: v10-portainer
   # ... 20+ services
 ```
 
@@ -205,7 +205,7 @@ services:
 ```
 
 **Impact:**
-- Commandes Docker incorrectes dans docs (`docker exec v8-ollama ...`)
+- Commandes Docker incorrectes dans docs (`docker exec v10-ollama ...`)
 - Scripts référençant mauvais noms
 - Incohérence globale
 
@@ -312,14 +312,14 @@ docs/GUIDES/DNS-CLOUDFLARE.md
    # Remplacer dans tous les fichiers
    sed -i 's/V8/V10/g' README.md QUICK_START.md
    sed -i 's/v8/v10/g' docker-compose.yml
-   sed -i 's/oceanphenix-v8/oceanphenix-v10/g' **/*.md
+   sed -i 's/oceanphenix-v10/oceanphenix-v10/g' **/*.md
    ```
 
 2. **Corriger URLs GitHub**
    ```bash
-   # Remplacer oceanphenix-IA-souveraine-v8 par v10_2026
+   # Remplacer oceanphenix-IA-souveraine-v10_2026 par v10_2026
    find . -type f -name "*.md" -exec sed -i \
-     's|oceanphenix-IA-souveraine-v8|oceanphenix-IA-souveraine-v10_2026|g' {} \;
+     's|oceanphenix-IA-souveraine-v10_2026|oceanphenix-IA-souveraine-v10_2026|g' {} \;
    ```
 
 3. **Moderniser commandes Docker**

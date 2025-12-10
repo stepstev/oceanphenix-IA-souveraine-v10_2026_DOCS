@@ -1,6 +1,6 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════════════════
-# 🚀 Script de Déploiement Rapide O2Switch - OceanPhenix V8
+# 🚀 Script de Déploiement Rapide O2Switch - OceanPhenix V10
 # ═══════════════════════════════════════════════════════════════════════════
 # Ce script automatise le déploiement du frontend sur O2Switch
 # Utilisation : ./deploy-o2switch.sh [votredomaine.com]
@@ -24,7 +24,7 @@ REMOTE_DIR="/public_html/ia"
 LOCAL_DIR="./hub-frontend"
 
 echo -e "${BLUE}═══════════════════════════════════════════════════════════${NC}"
-echo -e "${BLUE}🌊 OceanPhenix V8 - Déploiement O2Switch${NC}"
+echo -e "${BLUE}🌊 OceanPhenix V10 - Déploiement O2Switch${NC}"
 echo -e "${BLUE}═══════════════════════════════════════════════════════════${NC}\n"
 
 # Vérification des prérequis

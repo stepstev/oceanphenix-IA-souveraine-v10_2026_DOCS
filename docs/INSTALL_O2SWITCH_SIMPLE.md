@@ -1,6 +1,6 @@
 # 🚀 Guide Simplifié O2Switch - Déploiement Frontend en 10 Minutes
 
-Guide ultra-simplifié pour déployer le Hub Frontend OceanPhenix V8 sur O2Switch et le connecter au backend Hetzner.
+Guide ultra-simplifié pour déployer le Hub Frontend OceanPhenix V10 sur O2Switch et le connecter au backend Hetzner.
 
 ## 📦 Checklist Rapide
 
@@ -17,8 +17,8 @@ Guide ultra-simplifié pour déployer le Hub Frontend OceanPhenix V8 sur O2Switc
 
 ```bash
 # 1. Cloner le projet
-git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git>
-cd oceanphenix-IA-souveraine-v8/hub-frontend
+git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026.git>
+cd oceanphenix-IA-souveraine-v10_2026/hub-frontend
 
 # 2. Configurer l'API (remplacer votredomaine.com)
 cp config.prod.js config.js
@@ -103,7 +103,7 @@ Option B : cPanel File Manager (Sans logiciel)
 
 ```bash
 ssh root@votre-serveur-hetzner.com
-cd /root/oceanphenix-IA-souveraine-v8
+cd /root/oceanphenix-IA-souveraine-v10_2026
 nano backend/main.py
 ```
 
@@ -336,6 +336,6 @@ Pour configuration avancée, voir :
 
 ---
 
-**Support** : <<https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>>
+**Support** : <<https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/issues>>
 
 **Développé avec ❤️ par l'équipe OceanPhenix**

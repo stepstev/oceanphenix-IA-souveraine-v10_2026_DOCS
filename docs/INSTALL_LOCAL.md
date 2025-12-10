@@ -1,6 +1,6 @@
-# 🖥️ Guide d'Installation Locale - OceanPhenix V8
+# 🖥️ Guide d'Installation Locale - OceanPhenix V10
 
-Ce guide vous accompagne dans l'installation complète d'OceanPhenix IA Souveraine V8 en local (Windows, Linux, macOS).
+Ce guide vous accompagne dans l'installation complète d'OceanPhenix IA Souveraine V10 en local (Windows, Linux, macOS).
 
 ## 📋 Prérequis
 
@@ -70,10 +70,10 @@ brew install git make
 
 ```bash
 # Clone depuis GitHub
-git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git>
+git clone <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026.git>
 
 # Entrer dans le dossier
-cd oceanphenix-IA-souveraine-v8
+cd oceanphenix-IA-souveraine-v10_2026
 ```
 
 ### 2. Configuration Environnement
@@ -178,16 +178,16 @@ Une fois Ollama démarré :
 
 ```bash
 # Modèle français recommandé : Mistral 7B
-docker exec v8-ollama ollama pull mistral:latest
+docker exec v10-ollama ollama pull mistral:latest
 
 # Modèle léger : Llama 3.2 3B
-docker exec v8-ollama ollama pull llama3.2:3b
+docker exec v10-ollama ollama pull llama3.2:3b
 
 # Modèle embedding pour RAG
-docker exec v8-ollama ollama pull nomic-embed-text
+docker exec v10-ollama ollama pull nomic-embed-text
 
 # Vérifier installation
-docker exec v8-ollama ollama list
+docker exec v10-ollama ollama list
 ```
 
 **Temps d'installation** : 5-15 minutes selon connexion (Mistral : 4.4 GB)
@@ -257,7 +257,7 @@ docker compose ps
 # 1. Vérifier bucket "rag-documents" existe
 # 2. Upload un fichier PDF test
 # 3. Vérifier dans logs auto-indexer :
-docker logs v8-auto-indexer --tail 20
+docker logs v10-auto-indexer --tail 20
 # Doit afficher : "✅ [filename] indexé avec succès"
 ```
 
@@ -342,12 +342,12 @@ mkdir -p $BACKUP_DIR
 
 # Backup volumes
 docker run --rm \
-  -v oceanphenix-v8_minio_data:/data \
+  -v oceanphenix-v10_minio_data:/data \
   -v $(pwd)/backups:/backup \
   alpine tar czf /backup/minio-$(date +%Y%m%d).tar.gz /data
 
-docker exec v8-qdrant tar czf /tmp/qdrant.tar.gz /qdrant/storage
-docker cp v8-qdrant:/tmp/qdrant.tar.gz $BACKUP_DIR/
+docker exec v10-qdrant tar czf /tmp/qdrant.tar.gz /qdrant/storage
+docker cp v10-qdrant:/tmp/qdrant.tar.gz $BACKUP_DIR/
 
 # Backup config
 tar czf $BACKUP_DIR/config.tar.gz .env docker-compose.yml
@@ -359,7 +359,7 @@ Ajouter cron job :
 
 ```bash
 # Backup quotidien à 2h du matin
-0 2 * * * /path/to/oceanphenix-v8/backup.sh
+0 2 * * * /path/to/oceanphenix-v10/backup.sh
 ```
 
 ## 🐛 Troubleshooting Local
@@ -382,10 +382,10 @@ sudo kill -9 <PID>
 
 ```bash
 # Voir logs détaillés
-docker logs v8-studio --tail 100
+docker logs v10-studio --tail 100
 
 # Vérifier santé
-docker inspect v8-studio | grep -i health
+docker inspect v10-studio | grep -i health
 
 # Redémarrer
 docker compose restart studio
@@ -423,7 +423,7 @@ docker compose --profile rag up -d
 
 ```bash
 # Vérifier si GPU utilisé
-docker exec v8-ollama nvidia-smi
+docker exec v10-ollama nvidia-smi
 
 # Augmenter threads CPU
 # Dans docker-compose.yml, section ollama :
@@ -431,7 +431,7 @@ environment:
   - OLLAMA_NUM_THREADS=8
 
 # Utiliser modèle plus léger
-docker exec v8-ollama ollama pull llama3.2:3b
+docker exec v10-ollama ollama pull llama3.2:3b
 ```
 
 ## 📊 Monitoring Local
@@ -479,6 +479,6 @@ Une fois l'installation locale réussie :
 
 ---
 
-**Support** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v8/issues>
+**Support** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/issues>
 
 **Documentation complète** : [README.md](../README.md)

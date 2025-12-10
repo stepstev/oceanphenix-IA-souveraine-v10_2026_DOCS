@@ -90,8 +90,8 @@ docker compose --profile monitoring up -d
 docker compose ps | grep -E "prometheus|alertmanager"
 
 # Vérifier les logs
-docker logs v8-alertmanager
-docker logs v8-prometheus
+docker logs v10-alertmanager
+docker logs v10-prometheus
 ```
 
 ### 4️⃣ Tester les Alertes
@@ -260,10 +260,10 @@ Ajouter webhook dans `alertmanager.yml` :
 
 ```bash
 # Vérifier logs Alertmanager
-docker logs v8-alertmanager | grep -i error
+docker logs v10-alertmanager | grep -i error
 
 # Vérifier configuration SMTP
-docker exec v8-alertmanager cat /etc/alertmanager/alertmanager.yml | grep smtp
+docker exec v10-alertmanager cat /etc/alertmanager/alertmanager.yml | grep smtp
 
 # Tester SMTP manuellement
 telnet smtp.example.com 587
@@ -303,4 +303,4 @@ route:
 
 ---
 
-**🌊 OceanPhenix V8** - Monitoring & Alertes
+**🌊 OceanPhenix V10** - Monitoring & Alertes
