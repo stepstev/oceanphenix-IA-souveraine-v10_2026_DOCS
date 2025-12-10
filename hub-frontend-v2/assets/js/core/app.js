@@ -576,6 +576,7 @@ function updateLinks() {
     const grafanaLink = document.getElementById('link-grafana');
     const grafanaDiagram = document.getElementById('link-grafana-diagram');
     const grafanaKpi = document.getElementById('link-grafana-kpi');
+    const alertmanagerLink = document.getElementById('link-alertmanager');
     const portainerLink = document.getElementById('link-portainer');
     const portainerDiagram = document.getElementById('link-portainer-diagram');
     const prometheusDiagram = document.getElementById('link-prometheus-diagram');
@@ -648,6 +649,14 @@ function updateLinks() {
         grafanaKpi.addEventListener('click', (e) => {
             e.preventDefault();
             openServicePopup('http://localhost:3001/d/oceanphenix-platform-health/oceanphenix-platform-health?orgId=1&from=now-6h&to=now&timezone=Europe%2FParis&refresh=30s', 'Grafana - OceanPhenix Health');
+        });
+    }
+
+    if (alertmanagerLink) {
+        alertmanagerLink.href = '#';
+        alertmanagerLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openServicePopup('http://localhost:9093', 'Alertmanager');
         });
     }
 
