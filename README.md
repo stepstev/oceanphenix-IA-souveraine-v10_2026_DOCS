@@ -3,7 +3,7 @@
 > **Plateforme d'Intelligence Artificielle 100% Auto-Hébergée**  
 > Architecture hybride Frontend (O2Switch) + Backend (Hetzner)
 
-![OceanPhenix Logo](./img/logo-oceanphenix.svg)
+![AI Studio](img/AI studio.png)
 
 ---
 
@@ -14,11 +14,11 @@
 <table>
   <tr>
     <td align="center">
-      <img src="./img/admin.png" width="300" alt="Administration"/><br/>
+      <img src="img/admin.png" width="300" alt="Administration"/><br/>
       <b>Tableau de bord Admin</b>
     </td>
     <td align="center">
-      <img src="./img/light.png" width="300" alt="Interface"/><br/>
+      <img src="img/light.png" width="300" alt="Interface"/><br/>
       <b>Interface Utilisateur</b>
     </td>
   </tr>
@@ -29,29 +29,29 @@
 <table>
   <tr>
     <td align="center">
-      <img src="./img/AI studio.png" width="250" alt="AI Studio"/><br/>
+      <img src="img/AI studio.png" width="250" alt="AI Studio"/><br/>
       <b>AI Studio - Open WebUI</b>
     </td>
     <td align="center">
-      <img src="./img/API.png" width="250" alt="API"/><br/>
+      <img src="img/API.png" width="250" alt="API"/><br/>
       <b>API FastAPI Backend</b>
     </td>
     <td align="center">
-      <img src="./img/components.png" width="250" alt="Composants"/><br/>
+      <img src="img/components.png" width="250" alt="Composants"/><br/>
       <b>Architecture Composants</b>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="./img/interpng.png" width="250" alt="Interconnexion"/><br/>
+      <img src="img/interpng.png" width="250" alt="Interconnexion"/><br/>
       <b>Interconnexion Services</b>
     </td>
     <td align="center">
-      <img src="./img/diag_archiv4.png" width="250" alt="Architecture"/><br/>
+      <img src="img/diag_archiv4.png" width="250" alt="Architecture"/><br/>
       <b>Diagramme Architecture</b>
     </td>
     <td align="center">
-      <img src="./img/ap.png" width="250" alt="Application"/><br/>
+      <img src="img/ap.png" width="250" alt="Application"/><br/>
       <b>Vue Application</b>
     </td>
   </tr>
@@ -62,11 +62,11 @@
 <table>
   <tr>
     <td align="center">
-      <img src="./img/SanteP.png" width="300" alt="Santé"/><br/>
+      <img src="img/SanteP.png" width="300" alt="Santé"/><br/>
       <b>Application Santé Publique</b>
     </td>
     <td align="center">
-      <img src="./img/TtB.png" width="300" alt="Tech to Business"/><br/>
+      <img src="img/TtB.png" width="300" alt="Tech to Business"/><br/>
       <b>Tech to Business</b>
     </td>
   </tr>
@@ -180,7 +180,7 @@ Pour plus d'informations, consultez la [documentation complète](./docs/) dans l
 ---
 
 <p align="center">
-  <img src="./img/icon-192.png" alt="OceanPhenix Icon" width="100"/>
+  <img src="img/icon-192.png" alt="OceanPhenix Icon" width="100"/>
 </p>
 
 <p align="center">
