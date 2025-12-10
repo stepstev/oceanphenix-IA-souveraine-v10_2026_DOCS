@@ -2,7 +2,7 @@
 # 🌊 OceanPhenix V10 - Makefile Administration
 # ═══════════════════════════════════════════════════════════════════════════
 
-.PHONY: help install start stop restart logs clean v7-migrate
+.PHONY: help install start stop restart logs clean v8-migrate
 
 # 🛠️ Commandes par défaut
 help:
@@ -14,20 +14,20 @@ help:
 	@echo "make restart    : Redémarre tout"
 	@echo "make logs       : Affiche les logs en temps réel"
 	@echo "make clean      : Nettoie les conteneurs et réseaux orphelins"
-	@echo "make v7-migrate : Importe les données de la stack V7"
+	@echo "make v8-migrate : Importe les données de la stack V8"
 	@echo "----------------------------------------------------------------"
 
 # 🚀 Installation
 install:
-	@echo "🔧 Initialisation de V8..."
+	@echo "🔧 Initialisation de V10..."
 	@if [ ! -f .env ]; then \
 		cp .env.example .env; \
 		echo "✅ .env créé depuis .env.example (Pensez à éditer les secrets !)"; \
 	else \
 		echo "ℹ️ .env existe déjà"; \
 	fi
-	@docker network create v8_proxy 2>/dev/null || true
-	@docker network create v8_internal 2>/dev/null || true
+	@docker network create v10_proxy 2>/dev/null || true
+	@docker network create v10_internal 2>/dev/null || true
 	@echo "✅ Réseaux Docker créés"
 
 # ▶️ Démarrage
@@ -53,7 +53,7 @@ clean:
 	@docker-compose down --remove-orphans
 	@docker system prune -f
 
-# 📦 Migration depuis V7 (Script externe)
-v7-migrate:
-	@chmod +x scripts/migrate_v7.sh
-	@./scripts/migrate_v7.sh
+# 📦 Migration depuis V8 (Script externe)
+v8-migrate:
+	@chmod +x scripts/migrate_v8.sh
+	@./scripts/migrate_v8.sh
