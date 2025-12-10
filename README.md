@@ -3,7 +3,7 @@
 > **Plateforme d'Intelligence Artificielle 100% Auto-Hébergée**  
 > Architecture hybride Frontend (O2Switch) + Backend (Hetzner)
 
-![AI Studio](img/AI studio.png)
+![AI Studio](img/AI%20studio.png)
 
 ---
 
@@ -29,7 +29,7 @@
 <table>
   <tr>
     <td align="center">
-      <img src="img/AI studio.png" width="250" alt="AI Studio"/><br/>
+      <img src="img/AI%20studio.png" width="250" alt="AI Studio"/><br/>
       <b>AI Studio - Open WebUI</b>
     </td>
     <td align="center">
