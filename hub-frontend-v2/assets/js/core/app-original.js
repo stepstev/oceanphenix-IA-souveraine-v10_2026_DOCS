@@ -1132,6 +1132,7 @@ function populateQuickUrls() {
             'openwebui': 'http://localhost:3000',
             'grafana': 'http://localhost:3001/d/oceanphenix-platform-health/oceanphenix-platform-health?orgId=1&from=now-6h&to=now&timezone=Europe%2FParis&refresh=30s',
             'prometheus': 'http://localhost:9090',
+            'alertmanager': 'http://localhost:9093',
             'portainer': 'https://localhost:9443',
             'minio': 'http://localhost:9001',
             'n8n': 'http://localhost:5678',
