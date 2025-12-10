@@ -102,8 +102,8 @@ docs/
 ├── 02-INSTALLATION.md            Installation locale
 ├── 03-FRONTEND_SETUP.md          Configuration frontend
 ├── 04-DEPLOY_HETZNER.md          Déploiement Hetzner
-└── 05-DEPLOY_PRODUCTION.md       Production complète
-```
+├── 05-DEPLOY_PRODUCTION.md       Production complète
+└── 06-FRONTEND_O2SWITCH_HETZNER.md Hub O2Switch + backend Hetzner
 
 > ℹ️ Le script d'installation Hetzner est stocké dans `../scripts/deploy-hetzner.sh`.
 
@@ -128,6 +128,7 @@ docs/
 1. **[05-DEPLOY_PRODUCTION.md](05-DEPLOY_PRODUCTION.md)** - Production
 2. Configurer DNS et SSL
 3. Backup et haute disponibilité
+4. **[06-FRONTEND_O2SWITCH_HETZNER.md](06-FRONTEND_O2SWITCH_HETZNER.md)** - Frontend O2Switch + backend Hetzner (ia.oceanphenix.fr)
 
 ---
 

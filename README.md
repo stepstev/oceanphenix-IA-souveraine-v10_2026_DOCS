@@ -308,6 +308,7 @@ openssl rand -base64 32
 | **[INSTALL_LOCAL.md](docs/INSTALL_LOCAL.md)** | Installation complète sur machine locale (Docker Desktop) | 30 min |
 | **[INSTALL_HETZNER.md](docs/INSTALL_HETZNER.md)** | Déploiement production sur serveur Hetzner avec SSL/DNS | 1h |
 | **[01-GUIDE_SIMPLE.md](docs/01-GUIDE_SIMPLE.md)** | Configuration frontend sur hébergement O2Switch | 20 min |
+| **[06-FRONTEND_O2SWITCH_HETZNER.md](docs/06-FRONTEND_O2SWITCH_HETZNER.md)** | Hub O2Switch `ia.oceanphenix.fr` + backend Hetzner clé en main | 45 min |
 
 ### Documentation Technique
 
