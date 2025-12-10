@@ -2,7 +2,7 @@
 # 🌊 OceanPhenix V10 - Makefile Administration
 # ═══════════════════════════════════════════════════════════════════════════
 
-.PHONY: help install start stop restart logs clean v8-migrate
+.PHONY: help install start stop restart logs clean status backup restore
 
 # 🛠️ Commandes par défaut
 help:
@@ -13,8 +13,10 @@ help:
 	@echo "make stop       : Arrête tous les services"
 	@echo "make restart    : Redémarre tout"
 	@echo "make logs       : Affiche les logs en temps réel"
+	@echo "make status     : Affiche l'état des services"
 	@echo "make clean      : Nettoie les conteneurs et réseaux orphelins"
-	@echo "make v8-migrate : Importe les données de la stack V8"
+	@echo "make backup     : Sauvegarde les données importantes"
+	@echo "make restore    : Restaure depuis une sauvegarde"
 	@echo "----------------------------------------------------------------"
 
 # 🚀 Installation
@@ -53,7 +55,21 @@ clean:
 	@docker-compose down --remove-orphans
 	@docker system prune -f
 
-# 📦 Migration depuis V8 (Script externe)
-v8-migrate:
-	@chmod +x scripts/migrate_v8.sh
-	@./scripts/migrate_v8.sh
+# 📊 Statut des services
+status:
+	@echo "📊 État des services OceanPhenix V10..."
+	@docker-compose ps
+
+# 💾 Sauvegarde des données
+backup:
+	@echo "💾 Sauvegarde des données..."
+	@mkdir -p backups
+	@docker run --rm -v oceanphenix-v10_qdrant_data:/data -v $(PWD)/backups:/backup alpine tar czf /backup/qdrant-$(shell date +%Y%m%d-%H%M%S).tar.gz -C /data .
+	@docker run --rm -v oceanphenix-v10_minio_data:/data -v $(PWD)/backups:/backup alpine tar czf /backup/minio-$(shell date +%Y%m%d-%H%M%S).tar.gz -C /data .
+	@echo "✅ Sauvegarde terminée dans ./backups/"
+
+# 🔄 Restauration depuis sauvegarde
+restore:
+	@echo "🔄 Restauration depuis sauvegarde..."
+	@echo "Listez vos sauvegardes avec: ls -lh backups/"
+	@echo "Utilisez: docker run --rm -v oceanphenix-v10_qdrant_data:/data -v $(PWD)/backups:/backup alpine tar xzf /backup/VOTRE_FICHIER.tar.gz -C /data"
