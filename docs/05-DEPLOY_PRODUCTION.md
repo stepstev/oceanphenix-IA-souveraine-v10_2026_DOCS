@@ -118,7 +118,7 @@ Si première connexion, accepter la clé SSH.
 
 ```bash
 # Télécharger le script d'installation
-curl -o /tmp/deploy-hetzner.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/deploy-hetzner.sh
+curl -o /tmp/deploy-hetzner.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/scripts/deploy-hetzner.sh
 
 # Rendre exécutable
 chmod +x /tmp/deploy-hetzner.sh

@@ -89,6 +89,7 @@ else
         chown -R "$SYSTEM_USER":"$SYSTEM_USER" "$INSTALL_DIR"
 fi
 
+
 echo ""
 echo "🔧 6/8 - Configuration de l'environnement..."
 cd "$INSTALL_DIR"
@@ -151,6 +152,7 @@ for network in v10_proxy v10_internal; do
     else
         echo "✅ Réseau $network déjà présent"
     fi
+
 done
 
 echo ""

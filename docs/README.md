@@ -102,9 +102,10 @@ docs/
 ├── 02-INSTALLATION.md            Installation locale
 ├── 03-FRONTEND_SETUP.md          Configuration frontend
 ├── 04-DEPLOY_HETZNER.md          Déploiement Hetzner
-├── 05-DEPLOY_PRODUCTION.md       Production complète
-└── deploy-hetzner.sh             Script d'installation automatique
+└── 05-DEPLOY_PRODUCTION.md       Production complète
 ```
+
+> ℹ️ Le script d'installation Hetzner est stocké dans `../scripts/deploy-hetzner.sh`.
 
 ---
 
@@ -144,7 +145,7 @@ docs/
 
 ```bash
 ssh root@VOTRE_IP_HETZNER
-curl -o /tmp/install.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/docs/deploy-hetzner.sh
+curl -o /tmp/install.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/scripts/deploy-hetzner.sh
 bash /tmp/install.sh
 ```
 

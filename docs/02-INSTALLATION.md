@@ -104,7 +104,7 @@ docker restart v10-portainer
 ssh root@VOTRE_IP
 
 # 2. Télécharger et exécuter le script
-curl -o /tmp/deploy.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/deploy-hetzner.sh
+curl -o /tmp/deploy.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/scripts/deploy-hetzner.sh
 chmod +x /tmp/deploy.sh
 bash /tmp/deploy.sh
 ```

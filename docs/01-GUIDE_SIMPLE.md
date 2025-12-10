@@ -104,7 +104,7 @@ ssh root@VOTRE_IP_HETZNER
 
 ```bash
 # 1. Télécharger le script
-curl -o /tmp/install.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/deploy-hetzner.sh
+curl -o /tmp/install.sh https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/scripts/deploy-hetzner.sh
 
 # 2. Rendre exécutable
 chmod +x /tmp/install.sh

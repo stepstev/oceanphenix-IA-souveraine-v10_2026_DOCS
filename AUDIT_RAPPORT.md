@@ -269,7 +269,7 @@ http://localhost:3001  # Grafana
    curl -fsSL https://raw.githubusercontent.com/.../install-hetzner.sh | bash
    
    # ✅ Existe:
-   docs/deploy-hetzner.sh
+   scripts/deploy-hetzner.sh
    ```
 
 2. **URLs des scripts incorrectes**
@@ -379,7 +379,7 @@ docs/GUIDES/DNS-CLOUDFLARE.md
 10. **Tester script Hetzner**
     ```bash
     # Sur VM de test
-    bash docs/deploy-hetzner.sh
+   bash scripts/deploy-hetzner.sh
     # Valider SSL, DNS, services
     ```
 

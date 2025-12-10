@@ -1,148 +1,158 @@
-# 🚀 Guide d'installation OceanPhenix V10 sur Hetzner
+# 🚀 Déploiement OceanPhenix V10 sur Hetzner
 
-## Serveur: VOTRE_IP_HETZNER
+Ce guide décrit l'installation complète de la stack V10 (proxy, API, RAG, automation, BI, monitoring) sur un serveur Hetzner fraîchement provisionné.
 
-### Étape 1: Connexion SSH
+---
 
-Depuis votre machine Windows:
+## 1. Pré-requis
 
-```powershell
-ssh root@VOTRE_IP_HETZNER
-```
+- Serveur Hetzner (Ubuntu 22.04 LTS recommandé) avec accès root.
+- Nom de domaine pointant vers le serveur (A/AAAA). À défaut, le script utilisera `IP.nip.io` pour générer des sous-domaines SSL.
+- Ports 22/80/443 ouverts côté Hetzner.
+- Clé SSH déjà ajoutée au serveur.
 
-### Étape 2: Télécharger et exécuter le script
+Variables à préparer (elles peuvent être exportées avant de lancer le script) :
 
-```bash
-# Télécharger le script
-curl -o /tmp/deploy-hetzner.sh <https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/deploy-hetzner.sh>
-
-# Rendre exécutable
-chmod +x /tmp/deploy-hetzner.sh
-
-# Exécuter (en root)
-bash /tmp/deploy-hetzner.sh
-```
-
-### Étape 3: Vérification
-
-Après installation (~5 minutes), testez:
-
-```bash
-# Voir les services
-cd /opt/oceanphenix
-docker-compose ps
-
-# Voir les logs
-docker-compose logs -f backend
-
-# Tester l'API
-curl <http://localhost:8000/health>
-```
-
-### Services accessibles:
-
-- **Hub Frontend**: <http://VOTRE_IP_HETZNER:8000>
-- **OpenWebUI**: <http://VOTRE_IP_HETZNER:3000>
-- **Grafana**: <http://VOTRE_IP_HETZNER:3001>
-- **Prometheus**: <http://VOTRE_IP_HETZNER:9090>
-- **Portainer**: <https://VOTRE_IP_HETZNER:9443>
-- **MinIO**: <http://VOTRE_IP_HETZNER:9001>
-
-### Configuration post-installation
+| Variable | Description |
+| --- | --- |
+| `ROOT_DOMAIN` | Domaine racine sans sous-domaine, ex `example.com`. Optionnel (auto `IP.nip.io`). |
+| `ACME_EMAIL` | Email pour Let's Encrypt. Par défaut `admin@$ROOT_DOMAIN`. |
+| `ADMIN_USER` | Compte basic-auth côté proxy. Par défaut `oceanphenix_admin`. |
 
 
-1. **Portainer** (<https://VOTRE_IP_HETZNER:9443>)
+---
 
-   - Créer compte admin dans les 5 minutes
-   - Password: minimum 12 caractères
+## 2. Déploiement automatisé
 
+1. **Connexion SSH**
 
-2. **Grafana** (<http://VOTRE_IP_HETZNER:3001>)
-
-   - Login: `admin`
-   - Password: voir `/opt/oceanphenix/.env`
-
-
-3. Importer les dashboards Grafana
-
-   ```bash
-   cd /opt/oceanphenix/core/monitoring/dashboards
-   # Importer via UI Grafana: oceanphenix-platform-health.json
-   # Importer via UI Grafana: oceanphenix-containers-monitoring.json
+   ```powershell
+   ssh root@VOTRE_IP_HETZNER
    ```
 
-### Commandes utiles
+2. **Téléchargement et exécution du script**
+
+   ```bash
+   # (Optionnel) forcer vos variables
+   export ROOT_DOMAIN=example.com
+   export ACME_EMAIL=ops@example.com
+
+   # Télécharger le script officiel (stocké dans scripts/deploy-hetzner.sh)
+   curl -fsSL https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/scripts/deploy-hetzner.sh -o /tmp/deploy-hetzner.sh
+
+   chmod +x /tmp/deploy-hetzner.sh
+   /tmp/deploy-hetzner.sh
+   ```
+
+   Le script installe Docker + Docker Compose, crée l'utilisateur `oceanphenix`, clone le dépôt `main`, génère un `.env` basé sur `.env.example`, crée les réseaux externes (`v10_proxy`, `v10_internal`) puis lance la stack complète via `docker compose --profile all up -d`.
+
+3. **Vérifications immédiates** (≈5 minutes après exécution)
+
+   ```bash
+   cd /opt/oceanphenix
+   docker compose --profile all ps                     # État des conteneurs
+   docker compose logs -f api                         # Logs API FastAPI
+   curl -k https://api.${ROOT_DOMAIN:-$HOSTNAME}/health
+   ```
+
+---
+
+## 3. Services exposés (par défaut)
+
+| Usage | URL |
+| --- | --- |
+| Hub Dashboard | `https://app.<ROOT_DOMAIN>` |
+| API REST | `https://api.<ROOT_DOMAIN>` |
+| OpenWebUI Studio | `https://studio.<ROOT_DOMAIN>` |
+| MinIO Console | `https://minio.<ROOT_DOMAIN>` |
+| Portainer | `https://portainer.<ROOT_DOMAIN>` |
+| Monitoring (Grafana) | `https://monitor.<ROOT_DOMAIN>` |
+| Prometheus / Alertmanager | `https://monitor.<ROOT_DOMAIN>:9090` / `:9093` |
+| Automation (n8n) | `https://n8n.<ROOT_DOMAIN>` |
+| BI (Superset) | `https://bi.<ROOT_DOMAIN>` |
+
+Les services internes (Qdrant `:6333`, Ollama `:11434`, Postgres, Valkey) restent sur le réseau privé.
+
+---
+
+## 4. Post-installation recommandée
+
+1. **Revue du fichier `.env`** (généré depuis `.env.example`).
+   - Adapter les sous-domaines (`DOMAIN_*`).
+   - Vérifier les secrets automatiques (JWT, Grafana, Portainer, Superset, Strapi, n8n, MinIO...).
+   - Compléter les sections SMTP / Alertmanager si vous souhaitez recevoir des alertes.
+
+2. **Portainer** (`https://portainer.<ROOT_DOMAIN>`)
+   - Créez le compte admin dans les 5 minutes suivant le premier accès.
+
+3. **Grafana** (`https://monitor.<ROOT_DOMAIN>`)
+   - Identifiant : `admin`
+   - Mot de passe : valeur `GRAFANA_ADMIN_PASSWORD` dans `.env`.
+   - Importer les dashboards fournis (`core/monitoring/dashboards/*.json`).
+
+4. **Modèles Ollama**
+   ```bash
+   docker exec -it v10-ollama ollama pull mistral:7b
+   docker exec -it v10-ollama ollama pull nomic-embed-text
+   ```
+
+5. **Vérifier les jobs n8n et Superset**
+   - n8n : activer l'authentification Basic (déjà configurée via `.env`).
+   - Superset : exécuter l'initialisation (`superset fab create-admin`, etc.) si nécessaire.
+
+---
+
+## 5. Commandes utiles
 
 ```bash
-# Naviguer vers le projet
 cd /opt/oceanphenix
 
-# Voir tous les services
-docker-compose ps
+# Afficher les services
+docker compose --profile all ps
+
+# Logs ciblés
+docker compose logs -f api
 
 # Redémarrer un service
-docker-compose restart backend
+docker compose restart v10-api
 
-# Voir les logs d'un service
-docker-compose logs -f backend
-
-# Arrêter tout
-docker-compose down
-
-# Démarrer tout
-docker-compose up -d
-
-# Mise à jour depuis GitHub
+# Mettre à jour la stack
 git pull
-docker-compose pull
-docker-compose up -d
+docker compose --profile all pull
+docker compose --profile all up -d
+
+# Arrêt / nettoyage
+docker compose down
+docker system prune -af
 ```
 
-### Sécurité
+Scripts utiles : `scripts/backup.sh` (si présent) pour archiver les volumes, ou `scripts/sync-minio-to-openwebui.sh` pour synchroniser les données RAG.
 
-Le script configure automatiquement:
-- ✅ Firewall UFW (ports 22, 80, 443)
-- ✅ Fail2ban pour SSH
-- ✅ Utilisateur système dédié
-- ✅ Mots de passe aléatoires
+---
 
-### Backup manuel
+## 6. Sécurité & maintenance
 
-```bash
-# Backup des données
-cd /opt/oceanphenix
-./scripts/backup.sh  # Si disponible
+- Le script active automatiquement UFW (22/80/443) et Fail2ban sur SSH.
+- Un utilisateur système `oceanphenix` est créé et ajouté au groupe Docker.
+- Les mots de passe critiques sont générés aléatoirement (stockés dans `/opt/oceanphenix/.env`). Sauvegardez ce fichier.
+- Pensez à ajouter des enregistrements DNS pour chaque sous-domaine si vous n'utilisez pas `nip.io`.
+- Configurez les alertes (Alertmanager → email/Slack) pour profiter du monitoring Prometheus.
 
-# Ou backup manuel
-tar -czf backup-$(date +%Y%m%d).tar.gz data/
-```
+---
 
-### Troubleshooting
+## 7. Dépannage
 
-**Services ne démarrent pas:**
-```bash
-docker-compose logs -f
-```
+| Problème | Commandes à exécuter |
+| --- | --- |
+| Un service ne démarre pas | `docker compose logs -f <service>` |
+| Ressource bloquée | `docker compose down && docker compose --profile all up -d` |
+| Port déjà occupé | `ss -tulpn \| grep PORT` |
+| Réseaux manquants | `docker network ls`, `docker network create v10_proxy` |
+| Manque d'espace | `df -h`, `docker system prune -af` |
 
-**Port déjà utilisé:**
-```bash
-netstat -tulpn | grep :8000
-```
+---
 
-**Redémarrage complet:**
-```bash
-cd /opt/oceanphenix
-docker-compose down
-docker-compose up -d
-```
+## 8. Support
 
-**Espace disque:**
-```bash
-df -h
-docker system prune -a  # Nettoyer Docker
-```
-
-### Support
-
-- GitHub: <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026>
-- Issues: <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/issues>
+- Dépôt GitHub : <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026>
+- Issues : <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/issues>
