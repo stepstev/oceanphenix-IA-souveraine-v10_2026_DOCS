@@ -43,14 +43,6 @@
   </tr>
   <tr>
     <td align="center">
-      <img src="img/interpng.png" width="250" alt="Interconnexion"/><br/>
-      <b>Interconnexion Services</b>
-    </td>
-    <td align="center">
-      <img src="img/diag_archiv4.png" width="250" alt="Architecture"/><br/>
-      <b>Diagramme Architecture</b>
-    </td>
-    <td align="center">
       <img src="img/ap.png" width="250" alt="Application"/><br/>
       <b>Vue Application</b>
     </td>
