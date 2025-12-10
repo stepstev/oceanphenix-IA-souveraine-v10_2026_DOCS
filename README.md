@@ -38,9 +38,9 @@ docker exec v10-ollama ollama pull mistral:latest
 ### 🚀 Déploiement Production
 
 Voir les guides détaillés :
-- 📖 **[Installation Locale Complète](docs/01-INSTALLATION-LOCALE.md)** (30 min)
-- 📖 **[Déploiement Hetzner Production](docs/02-INSTALLATION-HETZNER.md)** (1h)
-- 📖 **[Configuration O2Switch Frontend](docs/03-INSTALLATION-O2SWITCH.md)** (20 min)
+- 📖 **[Installation Locale Complète](docs/INSTALL_LOCAL.md)** (30 min)
+- 📖 **[Déploiement Hetzner Production](docs/INSTALL_HETZNER.md)** (1h)
+- 📖 **[Configuration O2Switch Frontend](docs/01-GUIDE_SIMPLE.md)** (20 min)
 
 ---
 
@@ -305,9 +305,9 @@ openssl rand -base64 32
 
 | Document | Description | Durée estimée |
 |----------|-------------|---------------|
-| **[01-INSTALLATION-LOCALE.md](docs/01-INSTALLATION-LOCALE.md)** | Installation complète sur machine locale (Docker Desktop) | 30 min |
-| **[02-INSTALLATION-HETZNER.md](docs/02-INSTALLATION-HETZNER.md)** | Déploiement production sur serveur Hetzner avec SSL/DNS | 1h |
-| **[03-INSTALLATION-O2SWITCH.md](docs/03-INSTALLATION-O2SWITCH.md)** | Configuration frontend sur hébergement O2Switch | 20 min |
+| **[INSTALL_LOCAL.md](docs/INSTALL_LOCAL.md)** | Installation complète sur machine locale (Docker Desktop) | 30 min |
+| **[INSTALL_HETZNER.md](docs/INSTALL_HETZNER.md)** | Déploiement production sur serveur Hetzner avec SSL/DNS | 1h |
+| **[01-GUIDE_SIMPLE.md](docs/01-GUIDE_SIMPLE.md)** | Configuration frontend sur hébergement O2Switch | 20 min |
 
 ### Documentation Technique
 
