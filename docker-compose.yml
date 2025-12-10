@@ -1,35 +1,35 @@
 # ═══════════════════════════════════════════════════════════════════════════
-# 🌊 OceanPhenix V8 - Orchestrateur Global
+# 🌊 OceanPhenix V10 - Orchestrateur Global
 # ═══════════════════════════════════════════════════════════════════════════
 # Usage :
-#   - Core seulement : docker-compose up -d
-#   - Tout : docker-compose --profile all up -d
-#   - Core + BI : docker-compose --profile core --profile bi up -d
+#   - Core seulement : docker compose up -d
+#   - Tout : docker compose --profile all up -d
+#   - Core + BI : docker compose --profile core --profile bi up -d
 # ═══════════════════════════════════════════════════════════════════════════
 
-name: oceanphenix-v8
+name: oceanphenix-v10
 
 networks:
   proxy:
-    name: v8_proxy
+    name: v10_proxy
   internal:
-    name: v8_internal
+    name: v10_internal
 
 volumes:
-  caddy_data: { name: v8_caddy_data }
-  caddy_config: { name: v8_caddy_config }
-  minio_data: { name: v8_minio_data }
-  qdrant_data: { name: v8_qdrant_data }
-  ollama_data: { name: v8_ollama_data }
-  valkey_data: { name: v8_valkey_data }
-  n8n_data: { name: v8_n8n_data }
+  caddy_data: { name: v10_caddy_data }
+  caddy_config: { name: v10_caddy_config }
+  minio_data: { name: v10_minio_data }
+  qdrant_data: { name: v10_qdrant_data }
+  ollama_data: { name: v10_ollama_data }
+  valkey_data: { name: v10_valkey_data }
+  n8n_data: { name: v10_n8n_data }
 
-  db_data: { name: v8_db_data } # Postgres global
-  portainer_data: { name: v8_portainer_data }
-  prometheus_data: { name: v8_prometheus_data }
-  alertmanager_data: { name: v8_alertmanager_data }
-  grafana_data: { name: v8_grafana_data }
-  openwebui_data: { name: v8_openwebui_data }
+  db_data: { name: v10_db_data } # Postgres global
+  portainer_data: { name: v10_portainer_data }
+  prometheus_data: { name: v10_prometheus_data }
+  alertmanager_data: { name: v10_alertmanager_data }
+  grafana_data: { name: v10_grafana_data }
+  openwebui_data: { name: v10_openwebui_data }
 
 services:
 
@@ -39,7 +39,7 @@ services:
 
   caddy:
     image: caddy:latest
-    container_name: v8-proxy
+    container_name: v10-proxy
     restart: unless-stopped
     profiles: [ core, all ]
     ports:
@@ -67,7 +67,7 @@ services:
 
   portainer:
     image: portainer/portainer-ce:latest
-    container_name: v8-portainer
+    container_name: v10-portainer
     restart: unless-stopped
     profiles: [ core, all ]
     networks: [ internal ]
@@ -84,7 +84,7 @@ services:
 
   prometheus:
     image: prom/prometheus:latest
-    container_name: v8-prometheus
+    container_name: v10-prometheus
     restart: unless-stopped
     profiles: [ monitoring, all ]
     networks: [ internal ]
@@ -105,7 +105,7 @@ services:
 
   alertmanager:
     image: prom/alertmanager:latest
-    container_name: v8-alertmanager
+    container_name: v10-alertmanager
     restart: unless-stopped
     profiles: [ monitoring, all ]
     networks: [ internal, proxy ]
@@ -124,7 +124,7 @@ services:
 
   grafana:
     image: grafana/grafana-oss:latest
-    container_name: v8-grafana
+    container_name: v10-grafana
     restart: unless-stopped
     profiles: [ monitoring, all ]
     networks: [ internal, proxy ]
@@ -140,7 +140,7 @@ services:
 
   node-exporter:
     image: prom/node-exporter:latest
-    container_name: v8-node-exporter
+    container_name: v10-node-exporter
     restart: unless-stopped
     profiles: [ monitoring, all ]
     networks: [ internal ]
@@ -158,7 +158,7 @@ services:
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
-    container_name: v8-cadvisor
+    container_name: v10-cadvisor
     restart: unless-stopped
     profiles: [ monitoring, all ]
     networks: [ internal ]
@@ -180,7 +180,7 @@ services:
 
   ollama:
     image: ollama/ollama:latest
-    container_name: v8-ollama
+    container_name: v10-ollama
     restart: unless-stopped
     profiles: [ rag, all ]
     networks: [ internal ]
@@ -191,7 +191,7 @@ services:
 
   openwebui:
     image: ghcr.io/open-webui/open-webui:latest
-    container_name: v8-studio
+    container_name: v10-studio
     restart: unless-stopped
     profiles: [ rag, all ]
     networks: [ internal, proxy ]
@@ -207,7 +207,7 @@ services:
 
   qdrant:
     image: qdrant/qdrant:latest
-    container_name: v8-qdrant
+    container_name: v10-qdrant
     restart: unless-stopped
     profiles: [ rag, all ]
     networks: [ internal ]
@@ -222,7 +222,7 @@ services:
 
   minio:
     image: minio/minio:latest
-    container_name: v8-minio
+    container_name: v10-minio
     restart: unless-stopped
     profiles: [ core, all ]
     networks: [ internal, proxy ]
@@ -238,7 +238,7 @@ services:
 
   postgres:
     image: postgres:16-alpine
-    container_name: v8-db
+    container_name: v10-db
     restart: unless-stopped
     profiles: [ core, all ]
     networks: [ internal ]
@@ -255,7 +255,7 @@ services:
   # Backend API (FastAPI)
   api:
     build: ./backend
-    container_name: v8-api
+    container_name: v10-api
     restart: unless-stopped
     profiles: [ core, all ]
     networks: [ internal, proxy ]
@@ -271,16 +271,16 @@ services:
   # Dashboard (Hub OceanPhenix)
   dashboard:
     image: nginx:alpine
-    container_name: v8-frontend
+    container_name: v10-frontend
     restart: unless-stopped
     volumes:
-      - ./hub-frontend:/usr/share/nginx/html:ro
+      - ./hub-frontend-v2:/usr/share/nginx/html:ro
     profiles: [ core, all ]
     networks: [ proxy ]
 
   n8n:
     image: n8nio/n8n:latest
-    container_name: v8-n8n
+    container_name: v10-n8n
     restart: unless-stopped
     profiles: [ automation, all ]
     networks: [ internal, proxy ]
@@ -298,7 +298,7 @@ services:
 
   superset:
     image: apache/superset:latest
-    container_name: v8-bi
+    container_name: v10-bi
     restart: unless-stopped
     profiles: [ bi, all ]
     networks: [ internal, proxy ]
@@ -308,7 +308,7 @@ services:
 
   valkey:
     image: valkey/valkey:latest
-    container_name: v8-cache
+    container_name: v10-cache
     restart: unless-stopped
     profiles: [ core, all ]
     networks: [ internal ]
