@@ -12,8 +12,10 @@ name: oceanphenix-v10
 networks:
   proxy:
     name: v10_proxy
+    external: true
   internal:
     name: v10_internal
+    external: true
 
 volumes:
   caddy_data: { name: v10_caddy_data }
