@@ -1,27 +1,53 @@
-# 🎨 Hub Frontend - Installation et Configuration
+# 🎨 Hub Frontend V2 - Installation et Configuration
 
 ## 📋 Vue d'ensemble
 
-Le **Hub Frontend** est l'interface web principale d'OceanPhenix V10, déployée via **Nginx Alpine** dans Docker.
+Le **Hub Frontend V2** est l'interface web principale d'OceanPhenix V10, basée sur **Tabler.io** (Bootstrap 5), déployée via **Nginx Alpine** dans Docker.
+
+### Fonctionnalités
+
+- 🎯 **Dashboard centralisé** - Accès à tous les services
+- 🎨 **Design moderne** - Basé sur Tabler.io avec thème personnalisé
+- 📱 **Responsive** - Mobile, tablette, desktop
+- ♿ **Accessible** - WCAG 2.1 AA compliant
+- 🌐 **Multi-pages** - Dashboard, RAG, BI, Monitoring, Automatisation
 
 ```
-hub-frontend/
-├── index.html              # Page principale avec navigation
-├── app.js                  # Logique JavaScript (services, monitoring)
-├── config.js               # Configuration API
-├── styles.css              # Styles principaux
-├── styles-enhanced.css     # Styles modernes glassmorphism
-├── architecture.json       # Définition de l'architecture
-├── studio-architecture.js  # Génération du diagramme
-├── assets/                 # Images et ressources
-│   ├── logo-oceanphenix.svg
-│   ├── cgu.html
-│   └── ...
-└── legal/                  # Documents légaux RGPD
-    ├── licence.html
-    ├── cgu.html
-    ├── mentions-legales.html
-    └── ...
+hub-frontend-v2/
+├── index.html                 # Page d'accueil (redirection)
+├── config.js                  # Configuration API endpoints
+├── config.prod.js            # Configuration production
+├── config.prod.example.js    # Template configuration
+│
+├── pages/                     # Pages principales
+│   ├── dashboard.html        # 🏠 Tableau de bord
+│   ├── rag.html             # 📚 Interface RAG
+│   ├── monitoring.html      # 📈 Monitoring (Grafana)
+│   ├── automations.html     # ⚡ Automatisations (n8n)
+│   └── settings.html        # ⚙️ Paramètres
+│
+├── assets/                    # Ressources statiques
+│   ├── css/
+│   │   ├── oceanphenix-theme.css     # Thème principal (5517 lignes)
+│   │   └── styles-enhanced.css       # Améliorations visuelles
+│   ├── js/
+│   │   ├── app.js           # Application principale
+│   │   ├── rag.js           # Logique RAG
+│   │   └── bi.js            # Logique BI
+│   └── images/              # Logos, icônes
+│       ├── logo.png
+│       ├── logo-white.png
+│       └── favicon.ico
+│
+├── legal/                     # Pages légales
+│   ├── cgu.html             # CGU
+│   ├── mentions-legales.html # Mentions légales
+│   ├── confidentialite.html  # RGPD
+│   └── licence.html         # Licence MIT
+│
+└── docs/                      # Documentation
+    ├── STRUCTURE.md          # Architecture détaillée
+    └── LEGAL_INTEGRATION.md  # Pages légales
 ```
 
 ---
@@ -36,7 +62,7 @@ dashboard:
   container_name: v10-frontend
   restart: unless-stopped
   volumes:
-    - ./hub-frontend:/usr/share/nginx/html:ro
+    - ./hub-frontend-v2:/usr/share/nginx/html:ro
   profiles: [ core, all ]
   networks: [ proxy ]
 ```
@@ -70,31 +96,57 @@ docker-compose logs -f dashboard
 ### 1. Configuration API (config.js)
 
 ```javascript
-// hub-frontend/config.js
-const CONFIG = {
-    API_URL: localStorage.getItem('oceanphenix_api_url') || '<http://localhost:8000',>
+// hub-frontend-v2/config.js
+const API_CONFIG = {
+    // Backend API
+    API_BASE_URL: 'http://localhost:8000',
+    
+    // Services externes
     SERVICES: {
-        'studio': '<http://localhost:3000',>
-        'grafana': '<http://localhost:3001',>
-        'prometheus': '<http://localhost:9090',>
-        'portainer': '<https://localhost:9443',>
-        'minio': '<http://localhost:9001',>
-        // ... autres services
+        OPEN_WEBUI: 'http://localhost:3000',
+        GRAFANA: 'http://localhost:3001',
+        PROMETHEUS: 'http://localhost:9090',
+        PORTAINER: 'https://localhost:9443',
+        MINIO: 'http://localhost:9001',
+        N8N: 'http://localhost:5678',
+        SUPERSET: 'http://localhost:8088'
+    },
+    
+    // Configuration RAG
+    RAG: {
+        MAX_FILE_SIZE: 10 * 1024 * 1024, // 10MB
+        ALLOWED_TYPES: ['pdf', 'txt', 'md', 'docx'],
+        CHUNK_SIZE: 1000
     }
 };
 ```
 
-Modification pour production:
+Modification pour production (config.prod.js):
 
 ```javascript
-const CONFIG = {
-    API_URL: '<https://api.votredomaine.fr',>
+// hub-frontend-v2/config.prod.js
+const API_CONFIG = {
+    API_BASE_URL: 'https://api.votredomaine.fr',
+    
     SERVICES: {
-        'studio': '<https://studio.votredomaine.fr',>
-        'grafana': '<https://monitoring.votredomaine.fr',>
-        // ...
+        OPEN_WEBUI: 'https://studio.votredomaine.fr',
+        GRAFANA: 'https://monitoring.votredomaine.fr',
+        PROMETHEUS: 'https://prometheus.votredomaine.fr',
+        PORTAINER: 'https://portainer.votredomaine.fr',
+        MINIO: 'https://minio.votredomaine.fr',
+        N8N: 'https://n8n.votredomaine.fr',
+        SUPERSET: 'https://bi.votredomaine.fr'
+    },
+    
+    RAG: {
+        MAX_FILE_SIZE: 10 * 1024 * 1024,
+        ALLOWED_TYPES: ['pdf', 'txt', 'md', 'docx'],
+        CHUNK_SIZE: 1000
     }
 };
+
+// Renommer config.js en config.js.bak
+// Renommer config.prod.js en config.js
 ```
 
 ### 2. Configuration Nginx personnalisée (optionnel)
@@ -103,10 +155,10 @@ Si vous voulez personnaliser Nginx, créez un fichier de config:
 
 ```bash
 # Créer un dossier nginx
-mkdir -p hub-frontend/nginx
+mkdir -p hub-frontend-v2/nginx
 
 # Créer la config
-cat > hub-frontend/nginx/default.conf << 'EOF'
+cat > hub-frontend-v2/nginx/default.conf << 'EOF'
 server {
     listen 80;
     server_name _;
@@ -145,8 +197,8 @@ dashboard:
   container_name: v10-frontend
   restart: unless-stopped
   volumes:
-    - ./hub-frontend:/usr/share/nginx/html:ro
-    - ./hub-frontend/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    - ./hub-frontend-v2:/usr/share/nginx/html:ro
+    - ./hub-frontend-v2/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
   profiles: [ core, all ]
   networks: [ proxy ]
 ```
@@ -159,23 +211,32 @@ dashboard:
 
 **Logo:**
 ```bash
-# Remplacer le logo
-cp votre-logo.svg hub-frontend/assets/logo-oceanphenix.svg
-
-# Modifier dans index.html
-# Ligne ~45: <img src="assets/logo-oceanphenix.svg" ...>
+# Remplacer les logos
+cp votre-logo.png hub-frontend-v2/assets/images/logo.png
+cp votre-logo-blanc.png hub-frontend-v2/assets/images/logo-white.png
+cp votre-favicon.ico hub-frontend-v2/assets/images/favicon.ico
 ```
 
-Couleurs (styles.css):
+**Couleurs principales (assets/css/oceanphenix-theme.css):**
 
 ```css
 :root {
-    /* Couleurs principales Ocean Phenix */
-    --primary-blue: #0284c7;    /* Votre couleur */
-    --primary-dark: #0369a1;
-    --primary-light: #38bdf8;
-    --accent-cyan: #00d9ff;
-    /* ... */
+    /* Couleurs principales OceanPhenix */
+    --primary: #0891b2;      /* Cyan principal */
+    --secondary: #06b6d4;    /* Cyan secondaire */
+    --success: #10b981;      /* Vert succès */
+    --warning: #f59e0b;      /* Orange warning */
+    --danger: #ef4444;       /* Rouge erreur */
+    
+    /* Thème clair */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --text-primary: #1e293b;
+    
+    /* Thème sombre */
+    --dark-bg-primary: #0f172a;
+    --dark-bg-secondary: #1e293b;
+    --dark-text-primary: #f1f5f9;
 }
 ```
 
@@ -208,26 +269,30 @@ const serviceUrls = {
 };
 ```
 
-### 3. Modifier la sidebar
+### 3. Personnaliser le thème Tabler
 
-Dans index.html (lignes 50-75):
+Le thème est basé sur Tabler.io. Pour personnaliser :
 
-```html
-<nav class="nav-menu">
-    <!-- Ajouter un nouvel item -->
-    <a href="#votre-section" class="nav-item" data-tab="votre-section">
-        <i class="fas fa-votre-icone"></i> Votre Section
-    </a>
-</nav>
-```
+```css
+/* hub-frontend-v2/assets/css/oceanphenix-theme.css */
 
-Ajouter la vue correspondante:
+/* Modifier les cartes */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
 
-```html
-<!-- Dans main content -->
-<div id="view-votre-section" class="view">
-    <h2>Contenu de votre section</h2>
-</div>
+/* Modifier les boutons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
+}
+
+/* Ajouter des animations */
+.card:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+}
 ```
 
 ---
@@ -237,13 +302,13 @@ Ajouter la vue correspondante:
 ### Mise à jour locale
 
 ```bash
-# Modifier les fichiers dans hub-frontend/
-# Redémarrer le conteneur
+# Modifier les fichiers dans hub-frontend-v2/
+# Les modifications sont visibles immédiatement (volume monté)
+
+# Si les changements ne s'affichent pas, redémarrer :
 docker-compose restart dashboard
 
-# Ou rebuild si Dockerfile modifié
-docker-compose build dashboard
-docker-compose up -d dashboard
+# Vider le cache du navigateur : Ctrl + F5
 ```
 
 ### Mise à jour production (Hetzner)
@@ -365,18 +430,22 @@ npm install -g terser csso-cli html-minifier
 Minifier les fichiers:
 
 ```bash
-cd hub-frontend
+cd hub-frontend-v2
 
 # JavaScript
-terser app.js -o app.min.js -c -m
+terser assets/js/app.js -o assets/js/app.min.js -c -m
+terser assets/js/rag.js -o assets/js/rag.min.js -c -m
+terser assets/js/bi.js -o assets/js/bi.min.js -c -m
 terser config.js -o config.min.js -c -m
 
 # CSS
-csso styles.css -o styles.min.css
-csso styles-enhanced.css -o styles-enhanced.min.css
+csso assets/css/oceanphenix-theme.css -o assets/css/oceanphenix-theme.min.css
+csso assets/css/styles-enhanced.css -o assets/css/styles-enhanced.min.css
 
-# HTML
-html-minifier --collapse-whitespace --remove-comments index.html -o index.min.html
+# HTML (pages)
+for file in pages/*.html; do
+    html-minifier --collapse-whitespace --remove-comments "$file" -o "${file%.html}.min.html"
+done
 ```
 
 Utiliser les versions minifiées dans index.html:
@@ -417,19 +486,23 @@ Si vous voulez créer votre propre image Docker:
 Créer Dockerfile:
 
 ```dockerfile
-# hub-frontend/Dockerfile
+# hub-frontend-v2/Dockerfile
 FROM nginx:alpine
 
 # Copier les fichiers
 COPY . /usr/share/nginx/html/
 
-# Config Nginx personnalisée
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+# Config Nginx personnalisée (si elle existe)
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf 2>/dev/null || true
 
 # Permissions
-RUN chown -R nginx:nginx /usr/share/nginx/html
+RUN chown -R nginx:nginx /usr/share/nginx/html && \
+    chmod -R 755 /usr/share/nginx/html
 
 EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]
 ```
@@ -437,8 +510,8 @@ CMD ["nginx", "-g", "daemon off;"]
 Builder:
 
 ```bash
-cd hub-frontend
-docker build -t oceanphenix-frontend:latest .
+cd hub-frontend-v2
+docker build -t oceanphenix-frontend-v2:latest .
 ```
 
 Modifier docker-compose.yml:
@@ -494,17 +567,28 @@ nginx-exporter:
 
 ## ✅ Checklist Installation
 
-- [ ] Fichiers hub-frontend/ présents
-- [ ] docker-compose.yml configuré
-- [ ] Container dashboard démarré
-- [ ] Accessible sur <http://localhost>
-- [ ] config.js modifié pour production (si besoin)
-- [ ] Dashboards Grafana importés
-- [ ] Section Monitoring fonctionnelle
-- [ ] Tous les liens de services opérationnels
-- [ ] Documents légaux RGPD accessibles
+- [ ] Fichiers hub-frontend-v2/ présents
+- [ ] docker-compose.yml configuré avec le bon volume
+- [ ] Container v10-frontend démarré
+- [ ] Accessible sur http://localhost (via Caddy)
+- [ ] config.js configuré (API_BASE_URL correct)
+- [ ] Page dashboard.html accessible
+- [ ] Page rag.html fonctionnelle (upload documents)
+- [ ] Page monitoring.html affiche Grafana
+- [ ] Page automations.html affiche n8n
+- [ ] Documents légaux accessibles (legal/)
+- [ ] Thème Tabler.io chargé correctement
+- [ ] Mode sombre/clair fonctionnel
+
+### Pages à vérifier
+
+- [ ] **Dashboard** - http://localhost/pages/dashboard.html
+- [ ] **RAG** - http://localhost/pages/rag.html
+- [ ] **Monitoring** - http://localhost/pages/monitoring.html
+- [ ] **Automatisations** - http://localhost/pages/automations.html
+- [ ] **Paramètres** - http://localhost/pages/settings.html
 
 ---
 
-**🌊 Hub Frontend OceanPhenix V10**
-**Interface moderne glassmorphism - 100% RGPD - Monitoring intégré**
+**🌊 Hub Frontend V2 OceanPhenix V10**
+**Interface moderne Tabler.io - Responsive - 100% RGPD - Multi-pages**
