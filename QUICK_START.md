@@ -1,4 +1,4 @@
-# ⚡ OceanPhenix V8 - Guide Installation Rapide
+# ⚡ OceanPhenix V10 - Guide Installation Rapide
 
 > **Installation complète en 15 minutes** - Choisissez votre mode de déploiement
 
@@ -25,8 +25,8 @@
 
 ```bash
 # 1. Cloner
-git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v8.git
-cd oceanphenix-IA-souveraine-v8
+git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026.git
+cd oceanphenix-IA-souveraine-v10_2026
 
 # 2. Configurer
 cp .env.example .env
@@ -36,7 +36,7 @@ cp .env.example .env
 docker compose --profile all up -d
 
 # 4. Installer un modèle LLM
-docker exec v8-ollama ollama pull mistral:latest
+docker exec v10-ollama ollama pull mistral:latest
 
 # 5. ✅ Accéder
 # http://localhost:8080  (Hub Frontend)
@@ -88,7 +88,7 @@ hcloud server create --name oceanphenix \
 ssh root@<IP_SERVEUR>
 
 # 3. Installation automatique
-curl -fsSL https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v8/main/scripts/install-hetzner.sh | bash
+curl -fsSL https://raw.githubusercontent.com/stepstev/oceanphenix-IA-souveraine-v10_2026/main/scripts/install-hetzner.sh | bash
 
 # 4. Configuration domaine
 nano .env
