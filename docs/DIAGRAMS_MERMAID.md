@@ -74,16 +74,16 @@ graph TB
 ## 🏗️ Architecture 4 Tiers - Serveur Hetzner
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': {'fontSize':'32px', 'fontFamily':'Arial, sans-serif'}}}%%
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'40px', 'fontFamily':'Arial, sans-serif'}}}%%
 graph TB
     %% Définition des styles
-    classDef tierPresentation fill:#4CAF50,stroke:#2E7D32,stroke-width:5px,color:#fff,font-size:30px
-    classDef tierApp fill:#2196F3,stroke:#1565C0,stroke-width:5px,color:#fff,font-size:30px
-    classDef tierData fill:#FF9800,stroke:#E65100,stroke-width:5px,color:#fff,font-size:30px
-    classDef tierAnalytics fill:#9C27B0,stroke:#6A1B9A,stroke-width:5px,color:#fff,font-size:30px
-    classDef tierBi fill:#E91E63,stroke:#AD1457,stroke-width:5px,color:#fff,font-size:30px
-    classDef storage fill:#00BCD4,stroke:#00838F,stroke-width:4px,color:#fff,font-size:30px
-    classDef vectordb fill:#9C27B0,stroke:#6A1B9A,stroke-width:4px,color:#fff,font-size:30px
+    classDef tierPresentation fill:#4CAF50,stroke:#2E7D32,stroke-width:6px,color:#fff,font-size:38px
+    classDef tierApp fill:#2196F3,stroke:#1565C0,stroke-width:6px,color:#fff,font-size:38px
+    classDef tierData fill:#FF9800,stroke:#E65100,stroke-width:6px,color:#fff,font-size:38px
+    classDef tierAnalytics fill:#9C27B0,stroke:#6A1B9A,stroke-width:6px,color:#fff,font-size:38px
+    classDef tierBi fill:#E91E63,stroke:#AD1457,stroke-width:6px,color:#fff,font-size:38px
+    classDef storage fill:#00BCD4,stroke:#00838F,stroke-width:5px,color:#fff,font-size:38px
+    classDef vectordb fill:#9C27B0,stroke:#6A1B9A,stroke-width:5px,color:#fff,font-size:38px
     
     %% Internet
     Users[👥 Utilisateurs]
@@ -333,7 +333,7 @@ graph TB
 ## 📊 Diagramme de Monitoring - Stack Prometheus/Grafana
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': {'fontSize':'28px', 'fontFamily':'Arial, sans-serif'}}}%%
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'36px', 'fontFamily':'Arial, sans-serif'}}}%%
 graph TB
     subgraph Users["👥 Utilisateurs"]
         ADMIN[🔧 Administrateur]
@@ -493,7 +493,7 @@ classDiagram
 ## 🔄 Flux de Données - Architecture Complète V10
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': {'fontSize':'30px', 'fontFamily':'Arial, sans-serif'}}}%%
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'40px', 'fontFamily':'Arial, sans-serif'}}}%%
 graph TB
     subgraph Users["👥 Utilisateurs"]
         USER[🧑 Utilisateur Final]
