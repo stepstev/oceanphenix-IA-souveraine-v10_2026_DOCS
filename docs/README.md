@@ -11,7 +11,6 @@
 | Document | Description | Durée | Niveau |
 |----------|-------------|-------|--------|
 | **[../QUICK_START.md](../QUICK_START.md)** | Démarrage ultra-rapide en 5 minutes | ⚡ 5 min | Débutant |
-| **[../INSTALL_LOCAL_RAPIDE.md](../INSTALL_LOCAL_RAPIDE.md)** | Installation locale automatisée | ⚡ 10 min | Débutant |
 | **[01-GUIDE_SIMPLE.md](01-GUIDE_SIMPLE.md)** | Guide simple Frontend + Backend | ⏱️ 20 min | Débutant |
 
 ---
