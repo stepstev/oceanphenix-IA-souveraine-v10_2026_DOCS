@@ -1240,4 +1240,51 @@
     }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   Documentation Button
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.doc-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: #f97316;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.2);
+}
+
+.doc-button:hover {
+    background: #ea580c;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+    transform: translateY(-2px);
+}
+
+.doc-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(249, 115, 22, 0.3);
+}
+
+.doc-button i {
+    margin-left: 6px;
+    font-size: 12px;
+}
+
+/* Service Card Link Wrapper */
+.component-card > a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* Documentation Section in Card */
+.component-card .component-body.doc-section {
+    padding-top: 0;
+}
+
+
 

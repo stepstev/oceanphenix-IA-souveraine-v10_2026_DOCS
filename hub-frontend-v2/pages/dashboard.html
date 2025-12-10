@@ -407,124 +407,144 @@
                 
                 <div class="components-grid">
                     <!-- MinIO S3 Storage -->
-                    <a href="#" id="link-minio" target="_blank" rel="noopener" class="card component-card" style="text-decoration: none; color: inherit;">
-                        <div class="component-header">
-                            <i class="fas fa-database component-icon"></i>
-                            <h4>MinIO Console</h4>
-                            <span class="service-status-badge" data-status="active">✓ Actif</span>
-                        </div>
-                        <div class="component-body">
-                            <p class="component-desc">Gestion buckets, objets et politiques. Stockage haute performance pour documents RAG et embeddings.</p>
-                            <div class="tech-specs">
-                                <span class="spec-badge">S3 Compatible</span>
-                                <span class="spec-badge">High Performance</span>
+                    <div class="card component-card">
+                        <a href="#" id="link-minio" target="_blank" rel="noopener">
+                            <div class="component-header">
+                                <i class="fas fa-database component-icon"></i>
+                                <h4>MinIO Console</h4>
+                                <span class="service-status-badge" data-status="active">✓ Actif</span>
                             </div>
-                            <ul class="feature-list">
-                                <li>Buckets management, Object browser</li>
-                                <li>Access policies, Lifecycle rules</li>
-                                <li>Multi-tenant, Versioning</li>
-                            </ul>
-                            <a href="https://min.io/docs/minio/linux/index.html" target="_blank" rel="noopener" class="doc-button" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #f97316; color: white; text-decoration: none; border-radius: 6px; font-size: 13px;">
+                            <div class="component-body">
+                                <p class="component-desc">Gestion buckets, objets et politiques. Stockage haute performance pour documents RAG et embeddings.</p>
+                                <div class="tech-specs">
+                                    <span class="spec-badge">S3 Compatible</span>
+                                    <span class="spec-badge">High Performance</span>
+                                </div>
+                                <ul class="feature-list">
+                                    <li>Buckets management, Object browser</li>
+                                    <li>Access policies, Lifecycle rules</li>
+                                    <li>Multi-tenant, Versioning</li>
+                                </ul>
+                            </div>
+                        </a>
+                        <div class="component-body doc-section">
+                            <a href="https://min.io/docs/minio/linux/index.html" target="_blank" rel="noopener" class="doc-button">
                                 <i class="fas fa-book"></i> Documentation
                             </a>
                         </div>
-                    </a>
+                    </div>
                     
                     <!-- n8n Automation -->
-                    <a href="#" id="link-n8n" target="_blank" rel="noopener" class="card component-card" style="text-decoration: none; color: inherit;">
-                        <div class="component-header">
-                            <i class="fas fa-project-diagram component-icon"></i>
-                            <h4>n8n Automation</h4>
-                            <span class="service-status-badge" data-status="active">✓ Actif</span>
-                        </div>
-                        <div class="component-body">
-                            <p class="component-desc">Automatisation no-code pour intégrations API, ETL et webhooks. 300+ applications connectables.</p>
-                            <div class="tech-specs">
-                                <span class="spec-badge">No-Code</span>
-                                <span class="spec-badge">300+ Apps</span>
+                    <div class="card component-card">
+                        <a href="#" id="link-n8n" target="_blank" rel="noopener">
+                            <div class="component-header">
+                                <i class="fas fa-project-diagram component-icon"></i>
+                                <h4>n8n Automation</h4>
+                                <span class="service-status-badge" data-status="active">✓ Actif</span>
                             </div>
-                            <ul class="feature-list">
-                                <li>Visual workflow builder</li>
-                                <li>API integrations, Webhooks</li>
-                                <li>Scheduled tasks, Error handling</li>
-                            </ul>
-                            <a href="https://docs.n8n.io/" target="_blank" rel="noopener" class="doc-button" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #f97316; color: white; text-decoration: none; border-radius: 6px; font-size: 13px;">
+                            <div class="component-body">
+                                <p class="component-desc">Automatisation no-code pour intégrations API, ETL et webhooks. 300+ applications connectables.</p>
+                                <div class="tech-specs">
+                                    <span class="spec-badge">No-Code</span>
+                                    <span class="spec-badge">300+ Apps</span>
+                                </div>
+                                <ul class="feature-list">
+                                    <li>Visual workflow builder</li>
+                                    <li>API integrations, Webhooks</li>
+                                    <li>Scheduled tasks, Error handling</li>
+                                </ul>
+                            </div>
+                        </a>
+                        <div class="component-body doc-section">
+                            <a href="https://docs.n8n.io/" target="_blank" rel="noopener" class="doc-button">
                                 <i class="fas fa-book"></i> Documentation
                             </a>
                         </div>
-                    </a>
+                    </div>
                     
                     <!-- Grafana Monitoring -->
-                    <a href="#" id="link-grafana" target="_blank" rel="noopener" class="card component-card" style="text-decoration: none; color: inherit;">
-                        <div class="component-header">
-                            <i class="fas fa-chart-area component-icon"></i>
-                            <h4>Grafana</h4>
-                            <span class="service-status-badge" data-status="active">✓ Actif</span>
-                        </div>
-                        <div class="component-body">
-                            <p class="component-desc">Dashboards temps réel, métriques Prometheus, logs Loki et alerting 24/7.</p>
-                            <div class="tech-specs">
-                                <span class="spec-badge">Real-time</span>
-                                <span class="spec-badge">Alerting</span>
+                    <div class="card component-card">
+                        <a href="#" id="link-grafana" target="_blank" rel="noopener">
+                            <div class="component-header">
+                                <i class="fas fa-chart-area component-icon"></i>
+                                <h4>Grafana</h4>
+                                <span class="service-status-badge" data-status="active">✓ Actif</span>
                             </div>
-                            <ul class="feature-list">
-                                <li>Custom dashboards, Prometheus metrics</li>
-                                <li>Loki logs, Alert rules</li>
-                                <li>Multi-datasource, Panel plugins</li>
-                            </ul>
-                            <a href="https://grafana.com/docs/" target="_blank" rel="noopener" class="doc-button" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #f97316; color: white; text-decoration: none; border-radius: 6px; font-size: 13px;">
+                            <div class="component-body">
+                                <p class="component-desc">Dashboards temps réel, métriques Prometheus, logs Loki et alerting 24/7.</p>
+                                <div class="tech-specs">
+                                    <span class="spec-badge">Real-time</span>
+                                    <span class="spec-badge">Alerting</span>
+                                </div>
+                                <ul class="feature-list">
+                                    <li>Custom dashboards, Prometheus metrics</li>
+                                    <li>Loki logs, Alert rules</li>
+                                    <li>Multi-datasource, Panel plugins</li>
+                                </ul>
+                            </div>
+                        </a>
+                        <div class="component-body doc-section">
+                            <a href="https://grafana.com/docs/" target="_blank" rel="noopener" class="doc-button">
                                 <i class="fas fa-book"></i> Documentation
                             </a>
                         </div>
-                    </a>
+                    </div>
 
                     <!-- Alertmanager -->
-                    <a href="#" id="link-alertmanager" target="_blank" rel="noopener" class="card component-card" style="text-decoration: none; color: inherit;">
-                        <div class="component-header">
-                            <i class="fas fa-bell component-icon"></i>
-                            <h4>Alertmanager</h4>
-                            <span class="service-status-badge" data-status="active">✓ Actif</span>
-                        </div>
-                        <div class="component-body">
-                            <p class="component-desc">Gestion centralisée des alertes Prometheus avec routage, regroupement et notifications.</p>
-                            <div class="tech-specs">
-                                <span class="spec-badge">Alerting</span>
-                                <span class="spec-badge">Notifications</span>
+                    <div class="card component-card">
+                        <a href="#" id="link-alertmanager" target="_blank" rel="noopener">
+                            <div class="component-header">
+                                <i class="fas fa-bell component-icon"></i>
+                                <h4>Alertmanager</h4>
+                                <span class="service-status-badge" data-status="active">✓ Actif</span>
                             </div>
-                            <ul class="feature-list">
-                                <li>Alert routing, Grouping & deduplication</li>
-                                <li>Email, Slack, webhook integrations</li>
-                                <li>Silencing, Inhibition rules</li>
-                            </ul>
-                            <a href="https://prometheus.io/docs/alerting/latest/alertmanager/" target="_blank" rel="noopener" class="doc-button" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #f97316; color: white; text-decoration: none; border-radius: 6px; font-size: 13px;">
+                            <div class="component-body">
+                                <p class="component-desc">Gestion centralisée des alertes Prometheus avec routage, regroupement et notifications.</p>
+                                <div class="tech-specs">
+                                    <span class="spec-badge">Alerting</span>
+                                    <span class="spec-badge">Notifications</span>
+                                </div>
+                                <ul class="feature-list">
+                                    <li>Alert routing, Grouping & deduplication</li>
+                                    <li>Email, Slack, webhook integrations</li>
+                                    <li>Silencing, Inhibition rules</li>
+                                </ul>
+                            </div>
+                        </a>
+                        <div class="component-body doc-section">
+                            <a href="https://prometheus.io/docs/alerting/latest/alertmanager/" target="_blank" rel="noopener" class="doc-button">
                                 <i class="fas fa-book"></i> Documentation
                             </a>
                         </div>
-                    </a>
+                    </div>
                     
                     <!-- Portainer Docker -->
-                    <a href="#" id="link-portainer" target="_blank" rel="noopener" class="card component-card" style="text-decoration: none; color: inherit;">
-                        <div class="component-header">
-                            <i class="fab fa-docker component-icon"></i>
-                            <h4>Portainer CE</h4>
-                            <span class="service-status-badge" data-status="active">✓ Actif</span>
-                        </div>
-                        <div class="component-body">
-                            <p class="component-desc">Management complet stacks, images, volumes, réseaux et monitoring ressources.</p>
-                            <div class="tech-specs">
-                                <span class="spec-badge">Docker GUI</span>
-                                <span class="spec-badge">Stack Manager</span>
+                    <div class="card component-card">
+                        <a href="#" id="link-portainer" target="_blank" rel="noopener">
+                            <div class="component-header">
+                                <i class="fab fa-docker component-icon"></i>
+                                <h4>Portainer CE</h4>
+                                <span class="service-status-badge" data-status="active">✓ Actif</span>
                             </div>
-                            <ul class="feature-list">
-                                <li>Container management, Stack deployment</li>
-                                <li>Image registry, Volume browser</li>
-                                <li>Network inspector, Resource stats</li>
-                            </ul>
-                            <a href="https://docs.portainer.io/" target="_blank" rel="noopener" class="doc-button" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #f97316; color: white; text-decoration: none; border-radius: 6px; font-size: 13px;">
+                            <div class="component-body">
+                                <p class="component-desc">Management complet stacks, images, volumes, réseaux et monitoring ressources.</p>
+                                <div class="tech-specs">
+                                    <span class="spec-badge">Docker GUI</span>
+                                    <span class="spec-badge">Stack Manager</span>
+                                </div>
+                                <ul class="feature-list">
+                                    <li>Container management, Stack deployment</li>
+                                    <li>Image registry, Volume browser</li>
+                                    <li>Network inspector, Resource stats</li>
+                                </ul>
+                            </div>
+                        </a>
+                        <div class="component-body doc-section">
+                            <a href="https://docs.portainer.io/" target="_blank" rel="noopener" class="doc-button">
                                 <i class="fas fa-book"></i> Documentation
                             </a>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
 
