@@ -79,7 +79,7 @@ Les services internes (Qdrant `:6333`, Ollama `:11434`, Postgres, Valkey) resten
 
 1. **Revue du fichier `.env`** (généré depuis `.env.example`).
    - Adapter les sous-domaines (`DOMAIN_*`).
-   - Vérifier les secrets automatiques (JWT, Grafana, Portainer, Superset, Strapi, n8n, MinIO...).
+   - Vérifier les secrets automatiques (JWT, Grafana, Portainer, Superset, n8n, MinIO...).
    - Compléter les sections SMTP / Alertmanager si vous souhaitez recevoir des alertes.
 
 2. **Portainer** (`https://portainer.<ROOT_DOMAIN>`)

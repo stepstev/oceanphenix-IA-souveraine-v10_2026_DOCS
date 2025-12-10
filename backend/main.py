@@ -192,7 +192,6 @@ Pour toute question ou problème, contactez l'équipe OceanPhenix.
 ALLOWED_ORIGINS = [
     f"https://{os.getenv('STUDIO_DOMAIN', 'studio.oceanphenix.local')}",
     f"https://{os.getenv('API_DOMAIN', 'api.oceanphenix.local')}",
-    f"https://{os.getenv('CMS_DOMAIN', 'cms.oceanphenix.local')}",
     f"https://{os.getenv('BI_DOMAIN', 'bi.oceanphenix.local')}",
     # Autoriser localhost uniquement en développement
     "http://localhost:3000",

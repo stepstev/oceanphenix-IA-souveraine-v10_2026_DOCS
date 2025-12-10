@@ -84,7 +84,6 @@ graph TB
     classDef tierBi fill:#E91E63,stroke:#AD1457,stroke-width:4px,color:#fff,font-size:22px
     classDef storage fill:#00BCD4,stroke:#00838F,stroke-width:3px,color:#fff,font-size:22px
     classDef vectordb fill:#9C27B0,stroke:#6A1B9A,stroke-width:3px,color:#fff,font-size:22px
-    classDef strapi fill:#F44336,stroke:#C62828,stroke-width:3px,color:#fff,font-size:22px
     
     %% Internet
     Users[👥 Utilisateurs]
@@ -112,8 +111,6 @@ graph TB
         Ollama[🤖 Ollama<br/>LLM Engine + Models]:::tierData
         Qdrant[🔮 Qdrant<br/>Vector DB]:::vectordb
         MinIO[💾 MinIO<br/>S3 Storage]:::storage
-        Strapi[📚 Strapi CMS<br/>Knowledge Base]:::strapi
-        PostgreSQL[🗄️ PostgreSQL<br/>Strapi DB]:::strapi
     end
     
     %% Tier 4: Analytics
@@ -133,25 +130,21 @@ graph TB
     Caddy -->|/n8n| N8N
     Caddy -->|/studio| HubFront
     Caddy -->|/api| FastAPI
-    Caddy -->|/strapi| Strapi
     
     %% Tier 2 → Tier 3
     FastAPI -->|Query| Ollama
     FastAPI -->|Vector Search| Qdrant
     FastAPI -->|Documents| MinIO
-    FastAPI -->|Content| Strapi
     OpenWebUI -->|Chat| Ollama
     OpenWebUI -->|RAG| Qdrant
     N8N -->|Automation| FastAPI
     N8N -->|Sync| MinIO
-    Strapi -->|Store| PostgreSQL
     
     %% Tier 4 Monitoring
     Grafana -->|Query| Prometheus
     Prometheus -->|Scrape| FastAPI
     Prometheus -->|Scrape| Ollama
     Prometheus -->|Scrape| Caddy
-    ApacheBI -->|Analyze| Strapi
     
     %% Styling tiers
     style O2 fill:#F3E5F5,stroke:#9C27B0,stroke-width:4px
@@ -169,7 +162,7 @@ graph TB
 | **O2Switch** | Frontend | 💜 Violet | Interface utilisateur statique | Hub Frontend (HTML/CSS/JS) |
 | **Hetzner** | Tier 1: Reverse Proxy | 🟫 Vert | Exposition HTTPS, Monitoring UI | Caddy, Grafana |
 | **Hetzner** | Tier 2: Application | 🔵 Bleu | Logique métier, API, Automation | FastAPI, OpenWebUI, n8n |
-| **Hetzner** | Tier 3: Data Layer | 🟠 Orange | Stockage données, LLM, Base de connaissances | Ollama, Qdrant, MinIO, Strapi, PostgreSQL |
+| **Hetzner** | Tier 3: Data Layer | 🟠 Orange | Stockage données, LLM, Vector DB | Ollama, Qdrant, MinIO |
 | **Hetzner** | Tier 4: Analytics | 🟣 Violet | Métriques, Business Intelligence | Prometheus, Apache Superset |
 
 ---

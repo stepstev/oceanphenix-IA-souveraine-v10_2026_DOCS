@@ -27,7 +27,6 @@ typeof window !== 'undefined' && (window.OCEANPHENIX_CONFIG = {
     n8n: 'https://n8n.votredomaine.com/healthz',
     portainer: 'https://portainer.votredomaine.com/api/status',
     superset: 'https://bi.votredomaine.com/health',
-    strapi: 'https://cms.votredomaine.com/_health',
     
     // ❌ Services internes (non exposés publiquement)
     ollama: null,

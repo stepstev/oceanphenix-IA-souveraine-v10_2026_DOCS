@@ -1063,7 +1063,7 @@ function populateQuickUrls() {
     const serviceCategories = {
         main: ['studio', 'openwebui', 'ollama', 'qdrant', 'api'],
         monitoring: ['grafana', 'prometheus', 'cadvisor', 'node-exporter', 'alertmanager'],
-        bi: ['superset', 'strapi'],
+        bi: ['superset'],
         infra: ['minio', 'portainer', 'n8n', 'caddy', 'postgres', 'valkey']
     };
 
@@ -1120,7 +1120,7 @@ function populateQuickUrls() {
         let badge = '';
         if (!service.healthcheck_url) {
             badge = '<span class="url-status-badge internal">Internal</span>';
-        } else if (['grafana', 'portainer', 'n8n', 'strapi', 'superset'].includes(service.name.toLowerCase())) {
+        } else if (['grafana', 'portainer', 'n8n', 'superset'].includes(service.name.toLowerCase())) {
             badge = '<span class="url-status-badge auth">Auth</span>';
         } else {
             badge = '<span class="url-status-badge public">Public</span>';
@@ -1136,7 +1136,6 @@ function populateQuickUrls() {
             'minio': 'http://localhost:9001',
             'n8n': 'http://localhost:5678',
             'superset': 'http://localhost:8088',
-            'strapi': 'http://localhost:1337/admin',
             'cadvisor': 'http://localhost:8080',
             'ollama': 'http://localhost:11434',
             'qdrant': 'http://localhost:6333/dashboard'

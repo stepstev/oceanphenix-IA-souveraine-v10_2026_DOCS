@@ -28,7 +28,6 @@ typeof window !== 'undefined' && (window.OCEANPHENIX_CONFIG = OCEANPHENIX_MODE =
       portainer: 'https://portainer.oceanphenix.fr/api/status',
       grafana: 'https://grafana.oceanphenix.fr/api/health',
       superset: 'https://bi.oceanphenix.fr/health',
-      strapi: 'https://cms.oceanphenix.fr/_health',
       // Services internes (pas exposés publiquement)
       ollama: null,
       qdrant: null,
@@ -58,8 +57,7 @@ typeof window !== 'undefined' && (window.OCEANPHENIX_CONFIG = OCEANPHENIX_MODE =
       nodeExporter: null,
       alertmanager: null,
       // BI & CMS
-      superset: 'https://bi.ton-domaine.fr/health',
-      strapi: 'https://cms.ton-domaine.fr/_health'
+      superset: 'https://bi.ton-domaine.fr/health'
     }
   }
   : {
@@ -81,8 +79,7 @@ typeof window !== 'undefined' && (window.OCEANPHENIX_CONFIG = OCEANPHENIX_MODE =
       nodeExporter: 'http://localhost:9100/metrics',
       alertmanager: 'http://localhost:9093/-/healthy',
       // BI & CMS
-      superset: 'http://localhost:8088/health',
-      strapi: 'http://localhost:1337/_health'
+      superset: 'http://localhost:8088/health'
     }
   });
 

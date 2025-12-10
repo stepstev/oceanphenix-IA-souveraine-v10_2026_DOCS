@@ -134,11 +134,6 @@ create_or_update_env "PORTAINER_ADMIN_PASSWORD" "$(random_password)"
 create_or_update_env "SUPERSET_SECRET_KEY" "$(random_secret)"
 create_or_update_env "SUPERSET_DB_PASSWORD" "$(random_password)"
 create_or_update_env "SUPERSET_ADMIN_PASSWORD" "$(random_password)"
-create_or_update_env "STRAPI_DB_PASSWORD" "$(random_password)"
-create_or_update_env "STRAPI_APP_KEYS" "$(random_secret)"
-create_or_update_env "STRAPI_API_TOKEN_SALT" "$(random_secret)"
-create_or_update_env "STRAPI_ADMIN_JWT_SECRET" "$(random_secret)"
-create_or_update_env "STRAPI_TRANSFER_TOKEN_SALT" "$(random_secret)"
 create_or_update_env "TZ" "Europe/Paris"
 
 chown "$SYSTEM_USER":"$SYSTEM_USER" .env
