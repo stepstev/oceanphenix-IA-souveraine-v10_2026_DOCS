@@ -76,7 +76,7 @@ docker exec v10-ollama ollama pull mistral:latest
 
 | N° | Opération | Commande | Fréquence |
 |----|-----------|----------|-----------|
-| 6.1 | **[Mise à jour services](#-maintenance-mise-à-jour-services)** | `docker compose pull && up -d` | Mensuelle |
+| 6.1 | **[Mise à jour services](#61-mise-à-jour-services)** | `docker compose pull && up -d` | Mensuelle |
 | 6.2 | **[Gestion modèles Ollama](#-gestion-des-modèles-ollama)** | `ollama pull/list/rm` | À la demande |
 | 6.3 | **[Sauvegarde données](#-sauvegarde-automatique)** | Scripts cron + volumes Docker | Quotidienne |
 | 6.4 | **[Monitoring logs](#-surveillance-logs)** | `docker compose logs -f` | Continue |
@@ -798,8 +798,7 @@ sudo ufw enable
 
 ### Problèmes Courants
 
-<details>
-<summary><strong>❌ Erreur "address already in use"</strong></summary>
+**❌ Erreur "address already in use"**
 
 ```bash
 # Identifier processus sur port 8000
@@ -844,7 +843,7 @@ Voir **[TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)** pour plus de détails.
 
 ## 🤝 Contribution
 
-Les contributions sont les bienvenues ! 
+Les contributions sont les bienvenues! 
 
 1. Fork le projet
 2. Créer une branche (`git checkout -b feature/AmazingFeature`)
@@ -892,9 +891,7 @@ Ce projet est sous licence **MIT** - voir [LICENSE](LICENSE) pour détails.
 
 ---
 
-<div align="center">
-
-**🌊 OceanPhenix V10** - Plateforme IA Souveraine
+**🌊 OceanPhenix V10** - Plateforme IA Souveraine Open-Source
 
 [![GitHub stars](https://img.shields.io/github/stars/stepstev/oceanphenix-IA-souveraine-v10_2026?style=social)](https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026)
 [![GitHub forks](https://img.shields.io/github/forks/stepstev/oceanphenix-IA-souveraine-v10_2026?style=social)](https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026/fork)

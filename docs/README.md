@@ -257,9 +257,7 @@
 
 ---
 
-<div align="center">
-
-**📖 Documentation OceanPhenix V10**
+**📚 Documentation OceanPhenix V10**
 
 Maintenue avec ❤️ par l'équipe OceanPhenix
 
