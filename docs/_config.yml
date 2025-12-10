@@ -1,0 +1,44 @@
+# Configuration Jekyll pour GitHub Pages
+title: OceanPhenix V10 Documentation
+description: Plateforme IA Souveraine open-source - Architecture 5-Tiers avec FastAPI, Ollama, RAG
+author: OceanPhenix
+email: contact@oceanphenix.fr
+url: https://stepstev.github.io
+baseurl: /oceanphenix-IA-souveraine-v10_2026
+
+# Theme
+theme: jekyll-theme-cayman
+remote_theme: pages-themes/cayman@v0.2.0
+
+# Markdown
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# SEO
+lang: fr_FR
+logo: /assets/logo.png
+
+# Social
+twitter:
+  username: oceanphenix
+  card: summary_large_image
+
+# Exclude
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Includes
+include:
+  - _redirects
