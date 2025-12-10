@@ -280,7 +280,7 @@ services:
     networks: [ proxy ]
 
   n8n:
-    image: n8nio/n8n:latest
+    image: n8nio/n8n:1.120.0
     container_name: v10-n8n
     restart: unless-stopped
     profiles: [ automation, all ]

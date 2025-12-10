@@ -9,51 +9,118 @@
 
 ---
 
-## ⚡ Démarrage Rapide
-
-### 🖥️ Installation Locale (5 minutes)
+## ⚡ Démarrage Ultra-Rapide (5 min)
 
 ```bash
-# 1. Cloner le projet
+# 1. Cloner et configurer
 git clone https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026.git
 cd oceanphenix-IA-souveraine-v10_2026
-
-# 2. Configuration
 cp .env.example .env
-# ⚠️ Éditer .env avec vos mots de passe
 
-# 3. Démarrer tous les services
+# 2. Démarrer la stack complète
 docker compose --profile all up -d
 
-# 4. Installer un modèle LLM
+# 3. Installer le modèle IA
 docker exec v10-ollama ollama pull mistral:latest
 
-# ✅ Accès aux interfaces
-# http://localhost:8080  → Hub Frontend
-# http://localhost:3000  → Open WebUI
-# http://localhost:3001  → Grafana
-# http://localhost:9090  → Prometheus
+# ✅ Accédez à http://localhost:8080
 ```
 
-### 🚀 Déploiement Production
-
-Voir les guides détaillés :
-- 📖 **[Installation Locale Complète](docs/INSTALL_LOCAL.md)** (30 min)
-- 📖 **[Déploiement Hetzner Production](docs/INSTALL_HETZNER.md)** (1h)
-- 📖 **[Configuration O2Switch Frontend](docs/01-GUIDE_SIMPLE.md)** (20 min)
+📘 **[Guide de Démarrage Complet →](docs/QUICK_START.md)**
 
 ---
 
-## 📋 Table des Matières
+## 📋 Sommaire de la Documentation
 
-- [Vue d'Ensemble](#-vue-densemble)
-- [Architecture](#️-architecture)
-- [Structure du Projet](#-structure-du-projet)
-- [Services & Ports](#-services--ports)
-- [Configuration](#️-configuration)
-- [Documentation](#-documentation)
-- [Maintenance](#-maintenance)
-- [Support](#-support)
+### 📚 1. Installation & Configuration
+
+| N° | Document | Description | Durée |
+|----|----------|-------------|-------|
+| 1.1 | **[Quick Start](docs/QUICK_START.md)** | Installation locale rapide (Docker) | 5 min |
+| 1.2 | **[Installation Locale](docs/INSTALL_LOCAL.md)** | Guide complet environnement dev/test | 30 min |
+| 1.3 | **[Installation Hetzner](docs/INSTALL_HETZNER.md)** | Déploiement production serveur dédié | 1h |
+| 1.4 | **[Guide Simple](docs/01-GUIDE_SIMPLE.md)** | Configuration pas à pas débutant | 20 min |
+| 1.5 | **[Installation O2Switch](docs/INSTALL_O2SWITCH.md)** | Frontend hébergement mutualisé | 15 min |
+
+### 🎨 2. Frontend & Interface
+
+| N° | Document | Description | Durée |
+|----|----------|-------------|-------|
+| 2.1 | **[Frontend Setup](docs/03-FRONTEND_SETUP.md)** | Configuration Hub Frontend V2 | 10 min |
+| 2.2 | **[Deploy O2Switch](scripts/deploy-o2switch-frontend.md)** | Guide déploiement frontend séparé | 20 min |
+
+### 🏗️ 3. Architecture & Technique
+
+| N° | Document | Description | Niveau |
+|----|----------|-------------|--------|
+| 3.1 | **[Diagrammes Mermaid](docs/DIAGRAMS_MERMAID.md)** | Architecture visuelle complète | 📊 |
+| 3.2 | **[README Docs](docs/README.md)** | Index complet documentation | 📖 |
+
+### 📊 4. Monitoring & Alerting
+
+| N° | Document | Description | Type |
+|----|----------|-------------|------|
+| 4.1 | **[AlertManager Config](docs/ALERTMANAGER_CONFIG.md)** | Configuration alertes emails/Slack | ⚠️ |
+| 4.2 | **Dashboards Grafana** | [Containers](core/monitoring/dashboards/oceanphenix-containers-monitoring.json) / [Platform Health](core/monitoring/dashboards/oceanphenix-platform-health.json) | 📈 |
+
+### 🚀 5. Déploiement Production
+
+| N° | Document | Description | Environnement |
+|----|----------|-------------|---------------|
+| 5.1 | **[Deploy Production](docs/05-DEPLOY_PRODUCTION.md)** | Guide général production | 🏭 |
+| 5.2 | **[Deploy Hetzner](docs/04-DEPLOY_HETZNER.md)** | Serveur dédié Hetzner CX43 | 🖥️ |
+| 5.3 | **[Script Auto Hetzner](scripts/deploy-hetzner-auto.sh)** | Déploiement automatisé backend | 🤖 |
+| 5.4 | **[O2Switch README](docs/deployment/README_O2SWITCH.md)** | Frontend hébergement mutualisé | 🌐 |
+
+### 🔧 6. Maintenance & Mise à Jour
+
+| N° | Opération | Commande | Fréquence |
+|----|-----------|----------|-----------|
+| 6.1 | **[Mise à jour services](#-maintenance-mise-à-jour-services)** | `docker compose pull && up -d` | Mensuelle |
+| 6.2 | **[Gestion modèles Ollama](#-gestion-des-modèles-ollama)** | `ollama pull/list/rm` | À la demande |
+| 6.3 | **[Sauvegarde données](#-sauvegarde-automatique)** | Scripts cron + volumes Docker | Quotidienne |
+| 6.4 | **[Monitoring logs](#-surveillance-logs)** | `docker compose logs -f` | Continue |
+| 6.5 | **[Nettoyage système](#-nettoyage-système)** | `docker system prune` | Hebdomadaire |
+
+### 📖 7. Guides Spécialisés
+
+| N° | Document | Description | Public |
+|----|----------|-------------|--------|
+| 7.1 | **[Installation Rapide Local](docs/INSTALL_LOCAL_RAPIDE.md)** | Setup express développeur | 👨‍💻 Dev |
+| 7.2 | **[O2Switch Simple](docs/INSTALL_O2SWITCH_SIMPLE.md)** | Frontend sans backend | 🎨 Frontend |
+
+---
+
+## 🎯 Vue d'Ensemble
+
+**OceanPhenix V10** est une plateforme d'intelligence artificielle **100% souveraine et auto-hébergée**, offrant une stack complète pour l'IA conversationnelle, l'analyse documentaire et l'automatisation métier.
+
+### 🌟 Fonctionnalités Principales
+
+| Fonctionnalité | Technologies | Description |
+|----------------|--------------|-------------|
+| 🤖 **Chat IA avec RAG** | Ollama + Qdrant + FastAPI | Interface conversationnelle avec contexte documentaire |
+| 🧠 **LLM Locaux** | Ollama (Mistral, Llama3, Qwen2.5) | Modèles IA auto-hébergés sans API externe |
+| 📊 **Base Vectorielle** | Qdrant | Embeddings et recherche sémantique temps réel |
+| 🗄️ **Stockage S3** | MinIO | Stockage objet compatible AWS S3 |
+| 📈 **Monitoring 360°** | Prometheus + Grafana + AlertManager | Surveillance infrastructure et alertes |
+| ⚡ **Automatisation** | n8n (v1.120.0) | Workflows intelligents et intégrations |
+| 📊 **Business Intelligence** | Apache Superset | Dashboards analytics et reporting |
+| 🎨 **Hub Frontend** | JavaScript vanilla + API REST | Interface unifiée de gestion |
+| 🐳 **Orchestration** | Docker Compose V2 | 12 services avec profiles modulaires |
+
+### ✅ Cas d'Usage
+
+- 💬 Assistance IA conversationnelle avec contexte métier personnalisé
+- 📄 Analyse et extraction d'informations de documents (PDF, Office, Markdown)
+- 🔄 Automatisation de workflows métier complexes
+- 📊 Monitoring infrastructure et applications temps réel
+- 🏢 Plateforme IA souveraine pour entreprises (conformité RGPD)
+- 🎓 Environnement d'apprentissage et R&D en IA
+
+---
+
+## 🏗️ Architecture
 
 ---
 
@@ -338,63 +405,367 @@ openssl rand -base64 32
 
 ---
 
-## 🛠️ Maintenance
+## 🛠️ Maintenance & Mise à Jour
 
-### Commandes Utiles
+### 🔄 Maintenance - Mise à Jour Services
+
+#### Mise à Jour Complète
 
 ```bash
-# Voir les logs d'un service
-docker compose logs -f v10-api
-
-# Redémarrer un service
-docker compose restart v10-ollama
-
-# Mettre à jour les images
-docker compose pull
-docker compose --profile all up -d
-
-# Backup volumes
-docker run --rm -v v10_minio_data:/data -v $(pwd)/backup:/backup \
+# 1. Sauvegarder volumes importants
+docker run --rm -v v10_minio_data:/data -v $(pwd)/backups:/backup \
   alpine tar czf /backup/minio_$(date +%Y%m%d).tar.gz /data
 
-# Nettoyer
-docker compose down
-docker system prune -a --volumes
-```
+docker run --rm -v v10_qdrant_data:/data -v $(pwd)/backups:/backup \
+  alpine tar czf /backup/qdrant_$(date +%Y%m%d).tar.gz /data
 
-### Monitoring Santé
-
-```bash
-# Health check backend
-curl http://localhost:8000/health
-
-# Status Ollama
-docker exec v10-ollama ollama list
-
-# Métriques Prometheus
-curl http://localhost:9090/metrics
-
-# Logs Grafana
-docker compose logs grafana | tail -50
-```
-
-### Mise à Jour
-
-```bash
-# 1. Sauvegarder
-./scripts/backup.sh
-
-# 2. Arrêter services
-docker compose down
-
-# 3. Mettre à jour code
+# 2. Mettre à jour le code
 git pull origin main
 
-# 4. Redémarrer
+# 3. Télécharger les nouvelles images
+docker compose pull
+
+# 4. Redémarrer avec les nouvelles versions
 docker compose --profile all up -d
 
-# 5. Vérifier
+# 5. Vérifier que tout fonctionne
 docker compose ps
+docker compose logs --tail=50
+```
+
+#### Mise à Jour d'un Service Spécifique
+
+```bash
+# Exemple: Mettre à jour n8n
+docker compose pull n8n
+docker compose up -d n8n
+docker logs v10-n8n --tail 30
+
+# Exemple: Mettre à jour Grafana
+docker compose pull grafana
+docker compose up -d grafana
+```
+
+### 🧠 Gestion des Modèles Ollama
+
+#### Lister les Modèles Installés
+
+```bash
+# Méthode 1: Via docker exec
+docker exec v10-ollama ollama list
+
+# Méthode 2: Via API
+curl http://localhost:11434/api/tags
+```
+
+#### Installer de Nouveaux Modèles
+
+```bash
+# === MODÈLES RECOMMANDÉS ===
+
+# 🔥 Mistral 7B (Recommandé - 4.1GB)
+docker exec v10-ollama ollama pull mistral:latest
+
+# 🦙 Llama 3.2 3B (Léger et performant - 2GB)
+docker exec v10-ollama ollama pull llama3.2:latest
+
+# 🇨🇳 Qwen2.5 7B (Multilingue excellent - 4.7GB)
+docker exec v10-ollama ollama pull qwen2.5:7b
+
+# 🎯 Phi-3 Mini (Ultra-léger - 2.3GB)
+docker exec v10-ollama ollama pull phi3:mini
+
+# 📊 Embeddings (pour RAG)
+docker exec v10-ollama ollama pull nomic-embed-text
+
+# === MODÈLES AVANCÉS ===
+
+# Llama 3.1 8B (Plus récent - 4.7GB)
+docker exec v10-ollama ollama pull llama3.1:8b
+
+# Mixtral 8x7B (Très performant mais lourd - 26GB)
+docker exec v10-ollama ollama pull mixtral:latest
+
+# DeepSeek Coder (Spécialisé code - 6.7GB)
+docker exec v10-ollama ollama pull deepseek-coder:6.7b
+
+# Gemma 2 9B (Google - 5.4GB)
+docker exec v10-ollama ollama pull gemma2:9b
+```
+
+#### Supprimer des Modèles
+
+```bash
+# Supprimer un modèle spécifique
+docker exec v10-ollama ollama rm mistral:latest
+
+# Lister avant suppression
+docker exec v10-ollama ollama list
+
+# Supprimer plusieurs modèles
+docker exec v10-ollama ollama rm llama2:7b
+docker exec v10-ollama ollama rm codellama:latest
+```
+
+#### Tester un Modèle
+
+```bash
+# Test interactif
+docker exec -it v10-ollama ollama run mistral:latest
+
+# Test via API
+curl http://localhost:11434/api/generate -d '{
+  "model": "mistral:latest",
+  "prompt": "Explique-moi le machine learning en 3 phrases",
+  "stream": false
+}'
+```
+
+#### Informations sur un Modèle
+
+```bash
+# Détails complets d'un modèle
+docker exec v10-ollama ollama show mistral:latest
+
+# Via API
+curl http://localhost:11434/api/show -d '{"name": "mistral:latest"}'
+```
+
+#### Benchmark Performance
+
+```bash
+# Tester vitesse génération
+time docker exec v10-ollama ollama run mistral:latest "Écris un poème sur l'IA" --verbose
+
+# Comparer plusieurs modèles
+for model in mistral:latest llama3.2:latest qwen2.5:7b; do
+  echo "=== Test $model ==="
+  time docker exec v10-ollama ollama run $model "Bonjour, qui es-tu ?"
+done
+```
+
+### 💾 Sauvegarde Automatique
+
+#### Script de Backup Quotidien
+
+Créer `scripts/backup-daily.sh`:
+
+```bash
+#!/bin/bash
+BACKUP_DIR="/opt/backups/oceanphenix"
+DATE=$(date +%Y%m%d_%H%M%S)
+
+mkdir -p $BACKUP_DIR
+
+# Backup MinIO (documents)
+docker run --rm \
+  -v v10_minio_data:/data \
+  -v $BACKUP_DIR:/backup \
+  alpine tar czf /backup/minio_$DATE.tar.gz /data
+
+# Backup Qdrant (base vectorielle)
+docker run --rm \
+  -v v10_qdrant_data:/data \
+  -v $BACKUP_DIR:/backup \
+  alpine tar czf /backup/qdrant_$DATE.tar.gz /data
+
+# Backup PostgreSQL
+docker exec v10-db pg_dumpall -U postgres > $BACKUP_DIR/postgres_$DATE.sql
+
+# Backup n8n workflows
+docker run --rm \
+  -v v10_n8n_data:/data \
+  -v $BACKUP_DIR:/backup \
+  alpine tar czf /backup/n8n_$DATE.tar.gz /data
+
+# Nettoyer backups > 30 jours
+find $BACKUP_DIR -name "*.tar.gz" -mtime +30 -delete
+find $BACKUP_DIR -name "*.sql" -mtime +30 -delete
+
+echo "✅ Backup terminé: $BACKUP_DIR"
+```
+
+#### Configurer Cron
+
+```bash
+# Éditer crontab
+crontab -e
+
+# Ajouter backup quotidien à 2h du matin
+0 2 * * * /opt/oceanphenix-v10/scripts/backup-daily.sh >> /var/log/oceanphenix-backup.log 2>&1
+```
+
+#### Restaurer un Backup
+
+```bash
+# Restaurer MinIO
+docker run --rm \
+  -v v10_minio_data:/data \
+  -v $(pwd)/backups:/backup \
+  alpine sh -c "cd / && tar xzf /backup/minio_20250110_020000.tar.gz"
+
+# Restaurer PostgreSQL
+docker exec -i v10-db psql -U postgres < backups/postgres_20250110_020000.sql
+
+# Redémarrer services
+docker compose restart
+```
+
+### 📊 Surveillance Logs
+
+#### Logs en Temps Réel
+
+```bash
+# Tous les services
+docker compose logs -f
+
+# Service spécifique
+docker compose logs -f v10-api
+docker compose logs -f v10-ollama
+docker compose logs -f v10-grafana
+
+# Dernières 100 lignes
+docker compose logs --tail=100
+
+# Depuis une date
+docker compose logs --since 2025-01-10T14:00:00
+```
+
+#### Recherche dans les Logs
+
+```bash
+# Chercher erreurs
+docker compose logs | grep -i error
+
+# Chercher dans un service spécifique
+docker logs v10-api 2>&1 | grep "500"
+
+# Exporter logs
+docker compose logs --no-color > logs_$(date +%Y%m%d).txt
+```
+
+### 🧹 Nettoyage Système
+
+#### Nettoyage Docker
+
+```bash
+# Supprimer containers arrêtés
+docker container prune -f
+
+# Supprimer images non utilisées
+docker image prune -a -f
+
+# Supprimer volumes non utilisés
+docker volume prune -f
+
+# Supprimer réseaux non utilisés
+docker network prune -f
+
+# Nettoyage complet (ATTENTION: supprime TOUT sauf volumes nommés)
+docker system prune -a -f
+
+# Voir espace disque utilisé
+docker system df
+```
+
+#### Nettoyage Ollama
+
+```bash
+# Lister modèles et taille
+docker exec v10-ollama ollama list
+
+# Supprimer modèles inutilisés
+docker exec v10-ollama ollama rm ancien-modele:tag
+
+# Espace disque Ollama
+du -sh /var/lib/docker/volumes/v10_ollama_data
+```
+
+#### Rotation Logs
+
+Créer `/etc/logrotate.d/docker-oceanphenix`:
+
+```
+/var/lib/docker/containers/*/*.log {
+    rotate 7
+    daily
+    compress
+    size=10M
+    missingok
+    delaycompress
+    copytruncate
+}
+```
+
+### 🔍 Health Checks
+
+#### Vérification Automatique
+
+```bash
+# Script health-check.sh
+#!/bin/bash
+
+echo "=== OceanPhenix Health Check ==="
+
+# API Backend
+if curl -sf http://localhost:8000/health > /dev/null; then
+    echo "✅ Backend API: OK"
+else
+    echo "❌ Backend API: FAIL"
+fi
+
+# Ollama
+if curl -sf http://localhost:11434/api/tags > /dev/null; then
+    echo "✅ Ollama: OK"
+else
+    echo "❌ Ollama: FAIL"
+fi
+
+# Qdrant
+if curl -sf http://localhost:6333/health > /dev/null; then
+    echo "✅ Qdrant: OK"
+else
+    echo "❌ Qdrant: FAIL"
+fi
+
+# MinIO
+if curl -sf http://localhost:9000/minio/health/live > /dev/null; then
+    echo "✅ MinIO: OK"
+else
+    echo "❌ MinIO: FAIL"
+fi
+
+# Prometheus
+if curl -sf http://localhost:9090/-/healthy > /dev/null; then
+    echo "✅ Prometheus: OK"
+else
+    echo "❌ Prometheus: FAIL"
+fi
+
+# Grafana
+if curl -sf http://localhost:3001/api/health > /dev/null; then
+    echo "✅ Grafana: OK"
+else
+    echo "❌ Grafana: FAIL"
+fi
+```
+
+### 📈 Monitoring Performance
+
+#### Métriques Système
+
+```bash
+# Utilisation CPU/RAM par container
+docker stats
+
+# Top 5 containers par RAM
+docker stats --no-stream --format "table {{.Name}}\t{{.MemUsage}}" | sort -k2 -h | tail -5
+
+# Espace disque volumes
+docker system df -v
+
+# Logs par taille
+docker ps -q | xargs -I {} sh -c 'echo "=== {} ==="; docker logs {} 2>&1 | wc -l'
 ```
 
 ---
