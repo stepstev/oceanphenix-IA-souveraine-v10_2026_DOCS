@@ -301,24 +301,40 @@ openssl rand -base64 32
 
 ## 📚 Documentation
 
-### Guides d'Installation
+### 📖 Documentation Complète
 
-| Document | Description | Durée estimée |
-|----------|-------------|---------------|
-| **[INSTALL_LOCAL.md](docs/INSTALL_LOCAL.md)** | Installation complète sur machine locale (Docker Desktop) | 30 min |
-| **[INSTALL_HETZNER.md](docs/INSTALL_HETZNER.md)** | Déploiement production sur serveur Hetzner avec SSL/DNS | 1h |
-| **[01-GUIDE_SIMPLE.md](docs/01-GUIDE_SIMPLE.md)** | Configuration frontend sur hébergement O2Switch | 20 min |
-| **[06-FRONTEND_O2SWITCH_HETZNER.md](docs/06-FRONTEND_O2SWITCH_HETZNER.md)** | Hub O2Switch `ia.oceanphenix.fr` + backend Hetzner clé en main | 45 min |
+**[📂 docs/README.md](docs/README.md)** - **Sommaire structuré de toute la documentation**
 
-### Documentation Technique
+### 🚀 Guides d'Installation
 
-| Document | Contenu |
-|----------|---------|
-| **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** | Architecture détaillée, diagrammes, flux de données |
-| **[DIAGRAMS_MERMAID.md](docs/DIAGRAMS_MERMAID.md)** | Diagrammes d'architecture Mermaid (conteneurs, réseaux, flux) |
-| **[API.md](docs/API.md)** | Documentation complète des endpoints API |
-| **[TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)** | Résolution des problèmes courants |
-| **[AUDIT_RAPPORT.md](AUDIT_RAPPORT.md)** | Rapport d'audit complet du projet |
+| Guide | Description | Durée | Public |
+|-------|-------------|-------|--------|
+| **[QUICK_START.md](QUICK_START.md)** | Démarrage ultra-rapide 5 minutes | ⚡ 5 min | Tous |
+| **[INSTALL_LOCAL_RAPIDE.md](INSTALL_LOCAL_RAPIDE.md)** | Installation locale automatisée | ⚡ 10 min | Débutant |
+| **[docs/INSTALL_LOCAL.md](docs/INSTALL_LOCAL.md)** | Installation locale complète Docker Desktop | 🕐 30 min | Intermédiaire |
+| **[docs/INSTALL_HETZNER.md](docs/INSTALL_HETZNER.md)** | Déploiement production serveur Hetzner + SSL | 🕑 1h | Avancé |
+| **[docs/01-GUIDE_SIMPLE.md](docs/01-GUIDE_SIMPLE.md)** | Frontend O2Switch + Backend Hetzner séparés | 🕐 20 min | Intermédiaire |
+| **[docs/06-FRONTEND_O2SWITCH_HETZNER.md](docs/06-FRONTEND_O2SWITCH_HETZNER.md)** | Architecture Frontend/Backend distribuée | 🕐 45 min | Avancé |
+
+### 🏗️ Documentation Technique
+
+| Document | Description |
+|----------|-------------|
+| **[docs/DIAGRAMS_MERMAID.md](docs/DIAGRAMS_MERMAID.md)** | Diagrammes d'architecture (conteneurs, réseaux, flux RAG) |
+| **[docs/ALERTMANAGER_CONFIG.md](docs/ALERTMANAGER_CONFIG.md)** | Configuration monitoring et alertes (Prometheus, Grafana, Alertmanager) |
+| **[backend/README.md](backend/README.md)** | Documentation API Backend FastAPI + Pipeline RAG |
+| **[hub-frontend-v2/README.md](hub-frontend-v2/README.md)** | Documentation Hub Frontend V2 (architecture, pages, composants) |
+
+### 🔧 Configuration & Déploiement
+
+| Document | Description |
+|----------|-------------|
+| **[docs/02-INSTALLATION.md](docs/02-INSTALLATION.md)** | Guide installation détaillé pas-à-pas |
+| **[docs/03-FRONTEND_SETUP.md](docs/03-FRONTEND_SETUP.md)** | Configuration et personnalisation Frontend |
+| **[docs/04-DEPLOY_HETZNER.md](docs/04-DEPLOY_HETZNER.md)** | Déploiement Hetzner avec SSL/DNS automatique |
+| **[docs/05-DEPLOY_PRODUCTION.md](docs/05-DEPLOY_PRODUCTION.md)** | Checklist production complète (sécurité, backups, monitoring) |
+| **[docs/INSTALL_O2SWITCH.md](docs/INSTALL_O2SWITCH.md)** | Déploiement Frontend sur hébergement mutualisé O2Switch |
+| **[docs/deployment/README_O2SWITCH.md](docs/deployment/README_O2SWITCH.md)** | Guide détaillé O2Switch avec FTP/SFTP |
 
 ---
 
