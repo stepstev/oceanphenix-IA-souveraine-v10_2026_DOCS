@@ -152,6 +152,17 @@ C'est tout ! ✅
 
 ---
 
+## 📖 Documentation Technique
+
+| Document | Contenu |
+|----------|---------|
+| **[DIAGRAMS_MERMAID.md](DIAGRAMS_MERMAID.md)** | Diagrammes d'architecture Mermaid (conteneurs, réseaux, flux) |
+| **[ARCHITECTURE.md](ARCHITECTURE.md)** | Architecture détaillée de la plateforme |
+| **[API.md](API.md)** | Documentation des endpoints API |
+| **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** | Résolution des problèmes courants |
+
+---
+
 ## 🔗 Liens Utiles
 
 - **GitHub Repository** : <https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026>

@@ -314,6 +314,7 @@ openssl rand -base64 32
 | Document | Contenu |
 |----------|---------|
 | **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** | Architecture détaillée, diagrammes, flux de données |
+| **[DIAGRAMS_MERMAID.md](docs/DIAGRAMS_MERMAID.md)** | Diagrammes d'architecture Mermaid (conteneurs, réseaux, flux) |
 | **[API.md](docs/API.md)** | Documentation complète des endpoints API |
 | **[TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)** | Résolution des problèmes courants |
 | **[AUDIT_RAPPORT.md](AUDIT_RAPPORT.md)** | Rapport d'audit complet du projet |
