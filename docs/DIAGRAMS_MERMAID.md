@@ -633,8 +633,6 @@ graph TB
 
 ## 📚 Ressources
 
-- **GitHub Repository** : [stepstev/oceanphenix-IA-souveraine-v10_2026](<https://github.com/stepstev/oceanphenix-IA-souveraine-v10_2026>)
-- **Documentation Installation** : [INSTALL_LOCAL.md](INSTALL_LOCAL.md) | [INSTALL_HETZNER.md](INSTALL_HETZNER.md)
 - **Mermaid Live Editor** : <https://mermaid.live>
 - **Mermaid Documentation** : <https://mermaid.js.org>
 

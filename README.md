@@ -3,6 +3,8 @@
 > **Plateforme d'Intelligence Artificielle 100% Auto-Hébergée**  
 > Architecture hybride Frontend (O2Switch) + Backend (Hetzner)
 
+🔗 **[Accéder au Dashboard OceanPhenix](https://app.oceanphenix.fr/pages/dashboard.html)**
+
 ![AI Studio](img/AI%20studio.png)
 
 ---
