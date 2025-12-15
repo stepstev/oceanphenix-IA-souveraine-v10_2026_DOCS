@@ -24,7 +24,7 @@ graph TB
 
     subgraph Hetzner["🖥️ Hetzner VPS - Backend"]
         subgraph Firewall["🛡️ UFW Firewall"]
-            FW_RULES["Ports: 80, 443, 22"]
+            FW_RULES["Services: HTTP, HTTPS, SSH"]
         end
         
         subgraph Docker["🐳 Docker Host Ubuntu 22.04"]
@@ -90,44 +90,44 @@ graph TB
     
     %% O2Switch - Frontend statique
     subgraph O2["☁️ O2Switch - Hébergement Frontend"]
-        HubFront[📱 Hub Frontend V2<br/>v10-frontend<br/>Port 8080]:::tierPresentation
+        HubFront[📱 Hub Frontend V2<br/>v10-frontend<br/>Interface Web]:::tierPresentation
     end
     
     %% Tier 1: Présentation - Serveur Hetzner
     subgraph T1["🖥️ Tier 1: Reverse Proxy & Monitoring - Hetzner"]
-        Caddy[🛡️ Caddy Proxy<br/>v10-proxy<br/>Ports 80/443<br/>HTTPS/SSL Auto]:::tierPresentation
-        Grafana[📊 Grafana<br/>v10-grafana<br/>Port 3001]:::tierPresentation
-        Portainer[🐳 Portainer<br/>v10-portainer<br/>Ports 9443/9002]:::tierPresentation
+        Caddy[🛡️ Caddy Proxy<br/>v10-proxy<br/>HTTP/HTTPS<br/>SSL/TLS Auto]:::tierPresentation
+        Grafana[📊 Grafana<br/>v10-grafana<br/>Dashboards]:::tierPresentation
+        Portainer[🐳 Portainer<br/>v10-portainer<br/>Docker Management]:::tierPresentation
     end
     
     %% Tier 2: Application
     subgraph T2["⚡ Tier 2: Application Layer"]
-        FastAPI[⚡ FastAPI Backend<br/>v10-api<br/>Port 8000<br/>RAG Pipeline]:::tierApp
-        OpenWebUI[💬 Open WebUI<br/>v10-studio<br/>Port 3000<br/>Chat IA Interface]:::tierApp
-        N8N[🔄 n8n Workflows<br/>v10-n8n v1.120.0<br/>Port 5678<br/>Automation]:::tierApp
+        FastAPI[⚡ FastAPI Backend<br/>v10-api<br/>API REST<br/>RAG Pipeline]:::tierApp
+        OpenWebUI[💬 Open WebUI<br/>v10-studio<br/>Interface Web<br/>Chat IA Interface]:::tierApp
+        N8N[🔄 n8n Workflows<br/>v10-n8n v1.120.0<br/>Interface Web<br/>Automation]:::tierApp
     end
     
     %% Tier 3: Data Layer
     subgraph T3["💾 Tier 3: Data & Intelligence Layer"]
-        Ollama[🤖 Ollama<br/>v10-ollama<br/>Port 11434<br/>LLM Engine + Models]:::tierData
-        Qdrant[🔮 Qdrant<br/>v10-qdrant<br/>Port 6333<br/>Vector Database]:::vectordb
-        MinIO[💾 MinIO<br/>v10-minio<br/>Ports 9000/9001<br/>S3 Storage]:::storage
-        Postgres[🗄️ PostgreSQL 16<br/>v10-db<br/>Port 5432<br/>Database]:::storage
-        Valkey[⚡ Valkey Cache<br/>v10-cache<br/>Port 6379<br/>Redis-compatible]:::storage
+        Ollama[🤖 Ollama<br/>v10-ollama<br/>API Service<br/>LLM Engine + Models]:::tierData
+        Qdrant[🔮 Qdrant<br/>v10-qdrant<br/>API Service<br/>Vector Database]:::vectordb
+        MinIO[💾 MinIO<br/>v10-minio<br/>API Service + Console<br/>S3 Storage]:::storage
+        Postgres[🗄️ PostgreSQL 16<br/>v10-db<br/>SQL Service<br/>Database]:::storage
+        Valkey[⚡ Valkey Cache<br/>v10-cache<br/>Cache Service<br/>Redis-compatible]:::storage
     end
     
     %% Tier 4: Analytics & Monitoring
     subgraph T4["📊 Tier 4: Analytics & Monitoring"]
-        Prometheus[📈 Prometheus<br/>v10-prometheus<br/>Port 9090<br/>Metrics Collection]:::tierAnalytics
-        AlertManager[⚠️ AlertManager<br/>v10-alertmanager<br/>Port 9093<br/>Alertes]:::tierAnalytics
-        NodeExporter[📡 Node Exporter<br/>v10-node-exporter<br/>Port 9100<br/>System Metrics]:::tierAnalytics
-        Cadvisor[🐳 cAdvisor<br/>v10-cadvisor<br/>Port 8080<br/>Container Metrics]:::tierAnalytics
-        ApacheBI[📊 Apache Superset<br/>v10-bi<br/>Port 8088<br/>Business Intelligence]:::tierBi
+        Prometheus[📈 Prometheus<br/>v10-prometheus<br/>Web Interface<br/>Metrics Collection]:::tierAnalytics
+        AlertManager[⚠️ AlertManager<br/>v10-alertmanager<br/>API Service<br/>Alertes]:::tierAnalytics
+        NodeExporter[📡 Node Exporter<br/>v10-node-exporter<br/>Metrics Exporter<br/>System Metrics]:::tierAnalytics
+        Cadvisor[🐳 cAdvisor<br/>v10-cadvisor<br/>Metrics Exporter<br/>Container Metrics]:::tierAnalytics
+        ApacheBI[📊 Apache Superset<br/>v10-bi<br/>Web Interface<br/>Business Intelligence]:::tierBi
     end
     
     %% Connexions Internet → O2Switch & Hetzner
     Users -->|HTTPS| HubFront
-    Users -->|HTTPS:443| Caddy
+    Users -->|HTTPS| Caddy
     HubFront -.->|API Calls HTTPS| Caddy
     
     %% Caddy routing
@@ -191,7 +191,7 @@ graph TB
 - **Profiles Docker Compose**: 5 profiles (core, rag, monitoring, bi, automation, all)
 - **Réseaux Docker**: 2 networks (v10_proxy, v10_internal)
 - **Volumes Persistants**: 14 volumes nommés
-- **Ports Exposés**: 18 ports (80, 443, 3000, 3001, 5678, 6333, 8000, 8080, 8088, 9000, 9001, 9002, 9090, 9093, 9100, 9443, 11434)
+- **Accès Réseau**: Gestion via reverse proxy HTTPS/SSL
 
 ---
 
@@ -295,22 +295,22 @@ graph TB
         
         subgraph Caddy["🔐 Caddy Reverse Proxy"]
             SSL["Let's Encrypt<br/>SSL/TLS Auto"]
-            ROUTES["Routes:<br/>/api → FastAPI:8000<br/>/studio → Frontend:8080<br/>/grafana → Grafana:3001"]
+            ROUTES["Routes:<br/>/api → FastAPI<br/>/studio → Frontend<br/>/grafana → Grafana"]
         end
         
         subgraph Docker["🐳 Docker Network (Isolated)"]
             subgraph Services["Services Stack"]
-                API[FastAPI:8000]
-                WEB[OpenWebUI:3000]
-                GRAF[Grafana:3001]
-                OLLAMA[Ollama:11434]
+                API[FastAPI]
+                WEB[OpenWebUI]
+                GRAF[Grafana]
+                OLLAMA[Ollama]
             end
             
             NETWORK["🔒 Bridge Network<br/>internal-only"]
         end
     end
     
-    USERS -->|HTTPS:443| FW
+    USERS -->|HTTPS| FW
     FW -->|Allowed| SSL
     SSL -->|TLS Termination| ROUTES
     
@@ -340,26 +340,26 @@ graph TB
     end
     
     subgraph Frontend["🖥️ Frontend Monitoring"]
-        GRAF[📊 Grafana v10-grafana<br/>Port 3001<br/>Dashboards & Alertes]
+        GRAF[📊 Grafana v10-grafana<br/>Web Interface<br/>Dashboards & Alertes]
     end
     
     subgraph Collection["📈 Metrics Collection"]
-        PROM[🔍 Prometheus v10-prometheus<br/>Port 9090<br/>TSDB + Scraping]
-        ALERT[⚠️ AlertManager v10-alertmanager<br/>Port 9093<br/>Email/Slack Alerts]
+        PROM[🔍 Prometheus v10-prometheus<br/>Web Interface<br/>TSDB + Scraping]
+        ALERT[⚠️ AlertManager v10-alertmanager<br/>API Service<br/>Email/Slack Alerts]
         
         subgraph Exporters["📡 Exporters"]
-            NODE[📡 Node Exporter v10-node-exporter<br/>Port 9100<br/>System Metrics<br/>CPU, RAM, Disk, Network]
-            CADV[🐳 cAdvisor v10-cadvisor<br/>Port 8080<br/>Container Metrics<br/>Docker Stats]
+            NODE[📡 Node Exporter v10-node-exporter<br/>Metrics Exporter<br/>System Metrics<br/>CPU, RAM, Disk, Network]
+            CADV[🐳 cAdvisor v10-cadvisor<br/>Metrics Exporter<br/>Container Metrics<br/>Docker Stats]
         end
     end
     
     subgraph Targets["🎯 Monitored Services (Endpoints /metrics)"]
-        OLLAMA[🤖 Ollama v10-ollama<br/>Port 11434]
-        FAST[⚡ FastAPI v10-api<br/>Port 8000]
-        CADDY[🛡️ Caddy v10-proxy<br/>Ports 80/443]
-        QDRANT[🔮 Qdrant v10-qdrant<br/>Port 6333]
-        MINIO[💾 MinIO v10-minio<br/>Ports 9000/9001]
-        N8N[🔄 n8n v10-n8n<br/>Port 5678]
+        OLLAMA[🤖 Ollama v10-ollama<br/>API Service]
+        FAST[⚡ FastAPI v10-api<br/>API REST]
+        CADDY[🛡️ Caddy v10-proxy<br/>HTTP/HTTPS]
+        QDRANT[🔮 Qdrant v10-qdrant<br/>API Service]
+        MINIO[💾 MinIO v10-minio<br/>API + Console]
+        N8N[🔄 n8n v10-n8n<br/>Web Interface]
     end
     
     subgraph Alerting["📬 Notification Channels"]
@@ -507,42 +507,42 @@ graph TB
     subgraph Hetzner["🖥️ Hetzner VPS - Backend Services"]
         
         subgraph Proxy["🛡️ Reverse Proxy Layer"]
-            CADDY[Caddy v10-proxy<br/>Ports 80/443<br/>SSL/TLS]
+            CADDY[Caddy v10-proxy<br/>HTTP/HTTPS<br/>SSL/TLS]
         end
         
         subgraph Frontend["🎨 Frontend Services"]
-            OW[💬 Open WebUI<br/>v10-studio<br/>Port 3000<br/>Chat IA]
-            GRAF[📊 Grafana<br/>v10-grafana<br/>Port 3001<br/>Dashboards]
-            PORT[🐳 Portainer<br/>v10-portainer<br/>Ports 9443/9002<br/>Docker UI]
+            OW[💬 Open WebUI<br/>v10-studio<br/>Web Interface<br/>Chat IA]
+            GRAF[📊 Grafana<br/>v10-grafana<br/>Web Interface<br/>Dashboards]
+            PORT[🐳 Portainer<br/>v10-portainer<br/>Web Interface<br/>Docker UI]
         end
         
         subgraph API["⚡ API Layer"]
-            FAST[FastAPI v10-api<br/>Port 8000<br/>RAG Pipeline]
+            FAST[FastAPI v10-api<br/>API REST<br/>RAG Pipeline]
         end
         
         subgraph Intelligence["🧠 Intelligence Layer"]
-            OLLAMA[🤖 Ollama v10-ollama<br/>Port 11434<br/>LLM Models]
-            QDRANT[🔮 Qdrant v10-qdrant<br/>Port 6333<br/>Vector DB]
-            MINIO[💾 MinIO v10-minio<br/>Ports 9000/9001<br/>S3 Storage]
-            POSTGRES[🗄️ PostgreSQL v10-db<br/>Port 5432<br/>Relational DB]
-            VALKEY[⚡ Valkey v10-cache<br/>Port 6379<br/>Cache Redis]
+            OLLAMA[🤖 Ollama v10-ollama<br/>API Service<br/>LLM Models]
+            QDRANT[🔮 Qdrant v10-qdrant<br/>API Service<br/>Vector DB]
+            MINIO[💾 MinIO v10-minio<br/>API + Console<br/>S3 Storage]
+            POSTGRES[🗄️ PostgreSQL v10-db<br/>SQL Service<br/>Relational DB]
+            VALKEY[⚡ Valkey v10-cache<br/>Cache Service<br/>Cache Redis]
         end
         
         subgraph Automation["🔄 Automation Layer"]
-            N8N[🔄 n8n v10-n8n<br/>Port 5678<br/>Workflows]
+            N8N[🔄 n8n v10-n8n<br/>Web Interface<br/>Workflows]
             SYNC[📤 MinIO Sync<br/>Script]
             AUTO[🔄 Auto-Indexer<br/>Python Script]
         end
         
         subgraph Monitoring["📈 Monitoring Layer"]
-            PROM[📊 Prometheus v10-prometheus<br/>Port 9090<br/>Metrics TSDB]
-            ALERT[⚠️ AlertManager v10-alertmanager<br/>Port 9093<br/>Notifications]
-            NODE[📡 Node Exporter v10-node-exporter<br/>Port 9100]
-            CADV[🐳 cAdvisor v10-cadvisor<br/>Port 8080]
+            PROM[📈 Prometheus v10-prometheus<br/>Web Interface<br/>Metrics TSDB]
+            ALERT[⚠️ AlertManager v10-alertmanager<br/>API Service<br/>Notifications]
+            NODE[📡 Node Exporter v10-node-exporter<br/>Metrics Exporter]
+            CADV[🐳 cAdvisor v10-cadvisor<br/>Metrics Exporter]
         end
         
         subgraph BI["📊 Business Intelligence"]
-            SUPER[📊 Apache Superset<br/>v10-bi<br/>Port 8088<br/>Analytics]
+            SUPER[📊 Apache Superset<br/>v10-bi<br/>Web Interface<br/>Analytics]
         end
     end
     
@@ -618,16 +618,16 @@ graph TB
 
 ### 📊 Résumé Architecture - 17 Services Docker
 
-| Layer | Services | Containers | Ports Exposés |
+| Layer | Services | Containers | Type d'Accès |
 |-------|----------|------------|---------------|
-| **Reverse Proxy** | Caddy | v10-proxy | 80, 443 |
-| **Frontend** | Open WebUI, Grafana, Portainer | v10-studio, v10-grafana, v10-portainer | 3000, 3001, 9443, 9002 |
-| **API** | FastAPI | v10-api | 8000 |
-| **Intelligence** | Ollama, Qdrant, MinIO, PostgreSQL, Valkey | v10-ollama, v10-qdrant, v10-minio, v10-db, v10-cache | 11434, 6333, 9000, 9001, 5432, 6379 |
-| **Automation** | n8n | v10-n8n | 5678 |
-| **Monitoring** | Prometheus, AlertManager, Node Exporter, cAdvisor | v10-prometheus, v10-alertmanager, v10-node-exporter, v10-cadvisor | 9090, 9093, 9100, 8080 |
-| **Business Intelligence** | Apache Superset | v10-bi | 8088 |
-| **Frontend Statique** | Hub Frontend V2 (Nginx) | v10-frontend | 8080 (interne) |
+| **Reverse Proxy** | Caddy | v10-proxy | HTTP/HTTPS Public |
+| **Frontend** | Open WebUI, Grafana, Portainer | v10-studio, v10-grafana, v10-portainer | Web Interfaces (via Proxy) |
+| **API** | FastAPI | v10-api | API REST (via Proxy) |
+| **Intelligence** | Ollama, Qdrant, MinIO, PostgreSQL, Valkey | v10-ollama, v10-qdrant, v10-minio, v10-db, v10-cache | Services Internes / API |
+| **Automation** | n8n | v10-n8n | Web Interface (via Proxy) |
+| **Monitoring** | Prometheus, AlertManager, Node Exporter, cAdvisor | v10-prometheus, v10-alertmanager, v10-node-exporter, v10-cadvisor | Web Interface + Exporters |
+| **Business Intelligence** | Apache Superset | v10-bi | Web Interface (via Proxy) |
+| **Frontend Statique** | Hub Frontend V2 (Nginx) | v10-frontend | Web Interface (via Proxy) |
 
 ---
 

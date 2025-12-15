@@ -32,72 +32,77 @@
 
 #### Tier 1: Reverse Proxy & Administration (3 services)
 
-| Service | Container | Image | Port(s) | Profile | Fonction |
-|---------|-----------|-------|---------|---------|----------|
-| **Caddy** | v10-proxy | caddy:latest | 80, 443 | core | Reverse proxy HTTPS/SSL automatique |
-| **Grafana** | v10-grafana | grafana/grafana-oss:latest | 3001 | monitoring | Dashboards monitoring |
-| **Portainer** | v10-portainer | portainer/portainer-ce:latest | 9443, 9002 | core | Interface gestion Docker |
+| Service | Container | Image | Profile | Fonction |
+|---------|-----------|-------|---------|----------|
+| **Caddy** | v10-proxy | caddy:latest | core | Reverse proxy HTTPS/SSL automatique |
+| **Grafana** | v10-grafana | grafana/grafana-oss:latest | monitoring | Dashboards monitoring |
+| **Portainer** | v10-portainer | portainer/portainer-ce:latest | core | Interface gestion Docker |
 
 #### Tier 2: Application Layer (3 services)
 
-| Service | Container | Image | Port(s) | Profile | Fonction |
-|---------|-----------|-------|---------|---------|----------|
-| **FastAPI** | v10-api | Custom build (./backend) | 8000 | core | API Backend RAG Pipeline |
-| **Open WebUI** | v10-studio | ghcr.io/open-webui/open-webui:latest | 3000 | rag | Interface chat IA |
-| **n8n** | v10-n8n | n8nio/n8n:1.120.0 | 5678 | automation | Workflows automation |
+| Service | Container | Image | Profile | Fonction |
+|---------|-----------|-------|---------|----------|
+| **FastAPI** | v10-api | Custom build (./backend) | core | API Backend RAG Pipeline |
+| **Open WebUI** | v10-studio | ghcr.io/open-webui/open-webui:latest | rag | Interface chat IA |
+| **n8n** | v10-n8n | n8nio/n8n:1.120.0 | automation | Workflows automation |
 
 #### Tier 3: Data & Intelligence (5 services)
 
-| Service | Container | Image | Port(s) | Profile | Fonction |
-|---------|-----------|-------|---------|---------|----------|
-| **Ollama** | v10-ollama | ollama/ollama:latest | 11434 | rag | Serveur LLM local (Mistral, Llama, Qwen...) |
-| **Qdrant** | v10-qdrant | qdrant/qdrant:latest | 6333 | rag | Base de données vectorielle |
-| **MinIO** | v10-minio | minio/minio:latest | 9000, 9001 | core | Stockage S3-compatible |
-| **PostgreSQL** | v10-db | postgres:16-alpine | 5432 | core | Base de données relationnelle |
-| **Valkey** | v10-cache | valkey/valkey:latest | 6379 | core | Cache Redis-compatible |
+| Service | Container | Image | Profile | Fonction |
+|---------|-----------|-------|---------|----------|
+| **Ollama** | v10-ollama | ollama/ollama:latest | rag | Serveur LLM local (Mistral, Llama, Qwen...) |
+| **Qdrant** | v10-qdrant | qdrant/qdrant:latest | rag | Base de données vectorielle |
+| **MinIO** | v10-minio | minio/minio:latest | core | Stockage S3-compatible |
+| **PostgreSQL** | v10-db | postgres:16-alpine | core | Base de données relationnelle |
+| **Valkey** | v10-cache | valkey/valkey:latest | core | Cache Redis-compatible |
 
 #### Tier 4: Monitoring & Analytics (5 services)
 
-| Service | Container | Image | Port(s) | Profile | Fonction |
-|---------|-----------|-------|---------|---------|----------|
-| **Prometheus** | v10-prometheus | prom/prometheus:latest | 9090 | monitoring | Collecte métriques TSDB |
-| **AlertManager** | v10-alertmanager | prom/alertmanager:latest | 9093 | monitoring | Gestion alertes (Email/Slack) |
-| **Node Exporter** | v10-node-exporter | prom/node-exporter:latest | 9100 | monitoring | Métriques système (CPU/RAM/Disk) |
-| **cAdvisor** | v10-cadvisor | gcr.io/cadvisor/cadvisor:latest | 8080 | monitoring | Métriques containers Docker |
-| **Apache Superset** | v10-bi | apache/superset:latest | 8088 | bi | Business Intelligence & Analytics |
+| Service | Container | Image | Profile | Fonction |
+|---------|-----------|-------|---------|----------|
+| **Prometheus** | v10-prometheus | prom/prometheus:latest | monitoring | Collecte métriques TSDB |
+| **AlertManager** | v10-alertmanager | prom/alertmanager:latest | monitoring | Gestion alertes (Email/Slack) |
+| **Node Exporter** | v10-node-exporter | prom/node-exporter:latest | monitoring | Métriques système (CPU/RAM/Disk) |
+| **cAdvisor** | v10-cadvisor | gcr.io/cadvisor/cadvisor:latest | monitoring | Métriques containers Docker |
+| **Apache Superset** | v10-bi | apache/superset:latest | bi | Business Intelligence & Analytics |
 
 #### Frontend Statique (1 service)
 
-| Service | Container | Image | Port(s) | Profile | Fonction |
-|---------|-----------|-------|---------|---------|----------|
-| **Hub Frontend V2** | v10-frontend | nginx:alpine | 8080 | core | Interface web statique (HTML/CSS/JS) |
+| Service | Container | Image | Profile | Fonction |
+|---------|-----------|-------|---------|----------|
+| **Hub Frontend V2** | v10-frontend | nginx:alpine | core | Interface web statique (HTML/CSS/JS) |
 
 ---
 
-## 🔌 Analyse des Ports & Réseaux
+## 🔌 Analyse Réseau
 
-### Ports Exposés (18 ports TCP)
+### Exposition des Services
+
+L'architecture utilise un reverse proxy (Caddy) comme point d'entrée unique pour tous les services. L'accès aux services se fait via des routes HTTP/HTTPS sécurisées:
 
 ```
-80   → Caddy HTTP (redirect vers HTTPS)
-443  → Caddy HTTPS (SSL/TLS)
-3000 → Open WebUI (Chat IA)
-3001 → Grafana (Dashboards)
-5432 → PostgreSQL (SQL Database)
-5678 → n8n (Workflows automation)
-6333 → Qdrant (Vector DB)
-6379 → Valkey (Cache Redis)
-8000 → FastAPI (API Backend)
-8080 → cAdvisor (Container Metrics)
-8088 → Apache Superset (BI)
-9000 → MinIO API (S3)
-9001 → MinIO Console (Web UI)
-9002 → Portainer HTTP
-9090 → Prometheus (Metrics)
-9093 → AlertManager (Alertes)
-9100 → Node Exporter (System Metrics)
-9443 → Portainer HTTPS
-11434 → Ollama (LLM Server)
+Accès Public:
+- Caddy Reverse Proxy (HTTP/HTTPS)
+- SSL/TLS automatique via Let's Encrypt
+
+Accès aux Services (via Reverse Proxy):
+- Open WebUI (Chat IA)
+- Grafana (Dashboards)
+- FastAPI (API Backend)
+- MinIO (S3 Storage)
+- n8n (Workflows automation)
+- Apache Superset (BI)
+- Portainer (Docker Management)
+
+Services Internes (accès réseau privé uniquement):
+- PostgreSQL (SQL Database)
+- Qdrant (Vector DB)
+- Valkey (Cache Redis)
+- Ollama (LLM Server)
+- Prometheus (Metrics)
+- AlertManager (Alertes)
+- Node Exporter (System Metrics)
+- cAdvisor (Container Metrics)
 ```
 
 ### Réseaux Docker
@@ -275,7 +280,7 @@ AlertManager → Notifications Email/Slack
 ✅ Génération automatique mots de passe (openssl)
 ✅ Vérification prérequis (Ubuntu 22.04, Docker, Git)
 ✅ Installation Docker Engine + Docker Compose V2
-✅ Configuration firewall UFW (ports 22, 80, 443)
+✅ Configuration firewall UFW (SSH, HTTP, HTTPS)
 ✅ Création réseaux Docker (v10_proxy, v10_internal)
 ✅ Clone repository GitHub
 ✅ Génération fichier .env avec tous les secrets
@@ -296,7 +301,7 @@ AlertManager → Notifications Email/Slack
 
 | Composant | Configuration | Statut |
 |-----------|---------------|--------|
-| **Firewall UFW** | Ports 22, 80, 443 autorisés (reste bloqué) | ✅ Configuré |
+| **Firewall UFW** | Accès SSH, HTTP, HTTPS autorisés (reste bloqué) | ✅ Configuré |
 | **SSL/TLS** | Let's Encrypt via Caddy (renouvellement auto) | ✅ Automatique |
 | **Mots de passe** | Générés aléatoirement 32 chars (openssl) | ✅ Sécurisés |
 | **Isolation réseau** | 2 réseaux Docker (proxy + internal) | ✅ Implémenté |

@@ -145,9 +145,9 @@
 |----------|--------|
 | Services Docker | 17 containers |
 | Profiles Docker Compose | 5 (core, rag, monitoring, bi, automation, all) |
-| Réseaux Docker | 2 (v10_proxy, v10_internal) |
+| Réseaux Docker | 2 (réseau public et réseau interne isolé) |
 | Volumes Persistants | 14 volumes |
-| Ports Exposés | 18 ports TCP |
+| Interfaces Réseau | Gestion automatisée via reverse proxy |
 | Fichiers Documentation | 19 fichiers Markdown |
 | Scripts Déploiement | 4 scripts (bash + PowerShell) |
 | Diagrammes Architecture | 6 diagrammes Mermaid |
